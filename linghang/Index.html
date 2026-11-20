@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>彈性學習領航課程徵件｜資料整理</title>
+<style>
+:root{
+  --bg:#f4f1ea; --panel:#fffdf8; --ink:#1f2a2e; --muted:#6b7478; --line:#e2ddd2;
+  --accent:#0f6b5c; --accent-2:#e7f2ef; --warn:#b5541c; --warn-bg:#fbeee5; --ok:#2f7d3b; --ok-bg:#e8f3e6;
+  --ui:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+  --kai:"標楷體","DFKai-SB","BiauKai","BiauKaiTC","Kaiti TC","TW-Kai","AR PL UKai TW","KaiTi",serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--ui);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent)}
+/* header */
+header{position:sticky;top:0;z-index:20;background:var(--ink);color:#f4f1ea;display:flex;align-items:center;gap:16px;padding:10px 18px;flex-wrap:wrap}
+header .t1{font-size:13px;opacity:.75;letter-spacing:.04em}
+header .t2{font-size:18px;font-weight:700;line-height:1.3}
+header .grow{flex:1}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 12px;font-size:13px;background:rgba(255,255,255,.1);white-space:nowrap}
+.pill.saving{background:#8a6d1d}.pill.err{background:#9b3412}.pill.ok{background:rgba(255,255,255,.12)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 14px;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;border-color:rgba(255,255,255,.35);color:#f4f1ea}
+.btn.sm{padding:3px 10px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.demo-bar{background:#f6d77a;color:#3d2f00;padding:6px 18px;font-size:13px}
+/* layout */
+#app{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:calc(100vh - 60px)}
+body.split #app{grid-template-columns:230px minmax(0,1fr) minmax(0,46vw)}
+nav{border-right:1px solid var(--line);padding:14px 10px;position:sticky;top:60px;height:calc(100vh - 60px);overflow:auto;background:#efebe2}
+nav .ni{display:flex;align-items:center;gap:8px;width:100%;text-align:left;border:0;background:transparent;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:15px}
+nav .ni:hover{background:#e5e0d4}
+nav .ni.on{background:var(--panel);box-shadow:0 1px 0 var(--line);font-weight:700}
+nav .ni .w{margin-left:auto;font-size:12px;color:var(--muted);font-weight:400}
+nav .sep{height:1px;background:var(--line);margin:8px 6px}
+.dot{width:9px;height:9px;border-radius:50%;background:#cfc8b8;flex:none}
+.dot.part{background:#e0a74a}.dot.done{background:var(--ok)}
+main{padding:22px 28px 80px;max-width:980px;width:100%}
+aside#pv{border-left:1px solid var(--line);position:sticky;top:60px;height:calc(100vh - 60px);display:none;flex-direction:column;background:#ddd8cc}
+body.split aside#pv{display:flex}
+.pvbar{display:flex;gap:8px;align-items:center;padding:8px 10px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.pvbar .info{font-size:13px;color:var(--muted)}
+.pvframe{flex:1;border:0;width:100%;background:#ddd8cc}
+h2.pane{font-size:24px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 18px}
+/* cards */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:0 0 16px}
+.card h3{margin:0;font-size:18px}
+.card .head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.card .meta{font-size:12px;color:var(--muted)}
+.rubric{background:var(--accent-2);border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 8px 8px 0;font-size:14px;margin:6px 0}
+.rubric b{color:var(--accent)}
+details.ex{margin:6px 0 10px;font-size:14px}
+details.ex summary{cursor:pointer;color:#8a5a00;width:max-content;font-weight:600}
+details.ex .exnote{font-size:12px;color:var(--muted);margin:6px 0}
+details.ex .exc{background:#fffaf0;border:1px solid #efdfbf;border-radius:10px;padding:10px 12px;margin:8px 0;line-height:1.7}
+details.ex .exh{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:4px}
+details.ex .exh a{font-size:12px;margin-left:auto}
+details.ex .ext{margin-top:6px;color:var(--accent);font-size:13px}
+details.dr summary{color:var(--accent)}
+pre.draft{white-space:pre-wrap;font-family:var(--ui);font-size:14px;line-height:1.75;background:#f3f8f6;border:1px solid #cfe3dc;border-radius:10px;padding:10px 12px;margin:8px 0;max-height:420px;overflow:auto}
+mark{background:#fff0a8;color:inherit;border-radius:3px;padding:0 2px}
+table.tbl.plan td,table.tbl.plan th{font-size:14px;line-height:1.7}
+table.tbl.plan th{color:var(--ink);background:#f3efe6;font-size:13px}
+details.hint{font-size:14px;color:#4b5559;margin:6px 0 10px}
+details.hint summary{cursor:pointer;color:var(--accent);width:max-content}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin:8px 0}
+.fld{display:flex;flex-direction:column;gap:4px;flex:1;min-width:180px}
+.fld>span{font-size:13px;color:var(--muted)}
+input[type=text],input[type=url],input[type=number],input[type=date],select,textarea{border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:#fff;width:100%}
+input:focus,textarea:focus,select:focus{outline:2px solid rgba(15,107,92,.25);border-color:var(--accent)}
+textarea{min-height:140px;resize:vertical;line-height:1.75}
+input[readonly],textarea[readonly]{background:#faf8f3}
+.chk{display:inline-flex;align-items:center;gap:6px;margin-right:14px;cursor:pointer}
+.tb{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 6px;align-items:center}
+.tb .cnt{margin-left:auto;font-size:12px;color:var(--muted)}
+.done-t{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:14px;border:1px solid var(--line);border-radius:999px;padding:3px 12px;cursor:pointer;background:#fff;user-select:none}
+.done-t.on{background:var(--ok-bg);border-color:#a9d0a5;color:var(--ok);font-weight:700}
+.conf{background:var(--warn-bg);border:1px solid #e9bf9f;color:#7a3610;border-radius:8px;padding:8px 12px;margin:8px 0;font-size:14px}
+/* gallery */
+.gal-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:14px}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-top:10px}
+.gi{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.gi .im{aspect-ratio:4/3;background:#eee center/contain no-repeat;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px}
+.gi input{border:0;border-top:1px solid var(--line);border-radius:0;font-size:13px}
+.gi .ops{display:flex;justify-content:space-between;padding:2px 4px;background:#faf8f3}
+.gi .ops button{border:0;background:transparent;cursor:pointer;padding:2px 6px;font-size:13px;color:var(--muted)}
+.gi .ops button:hover{color:var(--ink)}
+.drop{border:1.5px dashed #cbbfa9;border-radius:10px;padding:10px;text-align:center;color:var(--muted);font-size:13px;margin-top:10px}
+.drop.over{background:var(--accent-2);border-color:var(--accent)}
+.att{display:flex;align-items:center;gap:10px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;margin:6px 0;font-size:14px}
+.att .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* dashboard */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.big{font-size:34px;font-weight:800;line-height:1.1}
+.bar{height:10px;background:#e9e4d8;border-radius:99px;overflow:hidden;margin:8px 0}
+.bar>i{display:block;height:100%;background:var(--accent)}
+.bar.over>i{background:var(--warn)}
+.cl{list-style:none;padding:0;margin:0}
+.cl li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.cl li:last-child{border-bottom:0}
+.st{flex:none;font-size:12px;border-radius:999px;padding:1px 9px;font-weight:700;margin-top:2px}
+.st.ok{background:var(--ok-bg);color:var(--ok)}.st.no{background:var(--warn-bg);color:var(--warn)}.st.mid{background:#fbf1d9;color:#8a6200}.st.na{background:#eee;color:#777}
+table.tbl{width:100%;border-collapse:collapse;font-size:14px}
+table.tbl td,table.tbl th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.tbl th{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap}
+table.tbl td.nw{white-space:nowrap}
+.muted{color:var(--muted)}
+.warnbox{background:var(--warn-bg);border:1px solid #e9bf9f;border-radius:10px;padding:10px 14px;color:#7a3610;font-size:14px;margin:0 0 14px}
+.okbox{background:var(--ok-bg);border:1px solid #b5d8b0;border-radius:10px;padding:10px 14px;color:#245f2d;font-size:14px;margin:0 0 14px}
+/* modal */
+#modal{position:fixed;inset:0;background:rgba(20,28,30,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+#modal.on{display:flex}
+#modal .box{background:var(--panel);border-radius:14px;max-width:560px;width:100%;padding:22px 24px;max-height:90vh;overflow:auto}
+#modal h3{margin:0 0 10px}
+#modal .acts{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+#modal pre{white-space:pre-wrap;background:#f3efe6;border-radius:8px;padding:8px 10px;max-height:180px;overflow:auto;font-size:13px}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 16px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:60}
+#toast.on{opacity:1}
+.loading{padding:60px;text-align:center;color:var(--muted)}
+@media (max-width:900px){
+  #app,body.split #app{grid-template-columns:1fr}
+  nav{position:static;height:auto;display:flex;gap:4px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px}
+  nav .ni{width:auto;white-space:nowrap}
+  nav .ni .w,nav .sep{display:none}
+  main{padding:16px}
+  body.split aside#pv{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="t1">臺北市115年度國民中學彈性學習領航課程徵件比賽</div>
+    <div class="t2" id="hdCourse">審查資料整理</div>
+  </div>
+  <div class="grow"></div>
+  <span class="pill" id="hdCount"></span>
+  <span class="pill ok" id="hdSave">載入中…</span>
+  <button class="btn ghost sm" id="btnSplit" title="在右側並排顯示預覽">並排預覽</button>
+  <button class="btn ghost sm" id="btnMode">進入編輯</button>
+</header>
+<div id="demoBar" class="demo-bar" style="display:none">示範模式：尚未連接資料庫，資料只存在這台電腦的瀏覽器裡（圖片重新整理後會消失），編輯密碼 demo。　<button class="btn sm" id="btnSetApi">連接資料庫</button></div>
+<div id="app">
+  <nav id="nav"></nav>
+  <main id="main"><div class="loading">資料載入中…</div></main>
+  <aside id="pv">
+    <div class="pvbar">
+      <button class="btn sm pri" data-act="refreshPreview">重新整理預覽</button>
+      <button class="btn sm" data-act="printPdf">列印／另存 PDF</button>
+      <button class="btn sm" data-act="exportDocx">下載 Word</button>
+      <span class="info" id="pvInfo"></span>
+    </div>
+    <iframe class="pvframe" id="pvFrame" title="文件預覽"></iframe>
+  </aside>
+</div>
+<div id="modal"><div class="box" id="modalBox"></div></div>
+<div id="toast"></div>
+<script id="boot" type="application/json"><?!= boot ?></script>
+
+<script>
+/* =========================================================
+ *  瀏覽器暫存（被瀏覽器封鎖時改用記憶體，不會讓網頁卡住）
+ * ========================================================= */
+const LS = (() => {
+  let ok = false; const mem = {};
+  try { window.localStorage.setItem('__lh', '1'); window.localStorage.removeItem('__lh'); ok = true; } catch (e) {}
+  return {
+    getItem: k => { try { if (ok) return window.localStorage.getItem(k); } catch (e) {} return k in mem ? mem[k] : null; },
+    setItem: (k, v) => { mem[k] = String(v); try { if (ok) window.localStorage.setItem(k, v); } catch (e) {} },
+    removeItem: k => { delete mem[k]; try { if (ok) window.localStorage.removeItem(k); } catch (e) {} }
+  };
+})();
+/* =========================================================
+ *  資料庫網址（Apps Script 網頁應用程式的 /exec 網址）
+ *  放在 GitHub Pages 時使用；也可用 ?api=網址 帶入
+ * ========================================================= */
+const DEFAULT_API = '';
+const API_RE = /^https:\/\/script\.google\.com\/(a\/macros\/[^/]+|macros)\/s\/[\w-]+\/exec$/;
+const API_URL = (() => {
+  try {
+    const q = new URLSearchParams(location.search).get('api');
+    if (q && API_RE.test(q)) { LS.setItem('lh_api', q); return q; }
+  } catch (e) {}
+  const saved = LS.getItem('lh_api');
+  return (saved && API_RE.test(saved)) ? saved : DEFAULT_API;
+})();
+/* =========================================================
+ *  設定：外部函式庫（從 CDN 載入）
+ * ========================================================= */
+const LIB = {
+  paged: 'https://cdn.jsdelivr.net/npm/pagedjs@0.4.3/dist/paged.polyfill.min.js',
+  docx:  'https://cdn.jsdelivr.net/npm/docx@9.16.0/dist/index.iife.js'
+};
+const DEADLINE = new Date('2026-12-31T17:00:00+08:00');
+const OPEN_AT  = new Date('2026-12-14T00:00:00+08:00');
+const PAGE_LIMIT = 20;
+const CN = '零一二三四五六七八九十'.split('');
+const cn = n => n <= 10 ? CN[n] : (n < 20 ? '十' + CN[n - 10] : String(n));
+
+/* =========================================================
+ *  內容結構（依實施計畫「績優規準」）
+ * ========================================================= */
+const SECS = [
+  { id:'design', num:'壹', title:'課程設計', weight:'不計分（必要條件）', budget:'約 1～2 頁',
+    items:[
+      { id:'design_text', title:'課程設計要項',
+        hint:'簡要說明課程理念（與學校願景的連結）、課程目標、核心素養、跨領域統整的方式與課程架構。本項不列入計分，但「課程計畫連結或 PDF」是評審的必要條件。建議 1 頁內，可放一張課程架構圖。' }
+    ]},
+  { id:'impl', num:'貳', title:'課程實施', weight:'50%', budget:'約 8 頁',
+    items:[
+      { id:'impl_overview', title:'教學實施歷程',
+        hint:'敘明本課程為一學期或一學年的教學實施歷程：期程、總節數、單元安排。得獎課程常見做法：先用「課程脈絡表（分階段）」交代各階段的探究層級與主要任務（例如從食譜式、結構式到引導式探究），再用「學習進度與檢核點表」列出每段的形成性評量檢核點。原課程若橫跨二學年以上，以提報參選的課程計畫為主，其他學期以文字說明相關性。若課程計畫有修訂，可在這裡擇要說明。' },
+      { id:'impl_c1', title:'結合能力經驗', rubric:'考量學生的先備經驗與生活情境，結合教材內容來引發學習動機。',
+        hint:'寫出學生已有的先備經驗（學過的概念、生活經驗），以及你用什麼情境或任務引發動機。可放引起動機活動的照片或情境任務單。' },
+      { id:'impl_c2', title:'點線面的串連', rubric:'掌握課程主軸，串連各個教學活動與素材，以有效學習。',
+        hint:'說明課程主軸（核心問題或大概念），再說明各單元／活動如何層層串連到主軸。課程架構圖、單元關聯圖很適合放在這裡。' },
+      { id:'impl_c3', title:'導入探究實作', rubric:'導入相關探究模式，或提供學生體驗、觀察、記錄、整理、規劃或製作等方法策略，使學生不只學會內容也學會如何學習。',
+        hint:'說明採用的探究模式（例如 5E、PBL、設計思考）與學生實際的觀察、記錄、整理、規劃、製作過程，並點出學生「學會了哪些學習方法」。放實作照片、學習單。' },
+      { id:'impl_c4', title:'搭配學習資源', rubric:'自編／自選教材或相關教學資源，能呼應課程目標，落實課程設計。',
+        hint:'列出自編／自選教材、簡報、學習單、教學影片、外部資源等代表性投入，並說明各自呼應哪一個課程目標。可用表格整理：資源名稱／類型／對應目標。' },
+      { id:'impl_c5', title:'共備討論精進', rubric:'參與教師社群的共備討論或觀議課，適時改進課程計畫及其實施。',
+        hint:'呈現學習社群討論歷程：時間、形式（共備／觀課／議課）、討論重點，以及據此做的修正。建議用「共備紀錄表」範本，再搭配會議紀錄或觀課照片。' },
+      { id:'impl_c6', title:'適時合宜調整', rubric:'依課程計畫進行教學，並視課程內容、學生特質及資源條件，合宜調整教材教法，有助培養核心素養並達成課程目標。',
+        hint:'說明實施中依學生特質、進度或資源條件所做的教材教法調整：原本怎麼做、遇到什麼狀況、怎麼調整、調整後的效果。建議用「教學調整表」逐項標出保留／調整為／刪除，並寫出調整依據（例如學生回饋顯示實驗操作是主要困難，所以改用生活中熟悉的素材）。' }
+    ]},
+  { id:'effect', num:'參', title:'課程效果', weight:'30%', budget:'約 6 頁',
+    items:[
+      { id:'eff_form', title:'形成性評量', rubric:'能呼應課程目標進行形成性評量，並根據評量結果進行學習輔導或教學調整。',
+        hint:'說明形成性評量的方式（前測、檢核點、Gallery Walk、學習單、即時回饋…）、對應哪個課程目標，以及依結果做了哪些學習輔導或教學調整。得獎課程會放前測題目與學生起點表現，並說明據此怎麼調整。可用「前後測比較表」「學生回饋統計表」呈現數據。' },
+      { id:'eff_sum', title:'總結性評量－表現任務', rubric:'能扣緊課程目標進行「總結性評量－表現任務」，並有清楚的任務說明或評量尺規，引導學生整合運用所學、多元展能並願意為自己的學習負起責任。',
+        hint:'寫出表現任務內容與任務說明，並附上評量尺規（建議用「評量尺規表」範本：向度 × 等級描述）。說明任務如何讓學生整合所學、自我負責。' },
+      { id:'eff_works', title:'學生作品與表現說明', works:true,
+        rubric:'請提供該門課程 3～5 件學生作品，簡要描述挑選緣由或依據，並應呈現不同品質學生學習成果表現及說明。',
+        hint:'先在上方文字框簡述挑選這幾件作品的緣由或依據，以及如何呈現形成性與總結性評量效果；再在下方逐件填寫。作品要能呈現不同品質（例如表現優異／表現中等／待加強）。得獎課程的做法：同一任務並列不同學生的作品，點出各自用了什麼方法、亮點在哪、還缺什麼，並對照尺規說明等級。照片請遮蔽學生姓名、座號與臉部。' }
+    ]},
+  { id:'reflect', num:'肆', title:'省思與展望', weight:'20%', budget:'約 3 頁',
+    items:[
+      { id:'ref_high', title:'亮點', rubric:'能就課程設計、實施與效果等層面，提出本課程值得他人學習之處。',
+        hint:'分別從課程設計、實施、效果三個層面，寫出值得他人借鏡之處。今年省思與展望占 20%（112 年度只占 10%），篇幅可以比以往多。最好用學生回饋或前後測數據佐證，不要只寫感想。' },
+      { id:'ref_adv', title:'精進', rubric:'能就課程設計、實施與效果等層面，提出本課程可再持續精進的具體做法。',
+        hint:'同樣分三個層面，提出「具體做法」（不是只寫未來會更好）。可用「難點與對應策略表」：學生的學習難點、觀察到的現象、下一輪的對應策略。若有修改調整後的課程設計，也可在這裡擇要呈現。' }
+    ]}
+];
+const WORK_SLOTS = [1,2,3,4,5];
+const LEVELS = ['表現優異','表現良好','表現中等','待加強'];
+const ALL_ITEMS = SECS.flatMap(s => s.items.map(it => Object.assign({ sec:s.id }, it)));
+
+const TABLE_TPL = {
+  '課程脈絡表（分階段）': '| 階段 | 週次 | 探究層級／重點 | 主要任務 |\n|---|---|---|---|\n| 一、 | 1-4 |  |  |\n| 二、 | 5-12 |  |  |\n| 三、 | 13-20 |  |  |\n',
+  '學習進度與檢核點表': '| 週次 | 單元／子題 | 學習活動 | 形成性評量（檢核點） |\n|---|---|---|---|\n| 1-2 |  |  |  |\n| 3-4 |  |  |  |\n',
+  '共備紀錄表': '| 日期 | 形式 | 討論重點 | 調整結果 |\n|---|---|---|---|\n|  | 共備 |  |  |\n|  | 觀議課 |  |  |\n',
+  '教學調整表': '| 節次／單元 | 原本的活動 | 調整情形 | 調整理由 |\n|---|---|---|---|\n|  |  | 保留 |  |\n|  |  | 調整為： |  |\n|  |  | 刪除 |  |\n',
+  '學習資源表': '| 資源名稱 | 類型 | 對應課程目標 |\n|---|---|---|\n|  | 自編教材 |  |\n|  | 學習單 |  |\n',
+  '評量尺規表': '| 向度 | 表現優異 | 表現良好 | 待加強 |\n|---|---|---|---|\n|  |  |  |  |\n|  |  |  |  |\n',
+  '學生回饋統計表': '| 題目 | 選項／類別 | 人數 | 百分比 |\n|---|---|---|---|\n| 最大的收穫 |  |  |  |\n| 最大的挑戰 |  |  |  |\n',
+  '前後測比較表': '| 評量向度 | 前測 | 後測 | 變化 |\n|---|---|---|---|\n|  |  |  |  |\n',
+  '難點與對應策略表': '| 學習難點 | 觀察到的現象 | 對應策略 |\n|---|---|---|\n|  |  |  |\n|  |  |  |\n',
+  '空白三欄表': '| 欄位一 | 欄位二 | 欄位三 |\n|---|---|---|\n|  |  |  |\n'
+};
+
+
+/* =========================================================
+ *  本課程（水世界）的課程計畫與示範文字
+ * ========================================================= */
+const PLAN = {"title": "臺北市立龍山國民中學114學年度彈性學習課程計畫", "rows": [["課程名稱", "水世界"], ["課程類別", "統整性主題／專題／議題探究課程"], ["實施年級", "八年級　上學期"], ["節數", "每週 0.5 節（水世界與臺灣之光單雙週對開；與碳生活上下學期對開）"], ["設計理念", "「水資源」是台灣與世界各國都必須面對的重大議題，本課程希望帶領學生深入認識水資源的重要性與稀缺性。認識與探究不同的水資源取得與淨化方式，提昇學生對水資源議題全面與深入的認識，並能結合本校國際交流機會，與他國學生交流討論水資源議題，提昇學生成為地球公民的素養。"], ["核心素養具體內涵", "J-A2 具備理解情境全貌，並做獨立思考與分析的知能，運用適當策略處理解決生活議題。\nJ-A3 具備善用資源以擬定計畫，有效執行，並發揮主動學習與創新求變的素養。\nJ-B2 具備善用科技、資訊與媒體以增進學習的素養，並察覺、思辨人與科技、資訊、媒體的互動關係。\nJ-C1 培養道德思辨與實踐能力，具備環境意識，並主動關懷生態環境。\nJ-C2 具備利他與合群的知能與態度，並培育相互合作及與人和諧互動的素養"], ["學習表現", "1.學生能認識水資源的重要性、稀缺性。\n2.學生能知道自己一天大約的用水量，以及此用水量與其他國家相比的差異。\n3.學生能認識臺灣不同地區的水資源以及淨水方式。\n4.學生實作探究不同過濾水方式的成效與差異，並提出可能的原因。\n5.學生能提出自己的節水方案，並且實際運用在生活上。\n6.學生能蒐集水資源充足及缺乏的國家現況，彙整資料後有條理地呈現。"], ["學習內容", "1.世界水資源的認識。\n2.現象觀察與問題發現。\n3.水資源匱乏對地球環境的影響。\n4.淨水、過濾水的原理與方式。"], ["課程目標", "1.認識地球水資源的稀缺性與重要性，從自我用水情況到世界各國水資源運用現況，理解水資源現況與問題的全貌。\n2.認識台灣及世界各國的淨水科技，並探究自製淨水器的原理與提昇效能的策略。\n3.提出適當策略，改善自我用水效能，與降低生活造成的水污染，實踐地球公民共同節省用水及減少水污染的行動"], ["表現任務（總結性評量）", "分組製作影片，內容擇一：\n(1)設計日常節水妙招，實作並拍出宣導影片\n(2)針對善用水資源或極度缺水的國家，蒐集資料，拍攝介紹影片或現場報告\n影片時間：5-6分鐘"]], "schedule": [["第一節\n第1-2週", "世界上的水\n【認識世界用水現況與UN goal 6】", "課程簡介。世界上的淡水有多少以及世界上不同地區水資源的分佈。Gapminder網站介紹。全班共同閱讀(英文）gapminder中，關於聯合國目標(UN goal）中clean water&sanitation問題，回答相關問題，了解世界現況。\n活動：學生用便條紙寫下每天那些時刻需要用到水，選出對自己來說最重要的5個。若要捨棄，會捨棄哪幾個？留下哪幾個？(列出對水需求的優先順序)", "任務：\n1.回家看看家中的水表在哪裡？長什麼樣子？水表的刻度以什麼為單位？\n2.檢視家中水費單據，看看家中每個月的用水量有多少？大約是自己一次洗手量的多少倍？"], ["第二節\n第3-4週", "水有多重要？\n【世界上的大家每天用了多少水？】", "體驗活動：(1)開啟水龍頭，盛裝一公升的水，讓學生認識一公升的水量。請學生先自我評估、預測：自己平常如果手上沾了一些油污要清洗乾淨需要使用多少水？(2)請學生將手沾一點油，模擬手弄髒的情境，並用清潔劑將手洗乾淨，將過程中的用水以3000ml的量筒承接後，測量出一次洗手的用水量。(3)活動前的預測與自己實際測量的差距有多大？請學生分享：不同的洗手方式用水量差異有多少？\n一日用水量估算：使用自製scratch程式（或是共用google試算表）自我估算一日大約的用水量。", "回顧上週：檢視水費與水表"], ["第三節\n第5-6週", "世界各國使用水資源的現況", "學習gapminder.org網站中dollar street的使用方式。教師示範從dollar street選取”get water”選項，觀察不同國家和不同收入家庭取水方式。\n體驗活動：裝一桶約6公升的水，讓學生拿著移動100公尺，模擬以水桶取水的體驗。並依前一節課，學生估算自己一日用水量，去計算要取水的次數，體驗取水的困難。\n學生自己使用dollar street比較世界各國洗手、使用清潔劑等的情況（hand washing / pouring water / drinking water / washing detergent / water outlet等主題）。觀看後，以學習單擇3個類別進行不同國家與臺灣現況的比較，列出相同與不同處。", "教學素材：剛果取水影片\n學習單：水與生活國際篇"], ["第四節\n第7-8週", "過濾水的探究課程(1)", "這樣的水你敢喝嗎？看看dollar street中找到部分國家的水樣為例。認識生命吸管以及其他露營用的過濾器。分析商品設計用到哪些濾材？分別有什麼樣的功能？排列的順序有什麼樣的共同點？\n實作：教師準備設計好的污水（細碎枝葉、培養土與色素混合）讓學生以不同濾材如粗細砂石、活性碳、棉花來過濾，觀察其變化及濾水後效果，並記錄下來。\n分組討論：若要選擇不同的濾材，以特定順序填充在粗吸管中，應該採取什麼樣的設計？要如何評估過濾器的效果？（或者由老師來指定）過濾水的乾淨程度用透光度來檢測，另外還要檢測過濾水的速度。", "學習單：過濾觀察記錄與過濾器設計"], ["第五節\n第9-10週", "過濾水的探究課程(2)", "粗吸管濾水裝置的實作測試：用上次課程設計的方式，實際組裝粗吸管過濾器，並實際過濾教師準備的污水，檢視過濾水的透光程度以及過濾水的速度。\n討論：根據過濾結果，提出可能的改善方式，並且再操作一次過濾，比較差異。", "口頭報告：說明過濾器原本的設計方式、成效、改進方式與改良之後的差異。"], ["第六節\n第11-12週", "乾淨水從哪裡來：認識水資源運用與淨水、節水方式", "認識臺灣不同地區的用水方式；為什麼台灣是缺水國家；認識萬華區的用水來源；認識龍山國中的用水與節水方式；認識自來水廠的淨水運作方式，並提出想進一步了解的問題。結合校外教學活動，實際參訪自來水廠。", ""], ["第七節\n第13-14週", "我的省水妙招／從水看世界(1)", "表現任務介紹；分組與任務選擇確認；評量規準討論與制定；iMovie教學及實作；各組方案提案及影片規劃", "分組製作影片（內容擇一），影片時間：5-6分鐘"], ["第八節\n第15-16週", "我的省水妙招／從水看世界(2)", "方案內容提案與製作", "同上"], ["第九節\n第17-18週", "我的省水妙招／從水看世界(3)", "方案內容提案與製作；發表練習", "同上"], ["第十節\n第19-20週", "成果發表與課程總結", "方案影片報告與發表；課程總結及回饋", "同上"]], "tail": [["議題融入", "環境教育 環J4 了解永續發展的意義（環境、社會、與經濟的均衡發展）與原則。\n國際教育 國J12 探索全球議題，並構思永續發展的在地行動方案。\n戶外教育 戶J2 擴充對環境的理解，運用所學的知識到生活當中，具備觀察、描述、測量、紀錄的能力。\n戶外教育 戶J4 理解永續發展的意義與責任，並在參與活動的過程中落實原則。"], ["評量規劃", "學習單(30%)、課程參與與合作(20%)、期末表現任務(50%)"], ["教學設施／設備需求", "網際網路、筆電、電腦教室、學生google帳號、iPad、智慧黑板"], ["教材來源", "網路影片、gapminder網站、dollar street、自編學習單"], ["師資來源", "本校跨領域共備社群教師"]]};
+const DRAFTS = {"design_text": "### 課程理念\n「水資源」是臺灣與世界各國都必須面對的重大議題。本課程從學生每天的用水經驗出發，帶領學生認識水資源的重要性與稀缺性，探究不同的取水與淨水方式，並結合本校國際交流機會，與他國學生交流水資源議題，培養學生成為地球公民的素養。【可補一句：與本校願景或學生圖像的連結】\n### 課程目標\n1. 認識地球水資源的稀缺性與重要性，從自我用水到世界各國的用水現況，理解水資源問題的全貌。\n2. 認識臺灣及世界各國的淨水科技，探究自製淨水器的原理與提升效能的策略。\n3. 提出適當策略改善自我用水效能、降低生活造成的水污染，實踐節水與減污的行動。\n### 核心素養與議題融入\n本課程對應核心素養 J-A2、J-A3、J-B2、J-C1、J-C2，並融入環境教育（環J4）、國際教育（國J12）與戶外教育（戶J2、戶J4）。\n### 跨領域統整\n本課程整合【請確認領域：自然科學（過濾與淨水原理、測量與紀錄）、社會（臺灣與世界的水資源分布）、英語（閱讀 Gapminder 英文資料）、科技（Scratch 用水估算、iMovie 影片製作）】，由本校跨領域共備社群共同發展。\n### 課程架構\n| 階段 | 節次 | 學習重點 |\n|---|---|---|\n| 看見世界的水 | 第1節 | 世界淡水分布、聯合國永續發展目標 6 |\n| 我用了多少水 | 第2節 | 洗手用水量預測與實測、一日用水量估算 |\n| 比較各國用水 | 第3節 | Dollar Street 跨國比較、提水體驗 |\n| 淨水探究 | 第4–5節 | 過濾器的設計、測試與改良 |\n| 連結在地 | 第6節 | 萬華區與本校用水、自來水廠參訪 |\n| 採取行動 | 第7–10節 | 節水妙招／從水看世界影片 |\n", "impl_overview": "本課程為八年級上學期的一學期課程，每週 0.5 節（與「臺灣之光」單雙週對開），全學期共 10 節，於 114 學年度上學期實施，共【__】個班級、【__】位學生參與。\n### 課程脈絡\n| 階段 | 節次（週次） | 重點 | 主要任務 |\n|---|---|---|---|\n| 一、看見水的問題 | 第1–3節（1–6週） | 認識世界與自我用水現況 | 洗手用水實測、一日用水估算、Dollar Street 跨國比較 |\n| 二、淨水探究 | 第4–5節（7–10週） | 設計並改良過濾器 | 分析濾材、設計粗吸管過濾器、測透光度與速度、改良再測 |\n| 三、連結在地 | 第6節（11–12週） | 認識臺灣與萬華的水 | 了解自來水淨水流程、參訪自來水廠 |\n| 四、採取行動 | 第7–10節（13–20週） | 總結性表現任務 | 分組製作並發表節水妙招或從水看世界影片 |\n### 學習進度與檢核點\n| 節次 | 單元 | 形成性評量（檢核點） |\n|---|---|---|\n| 1 | 世界上的水 | 回家找出水表、查看水費單 |\n| 2 | 水有多重要？ | 洗手用水量的預測與實測紀錄 |\n| 3 | 世界各國使用水資源的現況 | 學習單「水與生活國際篇」 |\n| 4 | 過濾水的探究（一） | 學習單「過濾觀察記錄與過濾器設計」 |\n| 5 | 過濾水的探究（二） | 口頭報告：設計、成效、改良與差異 |\n| 6 | 乾淨水從哪裡來 | 對淨水流程提出想進一步了解的問題 |\n| 7–10 | 我的省水妙招／從水看世界 | 方案提案、影片製作、成果發表 |\n【若實際教學的順序或內容與計畫不同，在「適時合宜調整」說明】\n", "impl_c1": "學生每天都在用水，卻很少意識到自己用了多少水。課程第一節，學生用便條紙寫下一天中需要用水的時刻，選出最重要的 5 個，再想一想：如果必須捨棄，會留下哪些？藉此排出自己對水的需求順序。回家後，學生找出家中的水表、查看水費單，估算家裡一個月的用水量大約是自己一次洗手的多少倍。\n第二節先讓學生看一公升的水有多少，再預測「手沾到油污時，洗乾淨要用多少水」，接著實際沾油、用清潔劑洗手，以量筒承接測量。【請填：學生預測值與實測值的分布，例如多數學生預測約 __ mL，實測平均約 __ mL】預測與實測的落差，讓學生對用水量有了具體的量感，也自然引出下一個問題：世界上其他人用了多少水？\n", "impl_c2": "本課程以「水資源的稀缺性」為主軸，從學生自己的一次洗手，逐步擴展到世界與在地，最後回到行動：\n- 點：個人用水——洗手實測、Scratch 估算一日用水量\n- 線：從自己到世界——Dollar Street 觀察不同國家、不同收入家庭的取水方式，提著 6 公升的水走 100 公尺體驗取水\n- 面：從理解到行動——淨水探究、認識在地水源，最後以影片提出節水方案或介紹他國水資源現況\n活動之間環環相扣：第二節估算的一日用水量，在第三節變成「要提幾趟水」的計算依據；第四、五節的過濾器探究，成為第六節理解自來水廠淨水流程的基礎；前六節累積的資料與體驗，則是第七節後表現任務的素材。【可補：貫穿全課程的核心問題，例如「乾淨的水從哪裡來？我們用了多少？我們能做什麼？」】\n", "impl_c3": "過濾水探究是本課程的核心探究活動，共兩節，學生經歷「觀察分析 → 設計 → 測試 → 改良」的完整歷程。\n### 觀察與分析\n以 Dollar Street 中部分國家的水樣提問「這樣的水你敢喝嗎？」，再分析生命吸管與露營用過濾器：用了哪些濾材？各有什麼功能？排列順序有什麼共同點？\n### 設計\n學生用粗細砂石、活性碳、棉花等濾材過濾教師調製的污水（細碎枝葉、培養土與色素混合），觀察並記錄各濾材的效果，再分組討論濾材的選擇與填充順序，設計粗吸管過濾器。評估標準為過濾後的透光度與過濾速度。\n### 測試與改良\n各組組裝過濾器、實際過濾污水，依結果提出改善方式後再過濾一次，比較前後差異，並以口頭報告說明原設計、成效、改進方式與改良後的差異。\n| 組別 | 原設計（濾材順序） | 透光度 | 過濾速度 | 改良方式 | 改良後 |\n|---|---|---|---|---|---|\n| 【第__組】 |  |  |  |  |  |\n| 【第__組】 |  |  |  |  |  |\n在這個歷程中，學生學到的不只是過濾原理，更是「先訂評估標準、用數據比較、再依結果修正設計」的探究方法。\n", "impl_c4": "本課程的教學資源以真實資料與自編教材為主，每項資源都對應課程目標：\n| 資源 | 類型 | 對應課程目標 |\n|---|---|---|\n| Gapminder 網站（聯合國目標 6 英文閱讀題） | 網路資源 | 目標一：理解世界水資源現況 |\n| Dollar Street（get water、hand washing 等主題） | 網路資源 | 目標一 |\n| 自製 Scratch 一日用水量估算程式 | 自編教材 | 目標一、三 |\n| 學習單「水與生活國際篇」 | 自編學習單 | 目標一 |\n| 學習單「過濾觀察記錄與過濾器設計」 | 自編學習單 | 目標二 |\n| 剛果取水影片 | 影片 | 目標一 |\n| 濾材（砂石、活性碳、棉花）、量筒、粗吸管 | 實作器材 | 目標二 |\n| 自來水廠參訪 | 校外場域 | 目標二、三 |\n| iPad、iMovie | 數位工具 | 目標三（表現任務） |\n其中自製的 Scratch 程式讓學生【請簡述：輸入哪些用水項目與次數，程式如何計算】，學生能立即看到自己一天的用水量，並與他國比較。（建議附程式畫面與學習單截圖）\n", "impl_c5": "本課程由本校跨領域共備社群共同發展與實施，社群成員來自【請填：領域，例如自然、社會、英語、科技】。（提醒：審查資料不可出現教師姓名，可用「自然領域教師」稱呼）\n| 日期 | 形式 | 討論重點 | 調整結果 |\n|---|---|---|---|\n| 【114/__/__】 | 共備 | 【例：過濾實驗的污水配方與評估標準】 | 【例：確定以透光度與過濾速度兩項指標評估】 |\n| 【114/__/__】 | 觀課 | 【例：過濾器探究課】 |  |\n| 【114/__/__】 | 議課 | 【】 | 【】 |\n【示範寫法】在一次共備中，自然領域教師提出【……】，社會領域教師則建議【……】，社群最後決定【……】，並在下一節課【……】。\n", "impl_c6": "實施過程中，我們依學生反應、課程時間與資源條件做了以下調整：\n| 節次／單元 | 原本的設計 | 調整情形 | 調整理由 |\n|---|---|---|---|\n| 第2節 一日用水量估算 | 自製 Scratch 程式 | 【保留／調整為：共用 Google 試算表】 | 【例：便於彙整全班數據比較】 |\n| 第4節 過濾器評估方式 | 學生討論評估方式 | 【保留／調整為：由教師指定透光度與速度】 | 【例：聚焦在設計與改良】 |\n| 第6節 自來水廠 | 結合校外教學參訪 | 【保留／調整為：】 | 【】 |\n| 第7–10節 表現任務 | 影片 5–6 分鐘 | 【保留／調整為：】 | 【】 |\n（以上「例」只是依計畫書裡已預留的彈性做的猜測，請換成實際的調整）\n【示範寫法】例如【某一節】原本【……】，實施時發現學生【……】，因此改為【……】，調整後【學生的表現或回饋】。\n", "eff_form": "本課程的形成性評量分布在每一節的檢核點，並對應三個課程目標。學習單占學期成績 30%，課程參與與合作占 20%。\n| 檢核點 | 評量方式 | 對應目標 | 評量發現與調整 |\n|---|---|---|---|\n| 水表與水費單任務 | 學生回報、分享 | 目標一 | 【】 |\n| 洗手用水量預測與實測 | 數據比較 | 目標一 | 【例：多數學生低估用水量】 |\n| 水與生活國際篇學習單 | 學習單 | 目標一 | 【】 |\n| 過濾觀察記錄與設計學習單 | 學習單 | 目標二 | 【】 |\n| 過濾器口頭報告 | 口頭報告 | 目標二 | 【例：部分組別只描述結果、沒說原因，因此提供說明句型】 |\n【示範寫法】從【某檢核點】發現【多少比例的學生】【……】，因此在下一節【……】，之後【……】。\n", "eff_sum": "### 表現任務說明\n學生分組製作 5–6 分鐘的影片，內容二選一：\n1. 我的省水妙招：設計日常節水妙招，實際執行並拍成宣導影片。\n2. 從水看世界：選擇善用水資源或極度缺水的國家，蒐集資料後拍攝介紹影片或現場報告。\n任務歷時四節：第七節介紹任務、分組，並與學生共同討論制定評量規準，同時學習 iMovie；第八、九節提案與製作；第十節發表並回饋。期末表現任務占學期成績 50%。\n### 評量規準（與學生共同制定）\n| 向度 | 表現優異 | 表現良好 | 待加強 |\n|---|---|---|---|\n| 內容正確性 | 【】 | 【】 | 【】 |\n| 資料蒐集與統整 | 【】 | 【】 | 【】 |\n| 方案可行性與實踐 | 【】 | 【】 | 【】 |\n| 影片表達與分工 | 【】 | 【】 | 【】 |\n【請換成實際與學生訂出的規準】\n讓學生參與訂定規準，學生在製作前就清楚「好的作品長什麼樣子」，並能依規準自我檢核，為自己的學習負責。【可補：學生討論規準時的發言或照片】\n", "eff_works": "本課程挑選【__】件學生作品，包括【__】支表現任務影片與【__】份過濾器設計學習單，分別呈現總結性與形成性評量的效果。挑選依據為評量規準的等級，選出表現優異、中等與待加強各一件，說明各件達成哪些課程目標、還缺少什麼，以及教師給予的回饋與後續輔導。影片以截圖搭配 QR code 呈現。\n", "ref_high": "### 課程設計\n從學生自己的一次洗手出發，連結到世界各國的取水現況，再回到在地的自來水，最後以行動收尾。這樣由近而遠、再回到自己的架構，讓水資源議題不再遙遠。\n### 課程實施\n在每週僅 0.5 節的時數下，仍讓學生完整經歷過濾器的「設計、測試、改良」探究歷程，並以透光度與速度等可測量的指標比較成效；Dollar Street 等真實影像資料，讓學生直接看見不同國家與收入家庭的用水差異。\n### 課程效果\n【請用數據或學生回饋佐證，例如：洗手用水量預測與實測的差距、過濾器改良前後的透光度、課程回饋問卷中學生最大的收穫】\n", "ref_adv": "### 學習難點與對應策略\n| 學習難點 | 觀察到的現象 | 對應策略 |\n|---|---|---|\n| 【例：濾材順序的推理】 | 【例：部分組別隨意堆疊濾材】 | 【例：先讓各組測試單一濾材，再設計組合】 |\n| 【例：影片內容流於資料羅列】 | 【】 | 【例：提供「現況—原因—與臺灣比較—我們能做什麼」的腳本鷹架】 |\n| 【例：節水方案停在宣導】 | 【】 | 【例：加入一週用水紀錄，比較執行前後的差異】 |\n### 設計層面\n設計理念提到結合本校國際交流機會，與他國學生交流水資源議題。【若已實施，改寫為亮點；若尚未實施，可寫下一輪的具體做法，例如與交流學校學生交換用水調查或節水影片】\n### 實施層面\n【可能的方向：每週 0.5 節、單雙週對開，兩次上課相隔較久，可寫你們如何讓學習延續，例如課初回顧、學習單跨節延續】\n### 效果層面\n學習表現第 5 點期望學生把節水方案實際運用在生活上，【請寫目前如何追蹤成效，以及下一輪的做法】。\n"};
+const WORK_DRAFTS = {"表現優異": "本組選擇「【我的省水妙招／從水看世界】」，以【主題】為內容。影片能【正確說明……】，並【與臺灣或自己的用水做比較／實際執行節水方案並記錄成效】，對照評量規準，在【資料統整、方案可行性】等向度都達到優異。教師回饋：【……】", "表現中等": "本組影片內容大致正確，能【……】，但多為資料羅列，缺少【與臺灣的比較／實際執行的紀錄】。對照評量規準，在【……】向度為良好、【……】向度待加強。教師回饋：【建議……】，學生後續【修正了……】", "待加強": "本組影片【……】，【節水方案的可行性不足／資料來源不明／分工不均】。對照評量規準，【……】向度待加強。教師在發表後【個別指導……】，並【提供……鷹架】，學生【後續的改變】。"};
+const DEFAULTS = {"info.course": "水世界", "info.grade": ["八年級"], "info.sem": ["上學期"], "info.type": "統整性主題／專題／議題探究", "info.periods": 0.5, "info.total": 10, "design_text.text": "### 設計理念\n「水資源」是臺灣與世界各國都必須面對的重大議題，本課程希望帶領學生深入認識水資源的重要性與稀缺性，認識與探究不同的水資源取得與淨化方式，提升學生對水資源議題全面與深入的認識，並能結合本校國際交流機會，與他國學生交流討論水資源議題，提升學生成為地球公民的素養。\n### 課程目標\n1. 認識地球水資源的稀缺性與重要性，從自我用水情況到世界各國水資源運用現況，理解水資源現況與問題的全貌。\n2. 認識臺灣及世界各國的淨水科技，並探究自製淨水器的原理與提升效能的策略。\n3. 提出適當策略，改善自我用水效能，與降低生活造成的水污染，實踐地球公民共同節省用水及減少水污染的行動。\n### 核心素養\n- J-A2 具備理解情境全貌，並做獨立思考與分析的知能，運用適當策略處理解決生活議題。\n- J-A3 具備善用資源以擬定計畫，有效執行，並發揮主動學習與創新求變的素養。\n- J-B2 具備善用科技、資訊與媒體以增進學習的素養，並察覺、思辨人與科技、資訊、媒體的互動關係。\n- J-C1 培養道德思辨與實踐能力，具備環境意識，並主動關懷生態環境。\n- J-C2 具備利他與合群的知能與態度，並培育相互合作及與人和諧互動的素養。\n### 學習重點\n**學習表現**\n1. 學生能認識水資源的重要性、稀缺性。\n2. 學生能知道自己一天大約的用水量，以及此用水量與其他國家相比的差異。\n3. 學生能認識臺灣不同地區的水資源以及淨水方式。\n4. 學生實作探究不同過濾水方式的成效與差異，並提出可能的原因。\n5. 學生能提出自己的節水方案，並且實際運用在生活上。\n6. 學生能蒐集水資源充足及缺乏的國家現況，彙整資料後有條理地呈現。\n**學習內容**\n1. 世界水資源的認識。\n2. 現象觀察與問題發現。\n3. 水資源匱乏對地球環境的影響。\n4. 淨水、過濾水的原理與方式。\n### 議題融入\n- 環境教育 環J4：了解永續發展的意義（環境、社會、與經濟的均衡發展）與原則。\n- 國際教育 國J12：探索全球議題，並構思永續發展的在地行動方案。\n- 戶外教育 戶J2：擴充對環境的理解，運用所學的知識到生活當中，具備觀察、描述、測量、紀錄的能力。\n- 戶外教育 戶J4：理解永續發展的意義與責任，並在參與活動的過程中落實原則。", "impl_overview.text": "本課程為八年級上學期的一學期課程，每週 0.5 節（「水世界」與「臺灣之光」單雙週對開；與「碳生活」上下學期對開），全學期共 10 節。\n### 學習進度\n| 節次（週次） | 單元／子題 | 主要學習活動 |\n|---|---|---|\n| 第1節（1–2週） | 世界上的水：認識世界用水現況與聯合國目標 6 | 認識世界上的淡水總量與不同地區的水資源分布；介紹 Gapminder 網站，全班共讀聯合國目標 6（clean water & sanitation）的英文資料並回答問題；用便條紙寫下每天需要用水的時刻，選出最重要的 5 個，列出用水需求的優先順序 |\n| 第2節（3–4週） | 水有多重要？世界上的大家每天用了多少水？ | 認識一公升的水量；預測並實測手沾油污後洗淨所需的用水量，比較預測與實測的差距及不同洗手方式的差異；以自製 Scratch 程式（或共用 Google 試算表）估算一日用水量 |\n| 第3節（5–6週） | 世界各國使用水資源的現況 | 學習使用 Dollar Street，觀察不同國家、不同收入家庭的取水方式；提約 6 公升的水移動 100 公尺，並依一日用水量計算取水次數，體驗取水的困難；以 Dollar Street 比較各國洗手、使用清潔劑等情形，擇 3 類與臺灣比較異同 |\n| 第4節（7–8週） | 過濾水的探究課程（一） | 以 Dollar Street 中的水樣提問「這樣的水你敢喝嗎？」；分析生命吸管與露營用過濾器的濾材、功能與排列順序；以不同濾材過濾污水並記錄；分組設計粗吸管過濾器，討論評估方式 |\n| 第5節（9–10週） | 過濾水的探究課程（二） | 組裝粗吸管過濾器並實際過濾污水，檢視透光度與過濾速度；依結果提出改善方式，再過濾一次比較差異 |\n| 第6節（11–12週） | 乾淨水從哪裡來：認識水資源運用與淨水、節水方式 | 認識臺灣不同地區的用水方式、臺灣為何是缺水國家、萬華區的用水來源、本校的用水與節水方式；認識自來水廠的淨水運作並提出問題；結合校外教學參訪自來水廠 |\n| 第7節（13–14週） | 我的省水妙招／從水看世界（一） | 表現任務介紹、分組與任務選擇確認、評量規準討論與制定、iMovie 教學及實作、各組方案提案及影片規劃 |\n| 第8–9節（15–18週） | 我的省水妙招／從水看世界（二）、（三） | 方案內容提案與製作、發表練習 |\n| 第10節（19–20週） | 成果發表與課程總結 | 方案影片報告與發表、課程總結及回饋 |", "impl_c1.text": "第一節請學生用便條紙寫下每天哪些時刻需要用到水，選出對自己最重要的 5 個，並思考若要捨棄，會捨棄哪些、留下哪些，列出自己對水需求的優先順序。課後請學生回家找出家中的水表，觀察它的樣子與刻度單位，並檢視家中的水費單，看看每個月的用水量大約是自己一次洗手量的多少倍。\n第二節先盛裝一公升的水，讓學生認識一公升的水量，再請學生預測：手上沾了油污，要洗乾淨需要用多少水？接著讓學生將手沾油、用清潔劑洗淨，以 3000 mL 量筒承接並測量一次洗手的用水量，比較預測與實測的差距，並分享不同洗手方式的用水量差異。", "impl_c3.text": "### 觀察與分析\n以 Dollar Street 中部分國家的水樣為例，提問「這樣的水你敢喝嗎？」。學生認識生命吸管與其他露營用過濾器，分析商品設計用到哪些濾材、各有什麼功能、排列順序有什麼共同點。\n### 實作與設計\n教師準備設計好的污水（細碎枝葉、培養土與色素混合），學生以粗細砂石、活性碳、棉花等不同濾材過濾，觀察並記錄濾水後的效果。接著分組討論：若要以特定順序把濾材填充在粗吸管中，應該怎麼設計？要如何評估過濾器的效果？過濾水的乾淨程度以透光度檢測，並同時檢測過濾速度。\n### 測試與改良\n各組依設計組裝粗吸管過濾器，實際過濾教師準備的污水，檢視透光度與過濾速度；再根據結果提出改善方式，重新過濾一次並比較差異，最後以口頭報告說明過濾器原本的設計方式、成效、改進方式與改良後的差異。", "impl_c4.text": "本課程使用的教學資源如下：\n| 資源 | 類型 | 使用節次 |\n|---|---|---|\n| Gapminder 網站（聯合國目標 6 相關英文資料與問題） | 網路資源 | 第1節 |\n| 自製 Scratch 一日用水量估算程式（或共用 Google 試算表） | 自編教材 | 第2節 |\n| Dollar Street（get water、hand washing、drinking water 等主題） | 網路資源 | 第3–4節 |\n| 剛果取水影片 | 影片 | 第3節 |\n| 學習單「水與生活國際篇」 | 自編學習單 | 第3節 |\n| 學習單「過濾觀察記錄與過濾器設計」 | 自編學習單 | 第4節 |\n| 3000 mL 量筒 | 實作器材 | 第2節 |\n| 粗細砂石、活性碳、棉花、粗吸管 | 實作器材 | 第4–5節 |\n| 自來水廠參訪 | 校外場域 | 第6節 |\n| iPad、iMovie | 數位工具 | 第7–10節 |\n教學設施包括網際網路、筆電、電腦教室、學生 Google 帳號、iPad 與智慧黑板。", "eff_form.text": "本課程在各節安排檢核點作為形成性評量；評量規劃中，學習單占 30%，課程參與與合作占 20%。\n| 節次 | 檢核點（形成性評量） |\n|---|---|\n| 第1節 | 回家找出家中的水表，觀察外觀與刻度單位；檢視水費單，估算家中每月用水量約為自己一次洗手量的多少倍 |\n| 第2節 | 回顧上週的水費單與水表任務 |\n| 第3節 | 學習單「水與生活國際篇」：擇 3 個類別比較不同國家與臺灣的異同 |\n| 第4節 | 學習單「過濾觀察記錄與過濾器設計」 |\n| 第5節 | 口頭報告：說明過濾器原本的設計方式、成效、改進方式與改良後的差異 |", "eff_sum.text": "### 表現任務說明\n學生分組製作影片，內容二選一，影片時間 5–6 分鐘：\n1. 設計日常節水妙招，實作並拍出宣導影片。\n2. 針對善用水資源或極度缺水的國家，蒐集資料，拍攝介紹影片或現場報告。\n### 任務進行方式\n- 第7節：表現任務介紹、分組與任務選擇確認、評量規準討論與制定、iMovie 教學及實作、各組方案提案及影片規劃。\n- 第8–9節：方案內容提案與製作、發表練習。\n- 第10節：方案影片報告與發表、課程總結及回饋。\n期末表現任務占學期成績 50%。"};
+
+/* =========================================================
+ *  得獎課程範例（摘要改寫自公開的課程計畫與發表簡報，非審查資料原文）
+ * ========================================================= */
+const SRC = {
+  wanhua:  { label:'113 特優｜萬華國中《想享DNA—4N探索學園》', kind:'工作圈分享簡報', url:'https://e-work.tp.edu.tw/uploads/17515311627964XOAG4U7.pdf' },
+  global:  { label:'112 特優｜景興國中《全球視野》', kind:'頒獎發表簡報', url:'https://e-work.tp.edu.tw/uploads/1712538408218hYdl64MX.pdf' },
+  selfl:   { label:'112 特優｜景興國中《自主學習》', kind:'114 學年度課程計畫', url:'https://www.chhs.tp.edu.tw/uploads/1751948846960MWxeJJo0.pdf' },
+  beizheng:{ label:'113 特優｜北政國中《國際議題探究》', kind:'112 學年度課程計畫', url:'https://www.pcjh.tp.edu.tw/wp-content/uploads/doc/pcjh22/112%E4%B9%9D%E5%B9%B4%E7%B4%9A%E5%BD%88%E6%80%A7%E5%AD%B8%E7%BF%92%E8%AA%B2%E7%A8%8B(%E5%9C%8B%E9%9A%9B%E8%AD%B0%E9%A1%8C%E6%8E%A2%E7%A9%B6).pdf' },
+  nanmen:  { label:'113 特優｜南門國中《走讀南門》', kind:'113 學年度課程計畫', url:'https://www.nmjh.tp.edu.tw/wp-content/uploads/doc/nmjh332/113%E4%B8%83%E5%B9%B4%E7%B4%9A%E5%BD%88%E6%80%A7%E5%AD%B8%E7%BF%92%E8%AA%B2%E7%A8%8B(%E8%B5%B0%E8%AE%80%E5%8D%97%E9%96%80).pdf' },
+  nanmenBi:{ label:'113 特優｜南門國中《走讀南門》', kind:'雙語教案「走讀植物園」', url:'https://e-work.tp.edu.tw/uploads/1711937696939V8OLWT4M.docx' }
+};
+const EXAMPLES = {
+  design_text: [
+    { src:'nanmen', text:'設計理念先點出學校位在城南文教區，具體列出步行可達的植物園、博物館、紀念館、政府機關等場域，說明為什麼適合就地探究；再寫明整合語文、數學、藝術、自然、社會、綜合等領域，最後要學生提出活化社區的方案並向外推廣。', tip:'用「學校位置與資源 → 跨哪些領域 → 學生最後要產出什麼」一條線寫完設計理念。' },
+    { src:'beizheng', text:'設計理念交代這門九年級課程是建立在七年級「國際移工」、八年級「循環經濟」等課程之上，九年級再以國際議題為素材，讓學生比較多方立場、提出個人觀點。', tip:'說明本課程在校訂課程地圖裡的縱向位置，評審比較容易看出「點線面」。' },
+    { src:'global', text:'以「世界是什麼樣子？為什麼是這樣？未來會怎樣？」三個問題開場，再把課程目標濃縮成四個關鍵詞：複雜情境、多元觀點、批判思考、平衡行動。', tip:'用一組核心問題加幾個關鍵詞，讓評審一眼抓到課程主軸。' }
+  ],
+  impl_overview: [
+    { src:'wanhua', text:'把一學期 20 週分成三個階段：1–4 週食譜式探究（閱讀推理讀物、歸納資料）、5–12 週結構式探究（規劃流程、做實驗、分析數據）、13–20 週引導式探究（學生自己定題、完成探究報告）。', tip:'用「階段／週次／探究層級／主要任務」一張表交代全貌，看得出逐步放手。可用「課程脈絡表（分階段）」範本。' },
+    { src:'nanmen', text:'課程計畫寫明排課方式：與生活科技對開，前後各 10 週、每週 2 節連排，方便走出校園踏查。', tip:'排課方式若有特殊安排（連排、對開、協同），在實施歷程開頭一句交代清楚。' },
+    { src:'beizheng', text:'學習進度表分三欄：週次與單元／子題、單元內容與學習活動、形成性評量（檢核點）或總結性評量，每個單元都對應一個檢核點。', tip:'實施歷程表最好同時看得到「活動」和「檢核點」，可用「學習進度與檢核點表」範本。' }
+  ],
+  impl_c1: [
+    { src:'beizheng', text:'第一個主題從品嚐巧克力、觀察包裝上的標示開始，分享對巧克力的經驗，再帶到可可產國面臨的困境。', tip:'從學生熟悉的日常物品或感官經驗切入，再拉到課程要探討的議題。' },
+    { src:'wanhua', text:'用學生熟悉的「木瓜牛奶銷售」情境出四題前測，觀察學生會怎麼提問、怎麼思考，作為了解起點的依據。', tip:'寫出你怎麼「知道」學生的先備經驗（前測、問卷、舊課程），不只是假設。' }
+  ],
+  impl_c2: [
+    { src:'wanhua', text:'以「探究摩天輪」貫穿各單元：提出問題 → 蒐集資料 → 整理想法 → 分享新知，教師在每個環節先用 20–30 分鐘的迷你課示範。', tip:'找一個貫穿全課程的模式或核心問題，再說明每個活動在這條主軸上的位置。' },
+    { src:'global', text:'課程從全球議題探究出發，一端連到地方倡議（永續飲食），一端連到全球倡議（寫信馬拉松），並用跨學科、跨文化、跨領域、跨組織四個面向說明串連方式。', tip:'放一張課程架構圖，讓「點（活動）—線（主軸）—面（議題／行動）」一目了然。' }
+  ],
+  impl_c3: [
+    { src:'wanhua', text:'採用科學探究的四個層級（食譜式、結構式、引導式、開放式），期末讓學生依能力選擇引導式或開放式；搭配 KWLQ 界定問題，以及 T 圖、流程圖、因果關係圖等圖像組織工具整理資料。', tip:'寫出探究模式的名稱與步驟，並點出學生學到的「方法」（如何界定問題、如何整理資料）。' },
+    { src:'global', text:'用「粉筆談話」讓學生安靜地在大海報上書寫、回應，討論臺灣自由權發展的歷程，並整理成時間軸；另以人權個案閱讀搭配引導問題深入探究。', tip:'具體寫出一兩個代表性探究活動的進行方式，附上學生實作照片。' },
+    { src:'nanmen', text:'學生學習簡報製作、影片拍攝、實境解謎等方法，把踏查所得做成成果報告，並在網頁或公開場合發表。', tip:'說明學生用了哪些「呈現與表達的方法」，對應「學會如何學習」。' }
+  ],
+  impl_c4: [
+    { src:'wanhua', text:'學習資源包括班級書箱的推理讀物、科普文本、教學簡報（裡面列出建議使用的整理表格），以及讓學生記錄的空白筆記本。', tip:'列出資源後，逐一說明它支撐哪個課程目標。可用「學習資源表」範本。' },
+    { src:'nanmenBi', text:'「走讀植物園」單元以植物園官方網站與園區導覽圖作為教材來源，把校外場域變成學習資源。', tip:'若有運用社區或校外場域，寫出場域名稱和學生在那裡做什麼。' }
+  ],
+  impl_c5: [
+    { src:'wanhua', text:'兩位教師協同研究，一起進行課程設計、教學、課室觀察、反思與修正；觀課使用改編自文獻的檢核表，欄位是「檢核項目／做到打✓／亮點或可調整處／實踐遇到的問題」。', tip:'呈現共備的「工具」和「產出」，不只寫開了幾次會。可用「共備紀錄表」範本。' },
+    { src:'global', text:'發表資料中放入公開授課與議課的紀錄，並說明依回饋持續調整雙語教學的策略。', tip:'觀議課後具體改了什麼，要寫出來，才會連到「精進」。' }
+  ],
+  impl_c6: [
+    { src:'wanhua', text:'逐節標示活動的處理方式：有的保留、有的刪除、有的改掉（例如把「跳跳糖與發泡錠」改成「小番茄的觀察紀錄」）。調整的依據是學生回饋：七、八年級學生都覺得實驗操作是最大挑戰，所以刪掉偏自然科的實驗，改用生活中熟悉的飲料當素材。', tip:'「調整了什麼」加上「為什麼調整（證據）」。可用「教學調整表」範本。' },
+    { src:'wanhua', text:'讓學生依自己的能力選擇探究層級，作為差異化的安排。', tip:'針對不同程度的學生做了什麼調整，也屬於這一項。' }
+  ],
+  eff_form: [
+    { src:'wanhua', text:'形成性評量有三層：期初前測了解起點；每個檢核點用 Gallery Walk 讓小組展示成果、互相回饋；每單元結束前讓學生寫下「學到了什麼」。', tip:'形成性評量要寫出「評量 → 發現 → 調整或輔導」的循環。' },
+    { src:'global', text:'評量尺規中有「引導探究歷程」與「自我監控學習品質」等向度，讓學生在過程中檢視自己的學習。', tip:'若讓學生自評或互評，附上使用的規準。' }
+  ],
+  eff_sum: [
+    { src:'beizheng', text:'表現任務是一場辯論比賽，任務說明要求學生以有邏輯、有論證的方式表達觀點並回應對手；評量說明分四點：蒐集並整理正反觀點、理解辯論規則、在比賽中表達與回應、賽後省思自己的想法是否改變。', tip:'任務說明寫給學生看，評量說明逐點對應課程目標。' },
+    { src:'selfl', text:'用「生命藝術創作」比喻自主學習，引導學生投入；任務說明則列出具體規格：個人或 2–3 人一組，完成書面報告與口頭發表，並用照片或截圖呈現學習筆記、圖表、歷程和反思。', tip:'先用情境引導任務，再列出明確的繳交規格。' },
+    { src:'wanhua', text:'期末表現任務讓學生自選引導式或開放式探究，產出探究報告與實驗筆記，並搭配自評與他評；評分規準在任務開始前就和學生一起討論。', tip:'寫出「何時」讓學生理解尺規，對應「為自己的學習負責」。' }
+  ],
+  eff_works: [
+    { src:'wanhua', text:'同一份閱讀材料並列三位學生的筆記，分別用順序法、順序加比較法、描述加比較法整理重點；實驗筆記則比較兩組：一組做完後自問自答，另一組在下結論後推論自己猜錯的原因。', tip:'用「方法與思考深度的差異」呈現不同品質，並說明每件作品好在哪、還缺什麼。' },
+    { src:'global', text:'呈現學生的線上作業與寫信行動的作品，對應課程的倡議目標。', tip:'作品最好能直接對應總結性評量的表現任務。' }
+  ],
+  ref_high: [
+    { src:'wanhua', text:'亮點分三個層面寫：課程規劃兼顧人文與科學思維、教學實施營造有「希望感」的探究課堂、學生學習形成轉動探究摩天輪的學習生態。', tip:'依規準要求，分「設計／實施／效果」三層各寫一個亮點。' },
+    { src:'global', text:'用學生喜好調查的百分比佐證成效，並特別指出難度較高的單元仍有約三成學生喜歡。', tip:'亮點最好有數據或學生回饋佐證。' }
+  ],
+  ref_adv: [
+    { src:'wanhua', text:'用表格對照「學習難點」與「對應策略」：動機低、不相信自己能探究 → 選有感的主題、用簡單提問建立信心；缺乏閱讀策略 → 教閱讀口訣、提供圖像組織圖；不敢發表 → 練習用自己的話表達、專注聆聽並歸納。最後提出結合 SDGs 發展探究課程的展望。', tip:'精進要寫「具體做法」。可用「難點與對應策略表」範本。' },
+    { src:'wanhua', text:'後測問卷用開放題詢問「最大收穫」「最大挑戰」，把學生的回答整理成精進的依據。', tip:'用學生的聲音支撐你提出的精進方向。' }
+  ]
+};
+/* 段落架構（自擬，可插入後改寫） */
+const SKELETON = {
+  design_text: '### 課程理念與學校願景\n\n### 課程目標\n1. \n2. \n3. \n### 跨領域統整方式\n\n### 課程架構\n',
+  impl_overview: '本課程為（一學期／一學年）課程，共 __ 節。\n### 課程脈絡\n' + '| 階段 | 週次 | 探究層級／重點 | 主要任務 |\n|---|---|---|---|\n|  |  |  |  |\n' + '### 學習進度與檢核點\n',
+  impl_c1: '### 學生的先備經驗\n\n### 如何得知（前測／問卷／舊課程）\n\n### 引起動機的情境或任務\n',
+  impl_c2: '### 課程主軸（核心問題／大概念）\n\n### 各單元如何串連\n',
+  impl_c3: '### 採用的探究模式\n\n### 代表性探究活動\n\n### 學生學到的方法\n',
+  impl_c4: '### 自編／自選教材與資源\n' + '| 資源名稱 | 類型 | 對應課程目標 |\n|---|---|---|\n|  |  |  |\n',
+  impl_c5: '### 社群運作方式\n\n### 共備與觀議課紀錄\n' + '| 日期 | 形式 | 討論重點 | 調整結果 |\n|---|---|---|---|\n|  |  |  |  |\n',
+  impl_c6: '### 調整的依據\n\n### 調整內容\n' + '| 節次／單元 | 原本的活動 | 調整情形 | 調整理由 |\n|---|---|---|---|\n|  |  |  |  |\n' + '### 調整後的效果\n',
+  eff_form: '### 評量方式與對應目標\n\n### 評量發現\n\n### 據此做的學習輔導或教學調整\n',
+  eff_sum: '### 表現任務說明\n\n### 評量說明\n1. \n2. \n### 評量尺規\n' + '| 向度 | 表現優異 | 表現良好 | 待加強 |\n|---|---|---|---|\n|  |  |  |  |\n',
+  eff_works: '### 挑選緣由與依據\n\n### 如何呈現形成性與總結性評量效果\n',
+  ref_high: '### 課程設計\n\n### 課程實施\n\n### 課程效果\n',
+  ref_adv: '### 學習難點與對應策略\n' + '| 學習難點 | 觀察到的現象 | 對應策略 |\n|---|---|---|\n|  |  |  |\n' + '### 下一輪的具體做法\n'
+};
+function examplesHTML(id) {
+  const ex = EXAMPLES[id]; if (!ex) return '';
+  return `<details class="ex"><summary>得獎課程範例（${ex.length}）</summary>
+    <div class="exnote">以下摘要改寫自得獎課程公開的課程計畫或發表簡報，不是審查資料原文；請參考寫法，不要照抄。</div>
+    ${ex.map(e => { const s = SRC[e.src]; return `<div class="exc">
+      <div class="exh"><b>${esc(s.label)}</b><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.kind)} ↗</a></div>
+      <div>${esc(e.text)}</div>
+      <div class="ext">可借鏡：${esc(e.tip)}</div></div>`; }).join('')}
+    ${SKELETON[id] && S.edit ? `<button class="btn sm" data-skel="${id}">插入建議段落架構</button>` : ''}
+  </details>`;
+}
+
+/* =========================================================
+ *  後端：Apps Script（google.script.run）或示範模式
+ * ========================================================= */
+const IS_GAS = typeof google !== 'undefined' && google.script && google.script.run;
+const MODE = IS_GAS ? 'gas' : (API_URL ? 'api' : 'demo');
+function gs(fn, ...args) {
+  if (MODE === 'api') {
+    const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 120000);
+    return fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn, args }), signal: ctl.signal })
+      .then(r => r.text())
+      .then(t => {
+        let j; try { j = JSON.parse(t); } catch (e) { throw new Error('資料庫回應格式不對：請確認 Code.gs 已更新並「部署新版本」，存取權為「所有人」'); }
+        if (j.error) throw new Error(j.error);
+        return j.result;
+      })
+      .catch(e => { throw (e.name === 'AbortError' ? new Error('連線逾時') : (e.message === 'Failed to fetch' ? new Error('連不到資料庫（網路或網址有誤）') : e)); })
+      .finally(() => clearTimeout(tm));
+  }
+  if (MODE === 'demo') return Mock[fn](...args);
+  return new Promise((res, rej) => google.script.run.withSuccessHandler(res).withFailureHandler(e => rej(e))[fn](...args));
+}
+const Mock = (() => {
+  const DEMO_KEY = 'lingHang_demo_fields';
+  let fields = {};
+  try { fields = JSON.parse(LS.getItem(DEMO_KEY) || '{}'); } catch (e) {}
+  const files = new Map();
+  const persist = () => { try { LS.setItem(DEMO_KEY, JSON.stringify(fields)); } catch (e) {} };
+  const wait = (v, ms = 120) => new Promise(r => setTimeout(() => r(v), ms));
+  return {
+    api_getAll: () => wait({ fields: JSON.parse(JSON.stringify(fields)), files: [], now: Date.now() }),
+    api_changes: since => wait({ fields: Object.fromEntries(Object.entries(fields).filter(([k, f]) => f.at > since)), now: Date.now() }),
+    api_checkPassword: pw => wait(pw === 'demo'),
+    api_save: (pw, key, value, baseVer, by, force) => {
+      if (pw !== 'demo') return Promise.reject(new Error('編輯密碼錯誤'));
+      const cur = fields[key];
+      if (cur && !force && Number(baseVer || 0) !== cur.ver) return wait({ conflict: true, current: cur });
+      const ver = (cur ? cur.ver : 0) + 1, at = Date.now();
+      fields[key] = { v: value, ver, at, by };
+      persist();
+      return wait({ ok: true, ver, at, by });
+    },
+    api_upload: (pw, meta) => {
+      const id = 'mock_' + Math.random().toString(36).slice(2);
+      files.set(id, meta);
+      return wait({ id, name: meta.name, mime: meta.mime, size: meta.b64.length * 0.75, kind: meta.kind, at: Date.now(), by: meta.by }, 60);
+    },
+    api_getFiles: ids => wait(Object.fromEntries(ids.filter(id => files.has(id)).map(id => { const f = files.get(id); return [id, { mime: f.mime, name: f.name, b64: f.b64 }]; })), 40),
+    api_getFile: id => {
+      const f = files.get(id);
+      return f ? wait({ id, mime: f.mime, name: f.name, b64: f.b64 }, 30) : Promise.reject(new Error('找不到檔案（示範模式重新整理後圖片會消失）'));
+    },
+    api_deleteFile: (pw, id) => { files.delete(id); return wait({ ok: true }); },
+    api_saveExport: () => Promise.reject(new Error('示範模式不支援存到雲端硬碟'))
+  };
+})();
+
+/* =========================================================
+ *  狀態
+ * ========================================================= */
+const S = {
+  fields: {},          // key -> {v, ver, at, by}
+  dirty: {},           // key -> true（尚未存）
+  inflight: {},        // key -> true
+  timers: {},
+  conflicts: [],
+  since: 0,
+  pane: LS.getItem('lh_pane') || 'dash',
+  pw: LS.getItem('lh_pw') || '',
+  name: LS.getItem('lh_name') || '',
+  edit: false,
+  saveErr: '',
+  pageInfo: null,      // {total, secs:{id:{start,end}}}
+  kaiOK: null
+};
+const get = (k, d) => (S.fields[k] && S.fields[k].v !== undefined && S.fields[k].v !== null) ? S.fields[k].v : (k in DEFAULTS ? DEFAULTS[k] : d);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const fmtTime = ms => { if (!ms) return ''; const d = new Date(Number(ms)); const p = n => String(n).padStart(2, '0'); return `${d.getMonth() + 1}/${d.getDate()} ${p(d.getHours())}:${p(d.getMinutes())}`; };
+function toast(msg, ms = 2200) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('on'), ms); }
+function parseVal(v) { if (v === '' || v == null) return v; try { return JSON.parse(String(v)); } catch (e) { return v; } }
+
+/* =========================================================
+ *  儲存（逐欄、防抖、版本檢查）
+ * ========================================================= */
+function setVal(key, val, { delay = 1200, rerender = false } = {}) {
+  if (!S.edit) return;
+  const f = S.fields[key] || (S.fields[key] = { v: undefined, ver: 0, at: 0, by: '' });
+  f.v = val;
+  S.dirty[key] = true;
+  clearTimeout(S.timers[key]);
+  S.timers[key] = setTimeout(() => flush(key), delay);
+  updateSaveUI();
+  if (rerender) refreshKey(key);
+  schedulePreview();
+}
+async function flush(key, force = false) {
+  if (!S.dirty[key] || S.inflight[key]) return;
+  if (S.conflicts.some(c => c.key === key)) return;   // 等使用者處理衝突
+  S.inflight[key] = true;
+  const f = S.fields[key];
+  const sentVal = f.v;
+  updateSaveUI();
+  try {
+    const r = await gs('api_save', S.pw, key, JSON.stringify(sentVal), f.ver || 0, S.name, force);
+    if (r.conflict) {
+      S.inflight[key] = false;
+      queueConflict(key, r.current);
+      return;
+    }
+    f.ver = r.ver; f.at = r.at; f.by = r.by;
+    if (f.v === sentVal) delete S.dirty[key];
+    S.saveErr = '';
+  } catch (e) {
+    S.saveErr = (e && e.message) || String(e);
+    if (/密碼/.test(S.saveErr)) { exitEdit(); toast('編輯密碼錯誤，請重新進入編輯模式'); }
+  }
+  S.inflight[key] = false;
+  updateSaveUI();
+  refreshMeta(key);
+  if (S.dirty[key]) setTimeout(() => flush(key), 300);
+}
+function flushAll() { Object.keys(S.dirty).forEach(k => { clearTimeout(S.timers[k]); flush(k); }); }
+function updateSaveUI() {
+  const el = $('#hdSave');
+  const n = Object.keys(S.dirty).length;
+  el.className = 'pill';
+  if (S.saveErr) { el.classList.add('err'); el.textContent = '儲存失敗：' + S.saveErr.slice(0, 40); }
+  else if (n) { el.classList.add('saving'); el.textContent = `儲存中…（${n}）`; }
+  else { el.classList.add('ok'); el.textContent = S.edit ? `✓ 已儲存・${S.name || '編輯中'}` : '檢視模式（唯讀）'; }
+}
+window.addEventListener('beforeunload', e => { if (Object.keys(S.dirty).length) { flushAll(); e.preventDefault(); e.returnValue = ''; } });
+
+/* ---------- 衝突處理 ---------- */
+function queueConflict(key, cur) {
+  if (S.conflicts.some(c => c.key === key)) return;
+  S.conflicts.push({ key, cur: { v: parseVal(cur.v), ver: Number(cur.ver), at: cur.at, by: cur.by } });
+  if (S.conflicts.length === 1) showConflict();
+}
+function keyLabel(key) {
+  const [id, part] = key.split('.');
+  const it = ALL_ITEMS.find(i => i.id === id);
+  if (it) return it.title + ({ text:'（文字）', imgs:'（圖片）', sub:'（副標）' }[part] || '');
+  const m = /^work(\d)$/.exec(id); if (m) return `學生作品${cn(+m[1])}` + ({ text:'（說明）', imgs:'（圖片）', title:'（名稱）', level:'（層級）', on:'（是否放入）', done:'（完成標記）' }[part] || '');
+  const NM = { 'info.course':'課程名稱', 'info.school':'學校', 'info.planLink':'課程計畫連結', 'basic.members':'團隊成員', 'video.link':'教學影片連結' };
+  if (NM[key]) return NM[key];
+  return key;
+}
+function showConflict() {
+  const c = S.conflicts[0]; if (!c) return;
+  const mine = S.fields[c.key].v;
+  const isText = typeof mine === 'string' && typeof c.cur.v === 'string';
+  const isArr = Array.isArray(mine) && Array.isArray(c.cur.v);
+  const prevTheirs = typeof c.cur.v === 'string' ? c.cur.v : JSON.stringify(c.cur.v, null, 1);
+  openModal(`<h3>兩人同時修改了同一欄</h3>
+    <p>「${esc(keyLabel(c.key))}」在你編輯時，<b>${esc(c.cur.by || '另一位夥伴')}</b> 於 ${fmtTime(c.cur.at)} 也存了新版本。</p>
+    <div class="muted" style="font-size:13px">對方的版本：</div><pre>${esc(String(prevTheirs).slice(0, 1500))}</pre>
+    <div class="acts">
+      <button class="btn" data-c="theirs">改用對方的版本</button>
+      ${(isText || isArr) ? '<button class="btn" data-c="merge">合併兩個版本</button>' : ''}
+      <button class="btn pri" data-c="mine">保留我的（覆蓋）</button>
+    </div>`, false);
+  $$('#modalBox [data-c]').forEach(b => b.onclick = () => resolveConflict(b.dataset.c));
+}
+function resolveConflict(choice) {
+  const c = S.conflicts.shift(); closeModal();
+  const f = S.fields[c.key];
+  if (choice === 'theirs') {
+    f.v = c.cur.v; f.ver = c.cur.ver; f.at = c.cur.at; f.by = c.cur.by; delete S.dirty[c.key];
+  } else {
+    if (choice === 'merge') {
+      if (Array.isArray(f.v)) {
+        const ids = new Set(f.v.map(x => x && x.id));
+        f.v = f.v.concat(c.cur.v.filter(x => !ids.has(x && x.id)));
+      } else {
+        f.v = f.v + '\n\n（以下為 ' + (c.cur.by || '夥伴') + ' 的版本）\n' + c.cur.v;
+      }
+    }
+    f.ver = c.cur.ver; S.dirty[c.key] = true; flush(c.key);
+  }
+  refreshKey(c.key, true); updateSaveUI(); schedulePreview();
+  if (S.conflicts.length) showConflict();
+}
+
+/* ---------- 輪詢更新 ---------- */
+async function poll() {
+  if (document.hidden) return;
+  try {
+    const r = await gs('api_changes', S.since);
+    S.since = r.now - 5000;
+    let changed = false;
+    Object.entries(r.fields).forEach(([k, rf]) => {
+      const lf = S.fields[k];
+      const ver = Number(rf.ver) || 0;
+      if (lf && lf.ver >= ver) return;
+      if (S.dirty[k] || S.inflight[k]) return;  // 存檔時會處理衝突
+      S.fields[k] = { v: parseVal(rf.v), ver, at: Number(rf.at), by: rf.by };
+      refreshKey(k, true); changed = true;
+    });
+    if (changed) { schedulePreview(); renderNav(); if (S.pane === 'dash') renderPane(); }
+  } catch (e) { /* 網路不穩時略過 */ }
+}
+setInterval(poll, 15000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) poll(); });
+
+/* =========================================================
+ *  檔案與圖片
+ * ========================================================= */
+const blobCache = {};
+/* 瀏覽器端的檔案快取（IndexedDB）：檔案上傳後內容不會變，存一次就能一直用 */
+const IDB = (() => {
+  let dbp = null;
+  const open = () => dbp || (dbp = new Promise((res, rej) => {
+    try {
+      const r = indexedDB.open('lh_files', 1);
+      r.onupgradeneeded = () => r.result.createObjectStore('f');
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+      setTimeout(() => rej(new Error('timeout')), 2000);
+    } catch (e) { rej(e); }
+  }));
+  return {
+    async get(k) {
+      try { const db = await open(); return await new Promise(res => { const q = db.transaction('f').objectStore('f').get(k); q.onsuccess = () => res(q.result); q.onerror = () => res(undefined); }); }
+      catch (e) { return undefined; }
+    },
+    async set(k, v) { try { const db = await open(); db.transaction('f', 'readwrite').objectStore('f').put(v, k); } catch (e) {} }
+  };
+})();
+function b64ToBlob(b64, mime) {
+  const bin = atob(b64); const u8 = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  return new Blob([u8], { type: mime });
+}
+/* 把同一時間要的檔案集中成幾批，一次向伺服器要 */
+const pendFiles = new Map(); let pendTimer = null;
+function fetchFileBatched(id) {
+  return new Promise((res, rej) => {
+    pendFiles.set(id, { res, rej });
+    clearTimeout(pendTimer); pendTimer = setTimeout(flushFileBatch, 30);
+  });
+}
+function flushFileBatch() {
+  const all = [...pendFiles.entries()]; pendFiles.clear();
+  for (let i = 0; i < all.length; i += 6) {
+    const part = all.slice(i, i + 6);
+    gs('api_getFiles', part.map(([id]) => id))
+      .then(map => part.forEach(([id, p]) => map && map[id] ? p.res(map[id]) : p.rej(new Error('找不到檔案'))))
+      .catch(e => part.forEach(([, p]) => p.rej(e)));
+  }
+}
+function getBlob(id) {
+  if (!blobCache[id]) {
+    blobCache[id] = (async () => {
+      const c = await IDB.get(id);
+      if (c && c.blob) return { blob: c.blob, url: URL.createObjectURL(c.blob), name: c.name };
+      const r = await fetchFileBatched(id);
+      const blob = b64ToBlob(r.b64, r.mime);
+      IDB.set(id, { blob, name: r.name });
+      return { blob, url: URL.createObjectURL(blob), name: r.name };
+    })().catch(e => { delete blobCache[id]; throw e; });
+  }
+  return blobCache[id];
+}
+function readAsDataURL(blob) { return new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(blob); }); }
+function loadImg(src) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('無法讀取圖片')); im.src = src; }); }
+async function resizeImage(file, maxSide, q) {
+  const url = URL.createObjectURL(file);
+  try {
+    const im = await loadImg(url);
+    const s = Math.min(1, maxSide / Math.max(im.naturalWidth, im.naturalHeight));
+    const w = Math.round(im.naturalWidth * s), h = Math.round(im.naturalHeight * s);
+    const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+    const ctx = cv.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h); ctx.drawImage(im, 0, 0, w, h);
+    const blob = await new Promise(r => cv.toBlob(r, 'image/jpeg', q));
+    return { blob, w, h };
+  } finally { URL.revokeObjectURL(url); }
+}
+async function uploadBlob(blob, name, kind) {
+  const d = await readAsDataURL(blob);
+  return gs('api_upload', S.pw, { name, mime: blob.type || 'application/octet-stream', b64: d.split(',')[1], kind, by: S.name });
+}
+async function uploadImages(key, fileList) {
+  const files = [...fileList].filter(f => /^image\//.test(f.type));
+  if (!files.length) { toast('請選擇圖片檔（jpg、png…）'); return; }
+  let done = 0;
+  for (const f of files) {
+    toast(`上傳圖片 ${++done}/${files.length}…`, 60000);
+    try {
+      const full = await resizeImage(f, 1600, 0.85);
+      const th = await resizeImage(f, 400, 0.72);
+      const a = await uploadBlob(full.blob, f.name.replace(/\.\w+$/, '') + '.jpg', 'img');
+      const b = await uploadBlob(th.blob, f.name.replace(/\.\w+$/, '') + '_thumb.jpg', 'thumb');
+      blobCache[a.id] = Promise.resolve({ blob: full.blob, url: URL.createObjectURL(full.blob) });
+      blobCache[b.id] = Promise.resolve({ blob: th.blob, url: URL.createObjectURL(th.blob) });
+      IDB.set(a.id, { blob: full.blob, name: a.name }); IDB.set(b.id, { blob: th.blob, name: b.name });
+      const arr = (get(key, []) || []).slice();
+      arr.push({ id: a.id, tid: b.id, w: full.w, h: full.h, cap: f.name.replace(/\.\w+$/, '').replace(/^(IMG|DSC|PXL)[_-]?\d+.*/i, '') });
+      setVal(key, arr, { delay: 200, rerender: true });
+    } catch (e) { toast('上傳失敗：' + (e.message || e), 4000); return; }
+  }
+  toast('上傳完成');
+}
+async function uploadAttachments(key, fileList) {
+  const files = [...fileList];
+  for (const f of files) {
+    if (f.size > 30 * 1024 * 1024) { toast(`${f.name} 超過 30MB，請改放雲端硬碟後貼連結`, 4000); continue; }
+    toast(`上傳 ${f.name}…`, 60000);
+    try {
+      const r = await uploadBlob(f, f.name, 'attach');
+      const arr = (get(key, []) || []).slice();
+      arr.push({ id: r.id, name: f.name, size: f.size, mime: f.type, by: S.name, at: Date.now() });
+      setVal(key, arr, { delay: 200, rerender: true });
+    } catch (e) { toast('上傳失敗：' + (e.message || e), 4000); return; }
+  }
+  toast('上傳完成');
+}
+async function downloadAttachment(id, name) {
+  toast('準備下載…', 30000);
+  try { const r = await getBlob(id); triggerDownload(r.blob, name || r.name); toast('已開始下載'); }
+  catch (e) { toast('下載失敗：' + (e.message || e), 4000); }
+}
+function triggerDownload(blob, name) {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.target = '_self';
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+
+/* =========================================================
+ *  簡易標記語法 → 區塊
+ *  ### 小標｜- 項目｜1. 編號｜| 表格 |｜**粗體**
+ * ========================================================= */
+function parseRich(src) {
+  const lines = String(src || '').replace(/\r/g, '').split('\n');
+  const out = []; let i = 0;
+  while (i < lines.length) {
+    const raw = lines[i]; const line = raw.trim();
+    if (!line) { i++; continue; }
+    if (/^\|/.test(line)) {
+      const rows = []; let header = false;
+      while (i < lines.length && /^\|/.test(lines[i].trim())) {
+        const l = lines[i].trim();
+        if (/^\|?\s*:?-{2,}/.test(l.replace(/\|/g, '|')) && /^[\s|:\-]+$/.test(l)) { if (rows.length === 1) header = true; }
+        else rows.push(l.replace(/^\|/, '').replace(/\|\s*$/, '').split('|').map(c => c.trim()));
+        i++;
+      }
+      const n = Math.max(...rows.map(r => r.length));
+      rows.forEach(r => { while (r.length < n) r.push(''); });
+      out.push({ t:'table', header, rows: rows.map(r => r.map(inline)) });
+      continue;
+    }
+    let m;
+    if ((m = /^#{2,4}\s*(.+)$/.exec(line))) out.push({ t:'h4', runs: inline(m[1]) });
+    else if ((m = /^[-•・*]\s+(.+)$/.exec(line))) out.push({ t:'li', marker:'•', runs: inline(m[1]) });
+    else if ((m = /^(\d{1,2}[.、)）]|[（(][一二三四五六七八九十\d]{1,3}[)）]|[一二三四五六七八九十]{1,2}、)\s*(.+)$/.exec(line))) out.push({ t:'li', marker: m[1], runs: inline(m[2]) });
+    else out.push({ t:'p', runs: inline(line) });
+    i++;
+  }
+  return out;
+}
+function inline(s) {
+  const runs = [];
+  String(s).split(/(\*\*[^*]+\*\*)/).forEach(seg => {
+    if (!seg) return;
+    const b = /^\*\*[^*]+\*\*$/.test(seg);
+    const text = b ? seg.slice(2, -2) : seg;
+    text.split(/(https?:\/\/[^\s，。、）)」]+)/).forEach(p => {
+      if (!p) return;
+      if (/^https?:\/\//.test(p)) runs.push({ text: p, b, link: p });
+      else runs.push({ text: p, b });
+    });
+  });
+  return runs;
+}
+const plain = runs => runs.map(r => r.text).join('');
+
+/* =========================================================
+ *  組合文件（預覽與 Word 共用）
+ * ========================================================= */
+function schoolShort() {
+  const s = get('info.schoolShort', '') || String(get('info.school', '臺北市立龍山國民中學')).replace(/^(臺北市立|台北市立|臺北市|台北市|市立|私立|國立)/, '').replace('國民中學', '國中');
+  return s || '○○國中';
+}
+function fileBase() { return `${schoolShort()}${get('info.course', '') || '○○'}課程_審查資料`; }
+function itemHasContent(id) { return String(get(id + '.text', '')).trim() || (get(id + '.imgs', []) || []).length; }
+function enabledWorks() { return WORK_SLOTS.filter(n => get(`work${n}.on`, n <= 3)); }
+
+function buildDoc() {
+  const B = []; let fig = 0;
+  const course = get('info.course', '') || '（課程名稱）';
+  const school = get('info.school', '臺北市立龍山國民中學');
+  const galleryOf = id => {
+    const imgs = (get(id + '.imgs', []) || []).filter(x => x && x.id);
+    if (!imgs.length) return;
+    B.push({ t:'gallery', cols: Number(get(id + '.cols', imgs.length === 1 ? 1 : 2)) || 2, imgs: imgs.map(x => Object.assign({}, x, { num: ++fig })) });
+  };
+  const richOf = id => parseRich(get(id + '.text', '')).forEach(b => B.push(b));
+  if (get('set.cover', false)) {
+    B.push({ t:'cover', lines:['臺北市115年度國民中學', '彈性學習領航課程徵件比賽', '審查資料', ''], course, school });
+  } else {
+    B.push({ t:'title', text:'臺北市115年度國民中學彈性學習領航課程徵件比賽' });
+    B.push({ t:'title2', text:`審查資料｜${course}` });
+  }
+  SECS.forEach((sec, si) => {
+    const blocks = [];
+    let n = 0;
+    const startLen = B.length;
+    B.push({ t:'h1', text:`${sec.num}、${sec.title}`, sec: sec.id, brk: si > 0 && get('set.secBreak', false) });
+    if (sec.id === 'design') {
+      const rows = [];
+      const g = get('info.grade', []) || [], sm = get('info.sem', []) || [];
+      [['課程名稱', get('info.course', '')],
+       ['實施年級', g.join('、')],
+       ['實施學期', sm.join('、')],
+       ['課程類型', get('info.type', '')],
+       ['統整領域／科目', get('info.domains', '')],
+       ['實施節數', [get('info.periods', '') && `每週 ${get('info.periods', '')} 節`, get('info.total', '') && `共 ${get('info.total', '')} 節`].filter(Boolean).join('，')],
+       ['課程計畫', get('info.planLink', '')]
+      ].forEach(([k, v]) => { if (String(v || '').trim()) rows.push([k, String(v)]); });
+      if (rows.length) { B.push({ t:'h2', text:`${cn(++n)}、課程基本資訊` }); B.push({ t:'kv', rows }); }
+    }
+    sec.items.forEach(it => {
+      const has = itemHasContent(it.id) || (it.works && enabledWorks().some(w => itemHasContent('work' + w) || get(`work${w}.title`, '')))
+               || (it.id === 'impl_overview' && get('video.link', ''));
+      if (!has) return;
+      const subT = String(get(it.id + '.sub', '')).trim();
+      B.push({ t:'h2', text:`${cn(++n)}、${it.title}${subT ? '：' + subT : ''}` });
+      richOf(it.id);
+      galleryOf(it.id);
+      if (it.id === 'impl_overview' && get('video.link', '')) {
+        const len = get('video.len', '');
+        B.push({ t:'p', runs: inline(`教學影片：${get('video.link', '')}${len ? `（片長約 ${len} 分鐘）` : ''}，影片僅供評審使用，不公開。`) });
+      }
+      if (it.works) {
+        enabledWorks().forEach((w, k) => {
+          const id = 'work' + w;
+          const title = String(get(id + '.title', '')).trim();
+          const lv = get(id + '.level', '');
+          B.push({ t:'h3', text:`作品${cn(k + 1)}${title ? '：' + title : ''}${lv ? `（${lv}）` : ''}` });
+          galleryOf(id);
+          richOf(id);
+        });
+      }
+    });
+    if (B.length === startLen + 1) B.pop();   // 整個大項都沒內容就不放標題
+  });
+  return B;
+}
+
+/* ---------- 圖片排版尺寸（cm） ---------- */
+const TEXT_W_CM = 21 - 3.17 * 2;   // 14.66
+function imgSize(img, cols) {
+  const maxH = Number(get('set.imgMaxH', 8)) || 8;
+  const gap = 0.4;
+  const colW = (TEXT_W_CM - gap * (cols - 1)) / cols;
+  const r = (img.h || 3) / (img.w || 4);
+  let w = colW * (cols === 1 ? 0.8 : 1), h = w * r;
+  if (h > maxH) { h = maxH; w = h / r; }
+  return { w: +w.toFixed(2), h: +h.toFixed(2) };
+}
+/* 依各欄文字量決定欄寬比例（避免長文字欄被擠窄） */
+function colWeights(rows) {
+  const n = rows[0].length;
+  const len = c => plain(c).length;
+  const w = Array.from({ length: n }, (_, i) => {
+    const ls = rows.map(r => len(r[i] || []));
+    const avg = ls.reduce((a, b) => a + b, 0) / ls.length;
+    return Math.pow(Math.max(4, Math.min(avg, 80), Math.max(...ls) * 0.35), 0.75);
+  });
+  const sum = w.reduce((a, b) => a + b, 0);
+  let pct = w.map(x => x / sum);
+  pct = pct.map(x => Math.max(x, 0.12));
+  const s2 = pct.reduce((a, b) => a + b, 0);
+  return pct.map(x => x / s2);
+}
+const chunk = (a, n) => { const o = []; for (let i = 0; i < a.length; i += n) o.push(a.slice(i, i + n)); return o; };
+
+/* ---------- 產生 HTML（預覽／列印） ---------- */
+const KAI = '"標楷體","DFKai-SB","BiauKai","BiauKaiTC","Kaiti TC","TW-Kai","AR PL UKai TW","KaiTi",serif';
+const DOC_CSS = `
+@page{size:A4;margin:2.54cm 3.17cm;@bottom-center{content:counter(page);font-family:${KAI};font-size:12pt}}
+body{font-family:${KAI};font-size:12pt;line-height:1.3;color:#000;margin:0}
+.title{font-size:16pt;font-weight:bold;text-align:center;margin:0}
+.title2{font-size:16pt;font-weight:bold;text-align:center;margin:2pt 0 10pt}
+.cover{height:24cm;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;break-after:page}
+.cover div{font-size:16pt;font-weight:bold;line-height:2}
+.cover .c{margin-top:1.5cm}
+h1{font-size:16pt;font-weight:bold;margin:14pt 0 6pt;break-after:avoid}
+h1.brk{break-before:page}
+h2{font-size:12pt;font-weight:bold;margin:10pt 0 3pt;break-after:avoid}
+h3{font-size:12pt;font-weight:bold;margin:8pt 0 3pt;break-after:avoid}
+.h4{font-weight:bold;margin:5pt 0 1pt;break-after:avoid}
+p{margin:0;text-indent:2em;text-align:justify}
+.li{display:flex;margin:0 0 0 1em}
+.li .mk{flex:none;min-width:1.4em;padding-right:.2em}
+table{border-collapse:collapse;width:100%;margin:4pt 0 6pt}
+td,th{border:.6pt solid #000;padding:2pt 4pt;vertical-align:top;text-align:left;font-size:12pt;line-height:1.3}
+th{background:#ececec;font-weight:bold;text-align:center}
+table.kv td:first-child{width:3.6cm;background:#f3f3f3;font-weight:bold;text-align:center;vertical-align:middle}
+tr{break-inside:avoid}
+.grow{display:flex;justify-content:center;gap:.4cm;margin:5pt 0;break-inside:avoid}
+figure{margin:0;text-align:center}
+figure img{display:block;margin:0 auto;object-fit:contain}
+figcaption{font-size:12pt;margin-top:2pt}
+a{color:#000;text-decoration:underline;word-break:break-all}
+`;
+function runsHTML(runs) {
+  return runs.map(r => { let t = esc(r.text).replace(/(【[^】]*】)/g, '<span class="todo">$1</span>'); if (r.link) t = `<a href="${esc(r.link)}">${t}</a>`; return r.b ? `<b>${t}</b>` : t; }).join('');
+}
+async function docHTML(blocks) {
+  const urls = {};
+  const ids = blocks.filter(b => b.t === 'gallery').flatMap(b => b.imgs.map(x => x.id));
+  let ld = 0;
+  await Promise.all(ids.map(id => getBlob(id).then(r => { urls[id] = r.url; }).catch(() => { urls[id] = ''; }).finally(() => { $('#pvInfo') && ($('#pvInfo').textContent = `載入圖片 ${++ld}/${ids.length}`); })));
+  const h = [];
+  blocks.forEach(b => {
+    switch (b.t) {
+      case 'cover': h.push(`<div class="cover">${b.lines.filter(Boolean).map(l => `<div>${esc(l)}</div>`).join('')}<div class="c">課程名稱：${esc(b.course)}</div><div>${esc(b.school)}</div></div>`); break;
+      case 'title': h.push(`<div class="title">${esc(b.text)}</div>`); break;
+      case 'title2': h.push(`<div class="title2">${esc(b.text)}</div>`); break;
+      case 'h1': h.push(`<h1 data-sec="${b.sec}" class="${b.brk ? 'brk' : ''}">${esc(b.text)}</h1>`); break;
+      case 'h2': h.push(`<h2>${esc(b.text)}</h2>`); break;
+      case 'h3': h.push(`<h3>${esc(b.text)}</h3>`); break;
+      case 'h4': h.push(`<div class="h4">${runsHTML(b.runs)}</div>`); break;
+      case 'p': h.push(`<p>${runsHTML(b.runs)}</p>`); break;
+      case 'li': h.push(`<div class="li"><span class="mk">${esc(b.marker)}</span><span>${runsHTML(b.runs)}</span></div>`); break;
+      case 'kv': h.push(`<table class="kv">${b.rows.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${runsHTML(inline(v))}</td></tr>`).join('')}</table>`); break;
+      case 'table': h.push(`<table style="table-layout:fixed"><colgroup>${colWeights(b.rows).map(x => `<col style="width:${(x * 100).toFixed(1)}%">`).join('')}</colgroup>${b.rows.map((r, ri) => `<tr>${r.map(c => (b.header && ri === 0) ? `<th>${runsHTML(c)}</th>` : `<td>${runsHTML(c)}</td>`).join('')}</tr>`).join('')}</table>`); break;
+      case 'gallery': {
+        chunk(b.imgs, b.cols).forEach(row => {
+          h.push(`<div class="grow">${row.map(x => { const s = imgSize(x, b.cols); return `<figure style="width:${s.w}cm"><img src="${urls[x.id] || ''}" style="width:${s.w}cm;height:${s.h}cm"><figcaption>圖${x.num}${x.cap ? '　' + esc(x.cap) : ''}</figcaption></figure>`; }).join('')}</div>`);
+        });
+        break;
+      }
+    }
+  });
+  return h.join('\n');
+}
+
+/* ---------- 預覽（Paged.js 分頁） ---------- */
+let pvTimer = null, pvBusy = false, pvAgain = false;
+function schedulePreview(ms = 2500) {
+  if (!document.body.classList.contains('split') && S.pane !== 'preview') return;
+  clearTimeout(pvTimer); pvTimer = setTimeout(refreshPreview, ms);
+}
+async function refreshPreview() {
+  const fr = S.pane === 'preview' ? $('#pvFrame2') : $('#pvFrame');
+  if (!fr) return;
+  if (pvBusy) { pvAgain = true; return; }
+  pvBusy = true;
+  const info = S.pane === 'preview' ? $('#pvInfo2') : $('#pvInfo');
+  if (info) info.textContent = '排版中…';
+  let y = 0; try { y = fr.contentWindow.scrollY; } catch (e) {}
+  const body = await docHTML(buildDoc());
+  const html = `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><style>${DOC_CSS}</style>
+<script>window.PagedConfig={auto:true,after:function(f){try{parent.__pagedDone(window,f&&f.total)}catch(e){}}};<\/script>
+<script src="${LIB.paged}"><\/script></head><body>${body}</body></html>`;
+  await new Promise(res => {
+    window.__pagedDone = (win, total) => { res(); setTimeout(() => onPaged(win, total, fr, y), 0); };
+    setTimeout(res, 20000);
+    fr.srcdoc = html;
+  });
+  pvBusy = false;
+  if (pvAgain) { pvAgain = false; refreshPreview(); }
+}
+function onPaged(win, total, fr, y) {
+  const d = win.document;
+  const pages = $$('.pagedjs_page', d);
+  total = total || pages.length;
+  const secs = {};
+  $$('h1[data-sec]', d).forEach(h => { const p = h.closest('.pagedjs_page'); secs[h.dataset.sec] = { start: pages.indexOf(p) + 1 }; });
+  const order = SECS.map(s => s.id).filter(id => secs[id]);
+  order.forEach((id, i) => { secs[id].end = i + 1 < order.length ? Math.max(secs[id].start, secs[order[i + 1]].start) : total; });
+  S.pageInfo = { total, secs, at: Date.now() };
+  const zoom = Math.min(1, (fr.clientWidth - 30) / 794);
+  const pg = $('.pagedjs_pages', d); if (pg) pg.style.zoom = zoom;
+  const st = d.createElement('style'); st.textContent = '@media screen{html,body{background:#ddd8cc!important}.pagedjs_pages{display:flex;flex-direction:column;align-items:center;padding:14px 0}.pagedjs_page{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.18);margin-bottom:14px}}.todo{background:#fff0a8}@media print{.pagedjs_pages{zoom:1!important}.todo{background:none}}'; d.head.appendChild(st);
+  try { win.scrollTo(0, y); } catch (e) {}
+  const msg = `共 ${total} 頁${total > PAGE_LIMIT ? `（超過 ${PAGE_LIMIT} 頁上限！）` : `／上限 ${PAGE_LIMIT} 頁`}${S.kaiOK === false ? '・此電腦無標楷體，頁數僅供參考' : ''}`;
+  [$('#pvInfo'), $('#pvInfo2')].forEach(el => el && (el.textContent = msg));
+  renderCount();
+  if (S.pane === 'dash') renderPane();
+}
+function printPdf() {
+  const fr = S.pane === 'preview' ? $('#pvFrame2') : $('#pvFrame');
+  if (!fr || !S.pageInfo) { toast('請先產生預覽'); return; }
+  try { fr.contentWindow.focus(); fr.contentWindow.print(); } catch (e) { toast('無法開啟列印視窗：' + e.message); }
+}
+
+/* ---------- 產生 Word（docx） ---------- */
+function loadScript(src) {
+  return new Promise((res, rej) => { if (document.querySelector(`script[src="${src}"]`)) return res(); const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('函式庫載入失敗，請檢查網路')); document.head.appendChild(s); });
+}
+async function buildDocxBlob() {
+  await loadScript(LIB.docx);
+  const D = window.docx;
+  const FONT = { ascii:'標楷體', eastAsia:'標楷體', hAnsi:'標楷體', cs:'標楷體' };
+  const SZ = 24, SZH = 32;
+  const TW = 8312; // 文字區寬度（twip）
+  const cmPx = cm => Math.round(cm / 2.54 * 96);
+  const R = (runs, extra = {}) => runs.map(r => {
+    const tr = new D.TextRun(Object.assign({ text: r.text, bold: r.b || undefined, font: FONT, size: SZ }, extra, r.link ? { color:'0563C1', underline:{} } : {}));
+    return r.link ? new D.ExternalHyperlink({ link: r.link, children:[tr] }) : tr;
+  });
+  const P = (o) => new D.Paragraph(Object.assign({}, o, { spacing: Object.assign({ line:240, lineRule:'auto' }, o.spacing || {}) }));
+  const border = { style: D.BorderStyle.SINGLE, size: 4, color: '000000' };
+  const none = { style: D.BorderStyle.NONE, size: 0, color: 'FFFFFF' };
+  const blocks = buildDoc();
+  const imgs = {};
+  await Promise.all(blocks.filter(b => b.t === 'gallery').flatMap(b => b.imgs).map(x => getBlob(x.id).then(r => r.blob.arrayBuffer()).then(ab => { imgs[x.id] = ab; }).catch(() => {})));
+  const kids = [];
+  const cellP = (runs, o = {}) => P(Object.assign({ children: R(runs, o.bold ? { bold: true } : {}), alignment: o.center ? D.AlignmentType.CENTER : undefined }, {}));
+  blocks.forEach(b => {
+    switch (b.t) {
+      case 'cover':
+        for (let i = 0; i < 8; i++) kids.push(P({ children: [] }));
+        b.lines.filter(Boolean).forEach(l => kids.push(P({ alignment: D.AlignmentType.CENTER, spacing:{ line:360 }, children:[new D.TextRun({ text:l, bold:true, font:FONT, size:SZH })] })));
+        kids.push(P({ children: [] }), P({ children: [] }));
+        kids.push(P({ alignment: D.AlignmentType.CENTER, spacing:{ line:360 }, children:[new D.TextRun({ text:'課程名稱：' + b.course, bold:true, font:FONT, size:SZH })] }));
+        kids.push(P({ alignment: D.AlignmentType.CENTER, spacing:{ line:360 }, children:[new D.TextRun({ text:b.school, bold:true, font:FONT, size:SZH })] }));
+        kids.push(P({ children:[new D.PageBreak()] }));
+        break;
+      case 'title': kids.push(P({ alignment: D.AlignmentType.CENTER, children:[new D.TextRun({ text:b.text, bold:true, font:FONT, size:SZH })] })); break;
+      case 'title2': kids.push(P({ alignment: D.AlignmentType.CENTER, spacing:{ line:240, after:200 }, children:[new D.TextRun({ text:b.text, bold:true, font:FONT, size:SZH })] })); break;
+      case 'h1': kids.push(P({ keepNext:true, pageBreakBefore: !!b.brk, spacing:{ line:240, before:240, after:120 }, children:[new D.TextRun({ text:b.text, bold:true, font:FONT, size:SZH })] })); break;
+      case 'h2': kids.push(P({ keepNext:true, spacing:{ line:240, before:180, after:60 }, children:[new D.TextRun({ text:b.text, bold:true, font:FONT, size:SZ })] })); break;
+      case 'h3': kids.push(P({ keepNext:true, spacing:{ line:240, before:120, after:60 }, children:[new D.TextRun({ text:b.text, bold:true, font:FONT, size:SZ })] })); break;
+      case 'h4': kids.push(P({ keepNext:true, spacing:{ line:240, before:80 }, children: R(b.runs, { bold:true }) })); break;
+      case 'p': kids.push(P({ indent:{ firstLine:480 }, alignment: D.AlignmentType.JUSTIFIED, children: R(b.runs) })); break;
+      case 'li': kids.push(P({ indent:{ left:480 + 260, hanging:260 + (b.marker.length > 1 ? 120 * (b.marker.length - 1) : 0) }, children: [new D.TextRun({ text: b.marker + ' ', font:FONT, size:SZ }), ...R(b.runs)] })); break;
+      case 'kv': {
+        const w1 = 2040;
+        kids.push(new D.Table({ width:{ size:TW, type:D.WidthType.DXA }, columnWidths:[w1, TW - w1],
+          borders:{ top:border, bottom:border, left:border, right:border, insideHorizontal:border, insideVertical:border },
+          rows: b.rows.map(([k, v]) => new D.TableRow({ cantSplit:true, children:[
+            new D.TableCell({ width:{ size:w1, type:D.WidthType.DXA }, verticalAlign: D.VerticalAlign.CENTER, shading:{ type:D.ShadingType.CLEAR, fill:'F2F2F2', color:'auto' }, children:[cellP([{ text:k }], { bold:true, center:true })] }),
+            new D.TableCell({ width:{ size:TW - w1, type:D.WidthType.DXA }, children:[cellP(inline(v))] })
+          ] })) }));
+        kids.push(P({ children: [] }));
+        break;
+      }
+      case 'table': {
+        const cws = colWeights(b.rows).map(x => Math.floor(TW * x));
+        kids.push(new D.Table({ width:{ size:TW, type:D.WidthType.DXA }, columnWidths: cws, layout: D.TableLayoutType ? D.TableLayoutType.FIXED : undefined,
+          borders:{ top:border, bottom:border, left:border, right:border, insideHorizontal:border, insideVertical:border },
+          rows: b.rows.map((r, ri) => new D.TableRow({ cantSplit:true, tableHeader: b.header && ri === 0, children: r.map((c, ci) => new D.TableCell({
+            width:{ size:cws[ci], type:D.WidthType.DXA },
+            shading: (b.header && ri === 0) ? { type:D.ShadingType.CLEAR, fill:'ECECEC', color:'auto' } : undefined,
+            children:[cellP(c, (b.header && ri === 0) ? { bold:true, center:true } : {})] })) })) }));
+        kids.push(P({ children: [] }));
+        break;
+      }
+      case 'gallery': {
+        const fig = x => {
+          const s = imgSize(x, b.cols);
+          const out = [];
+          if (imgs[x.id]) out.push(P({ alignment: D.AlignmentType.CENTER, keepNext:true, spacing:{ line:240, before:60 }, children:[new D.ImageRun({ type:'jpg', data: imgs[x.id], transformation:{ width: cmPx(s.w), height: cmPx(s.h) } })] }));
+          out.push(P({ alignment: D.AlignmentType.CENTER, spacing:{ line:240, after:80 }, children:[new D.TextRun({ text:`圖${x.num}${x.cap ? '　' + x.cap : ''}`, font:FONT, size:SZ })] }));
+          return out;
+        };
+        if (b.cols === 1) { b.imgs.forEach(x => fig(x).forEach(p => kids.push(p))); break; }
+        const cw = Math.floor(TW / b.cols);
+        kids.push(new D.Table({ width:{ size:TW, type:D.WidthType.DXA }, columnWidths: Array(b.cols).fill(cw),
+          borders:{ top:none, bottom:none, left:none, right:none, insideHorizontal:none, insideVertical:none },
+          rows: chunk(b.imgs, b.cols).map(row => new D.TableRow({ cantSplit:true, children: Array.from({ length:b.cols }, (_, i) => new D.TableCell({
+            width:{ size:cw, type:D.WidthType.DXA }, borders:{ top:none, bottom:none, left:none, right:none },
+            children: row[i] ? fig(row[i]) : [P({ children: [] })] })) })) }));
+        break;
+      }
+    }
+  });
+  const doc = new D.Document({
+    creator: schoolShort(), title: fileBase(),
+    styles:{ default:{ document:{ run:{ font:FONT, size:SZ }, paragraph:{ spacing:{ line:240, lineRule:'auto' } } } } },
+    sections:[{
+      properties:{ page:{ size:{ width:11906, height:16838, orientation: D.PageOrientation.PORTRAIT }, margin:{ top:1440, bottom:1440, left:1797, right:1797, header:851, footer:851 } } },
+      footers:{ default: new D.Footer({ children:[ P({ alignment: D.AlignmentType.CENTER, children:[ new D.TextRun({ children:[D.PageNumber.CURRENT], font:FONT, size:SZ }) ] }) ] }) },
+      children: kids
+    }]
+  });
+  return D.Packer.toBlob(doc);
+}
+async function exportDocx() {
+  toast('正在產生 Word 檔…', 60000);
+  try { const blob = await buildDocxBlob(); triggerDownload(blob, fileBase() + '.docx'); toast('已下載：' + fileBase() + '.docx', 3500); }
+  catch (e) { console.error(e); toast('產生失敗：' + (e.message || e), 5000); }
+}
+async function saveDocxToDrive() {
+  if (!S.edit) { toast('請先進入編輯模式'); return; }
+  toast('正在產生並存到雲端硬碟…', 60000);
+  try {
+    const blob = await buildDocxBlob();
+    const d = await readAsDataURL(blob);
+    const r = await gs('api_saveExport', S.pw, fileBase() + '.docx', d.split(',')[1], 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    toast('已存到雲端硬碟'); openModal(`<h3>已存到雲端硬碟</h3><p><a href="${esc(r.url)}" target="_blank">${esc(fileBase())}.docx</a></p><div class="acts"><button class="btn pri" data-close>好</button></div>`);
+  } catch (e) { toast('失敗：' + (e.message || e), 5000); }
+}
+
+/* =========================================================
+ *  檢核
+ * ========================================================= */
+function privacyHits() {
+  const names = String(get('basic.members', '')).split(/[、,，;；\s\/]+/).map(s => s.trim()).filter(s => s.length >= 2);
+  const blocks = buildDoc();
+  const txt = blocks.map(b => b.text || (b.runs ? plain(b.runs) : '') || (b.rows ? b.rows.flat().map(c => Array.isArray(c) ? plain(c) : c).join(' ') : '') || (b.imgs ? b.imgs.map(x => x.cap).join(' ') : '')).join('\n');
+  const hits = names.filter(n => txt.includes(n)).map(n => `姓名「${n}」`);
+  if (/09\d{2}[-\s]?\d{3}[-\s]?\d{3}/.test(txt)) hits.push('手機號碼');
+  if (/[\w.+-]+@[\w-]+\.[\w.]+/.test(txt)) hits.push('電子郵件');
+  if (/[A-Z][12]\d{8}/.test(txt)) hits.push('疑似身分證字號');
+  return hits;
+}
+function itemStatus(id) {
+  if (get(id + '.done', false)) return 'done';
+  return itemHasContent(id) ? 'part' : 'none';
+}
+function secStatus(sec) {
+  const st = sec.items.map(it => itemStatus(it.id));
+  if (sec.id === 'design' && !get('info.planLink', '') && !(get('design.attach', []) || []).length) return st.every(s => s === 'none') ? 'none' : 'part';
+  if (st.every(s => s === 'done')) return 'done';
+  return st.every(s => s === 'none') ? 'none' : 'part';
+}
+function checks() {
+  const L = [];
+  const add = (st, text, note) => L.push({ st, text, note });
+  const plan = get('info.planLink', '') || (get('design.attach', []) || []).length;
+  add(plan ? 'ok' : 'no', '課程計畫連結或 PDF（評審必要條件）', plan ? '' : '在「壹、課程設計」填入學校網站公告的課程計畫連結');
+  const ws = enabledWorks().filter(w => itemHasContent('work' + w) || get(`work${w}.title`, ''));
+  add(ws.length >= 3 && ws.length <= 5 ? 'ok' : 'no', `學生作品 3～5 件（目前 ${ws.length} 件）`);
+  const lv = new Set(ws.map(w => get(`work${w}.level`, '')).filter(Boolean));
+  add(lv.size >= 2 ? 'ok' : (ws.length ? 'no' : 'na'), '作品呈現不同品質的表現', lv.size ? `目前層級：${[...lv].join('、')}` : '每件作品請選擇表現層級');
+  if (S.pageInfo) add(S.pageInfo.total <= PAGE_LIMIT ? 'ok' : 'no', `總頁數不超過 ${PAGE_LIMIT} 頁（預覽估算 ${S.pageInfo.total} 頁）`, S.pageInfo.total > PAGE_LIMIT ? '超過的頁數不列入計分，請精簡內容或減少圖片' : '最終以 Word／PDF 實際頁數為準');
+  else add('na', `總頁數不超過 ${PAGE_LIMIT} 頁`, '打開「預覽與輸出」即可計算頁數');
+  const todo = (JSON.stringify(buildDoc()).match(/【[^】]*】/g) || []).length;
+  add(todo ? 'no' : 'ok', '沒有未填的【】待填處', todo ? `審查資料中還有 ${todo} 處【】（預覽中以黃色標示）` : '');
+  const ph = privacyHits();
+  add(ph.length ? 'no' : 'ok', '審查資料中沒有教師個人基本資料', ph.length ? '發現：' + ph.join('、') : (get('basic.members', '') ? '' : '在「基本資料」填入團隊成員，系統才能自動檢查姓名'));
+  const vl = Number(get('video.len', 0));
+  if (get('video.link', '')) add(vl >= 3 && vl <= 5 ? 'ok' : 'mid', '教學影片 3～5 分鐘', vl ? `目前填寫約 ${vl} 分鐘` : '請填寫片長');
+  add(get('chk.t1', false) ? 'ok' : 'no', '表1 報名表：線上表單已填寫並核章');
+  add(get('chk.t2', false) ? 'ok' : 'no', '表2 作品聲明授權書：團隊成員簽名、核章');
+  add(get('chk.t3', false) ? 'ok' : 'no', '表3 檢核表：自我檢核、核章');
+  add(get('chk.scan', false) ? 'ok' : 'no', `基本資料掃描成一個 PDF：${schoolShort()}${get('info.course', '') || '○○'}課程_基本資料.pdf`);
+  add(get('chk.upload', false) ? 'ok' : 'no', '兩個 PDF 已上傳至工作圈網站（e-work.tp.edu.tw）');
+  return L;
+}
+
+/* =========================================================
+ *  畫面
+ * ========================================================= */
+const NAV = [
+  { id:'dash', label:'進度總覽' },
+  { id:'basic', label:'基本資料（表1～3）' },
+  { id:'plan', label:'課程計畫（原文）' },
+  { sep:true },
+  ...SECS.map(s => ({ id:s.id, label:`${s.num}、${s.title}`, w: s.weight.replace('（必要條件）', '') })),
+  { sep:true },
+  { id:'preview', label:'預覽與輸出' }
+];
+function renderNav() {
+  $('#nav').innerHTML = NAV.map(n => {
+    if (n.sep) return '<div class="sep"></div>';
+    const sec = SECS.find(s => s.id === n.id);
+    const dot = sec ? `<span class="dot ${secStatus(sec)}"></span>` : '';
+    return `<button class="ni ${S.pane === n.id ? 'on' : ''}" data-pane="${n.id}">${dot}${esc(n.label)}${n.w ? `<span class="w">${esc(n.w)}</span>` : ''}</button>`;
+  }).join('');
+  $$('#nav [data-pane]').forEach(b => b.onclick = () => go(b.dataset.pane));
+}
+function go(p) { flushAll(); S.pane = p; LS.setItem('lh_pane', p); renderNav(); renderPane(); window.scrollTo(0, 0); }
+function renderHeader() {
+  const c = get('info.course', '');
+  $('#hdCourse').textContent = c ? `${schoolShort()}｜${c}` : '審查資料整理';
+  $('#btnMode').textContent = S.edit ? '結束編輯' : '進入編輯';
+  renderCount();
+}
+function renderCount() {
+  const now = new Date();
+  let t;
+  if (now < OPEN_AT) t = `距收件開始 ${Math.ceil((OPEN_AT - now) / 864e5)} 天・截止 12/31 17:00`;
+  else if (now < DEADLINE) { const h = (DEADLINE - now) / 36e5; t = h > 48 ? `距截止還有 ${Math.ceil(h / 24)} 天` : `距截止還有 ${Math.floor(h)} 小時`; }
+  else t = '收件已截止';
+  if (S.pageInfo) t += `・預覽 ${S.pageInfo.total} 頁`;
+  $('#hdCount').textContent = t;
+}
+
+/* ---------- 元件 ---------- */
+const RO = () => S.edit ? '' : 'readonly';
+const DIS = () => S.edit ? '' : 'disabled';
+function fText(key, label, ph = '', type = 'text', extra = '') {
+  return `<label class="fld"><span>${esc(label)}</span><input type="${type}" data-key="${key}" value="${esc(get(key, ''))}" placeholder="${esc(ph)}" ${RO()} ${extra}></label>`;
+}
+function fChecks(key, opts) {
+  const v = get(key, []) || [];
+  return opts.map(o => `<label class="chk"><input type="checkbox" data-arr="${key}" value="${esc(o)}" ${v.includes(o) ? 'checked' : ''} ${DIS()}>${esc(o)}</label>`).join('');
+}
+function fBool(key, label, def = false) {
+  return `<label class="chk"><input type="checkbox" data-bool="${key}" ${get(key, def) ? 'checked' : ''} ${DIS()}>${esc(label)}</label>`;
+}
+function metaLine(id) {
+  if (!(S.fields[id + '.text'] && S.fields[id + '.text'].at) && DEFAULTS[id + '.text']) return '<span style="color:var(--accent)">📋 這段已從課程計畫帶入，尚未編輯；可直接修改或補充實施情形</span>';
+  const ks = [id + '.text', id + '.imgs', id + '.sub', id + '.title'].map(k => S.fields[k]).filter(f => f && f.at);
+  if (!ks.length) return '';
+  const f = ks.sort((a, b) => b.at - a.at)[0];
+  return `最後修改：${esc(f.by || '—')}・${fmtTime(f.at)}`;
+}
+function richEditor(id, ph = '') {
+  const v = String(get(id + '.text', ''));
+  return `${S.edit ? `<div class="tb">
+      <button class="btn sm" data-md="bold" data-id="${id}" title="把選取的文字設為粗體"><b>粗體</b></button>
+      <button class="btn sm" data-md="h" data-id="${id}">小標</button>
+      <button class="btn sm" data-md="li" data-id="${id}">• 項目</button>
+      <select class="btn sm" data-tbl="${id}" style="width:auto"><option value="">插入表格…</option>${Object.keys(TABLE_TPL).map(k => `<option>${k}</option>`).join('')}</select>
+      <span class="cnt" data-cnt="${id}">${v.replace(/\s/g, '').length} 字</span>
+    </div>` : ''}
+    <textarea data-key="${id}.text" data-rich="${id}" placeholder="${esc(ph)}" ${RO()}>${esc(v)}</textarea>`;
+}
+function galleryHTML(id) {
+  const key = id + '.imgs';
+  const arr = get(key, []) || [];
+  const cols = Number(get(id + '.cols', arr.length === 1 ? 1 : 2));
+  return `<div data-comp="${key}">
+    <div class="gal-tools">
+      <b>圖片</b><span class="muted">${arr.length} 張</span>
+      <span>・文件中每列</span>
+      <select data-key="${id}.cols" data-num="1" ${DIS()} style="width:auto">${[1, 2, 3].map(n => `<option value="${n}" ${cols === n ? 'selected' : ''}>${n} 張</option>`).join('')}</select>
+      ${S.edit ? `<label class="btn sm pri" style="margin-left:auto">＋ 上傳圖片<input type="file" accept="image/*" multiple hidden data-up="${key}"></label>` : ''}
+    </div>
+    ${arr.length ? `<div class="gal">${arr.map((x, i) => `<div class="gi">
+        <div class="im" data-thumb="${esc(x.tid || x.id)}">載入中</div>
+        <input type="text" data-cap="${key}" data-i="${i}" value="${esc(x.cap || '')}" placeholder="圖說（例：學生分組觀察紀錄）" ${RO()}>
+        ${S.edit ? `<div class="ops"><button data-mv="${key}" data-i="${i}" data-d="-1" title="往前">◀</button><button data-del="${key}" data-i="${i}" title="移除">移除</button><button data-mv="${key}" data-i="${i}" data-d="1" title="往後">▶</button></div>` : ''}
+      </div>`).join('')}</div>` : ''}
+    ${S.edit ? `<div class="drop" data-drop="${key}">也可以把照片直接拖曳到這裡・上傳前會自動縮圖</div>` : ''}
+  </div>`;
+}
+function attachHTML(key, label) {
+  const arr = get(key, []) || [];
+  return `<div data-comp="${key}">
+    <div class="gal-tools"><b>${esc(label)}</b>${S.edit ? `<label class="btn sm" style="margin-left:auto">＋ 上傳檔案<input type="file" multiple hidden data-att="${key}"></label>` : ''}</div>
+    ${arr.map((f, i) => `<div class="att"><span class="nm">📄 ${esc(f.name)}</span><span class="muted" style="font-size:12px">${(f.size / 1048576).toFixed(1)} MB・${esc(f.by || '')}</span>
+      <button class="btn sm" data-dl="${esc(f.id)}" data-nm="${esc(f.name)}">下載</button>${S.edit ? `<button class="btn sm" data-adel="${key}" data-i="${i}">移除</button>` : ''}</div>`).join('') || '<div class="muted" style="font-size:13px">尚無檔案</div>'}
+  </div>`;
+}
+function doneToggle(id) {
+  const on = get(id + '.done', false);
+  return `<span class="done-t ${on ? 'on' : ''}" data-done="${id}">${on ? '✓ 已完成' : '標記完成'}</span>`;
+}
+function itemCard(it, idx) {
+  return `<div class="card" id="card-${it.id}">
+    <div class="head"><h3>${cn(idx)}、${esc(it.title)}</h3>${doneToggle(it.id)}</div>
+    <div class="meta" data-meta="${it.id}">${metaLine(it.id)}</div>
+    ${it.rubric ? `<div class="rubric"><b>績優規準</b>　${esc(it.rubric)}</div>` : ''}
+    ${it.hint ? `<details class="hint"><summary>撰寫提示</summary>${esc(it.hint)}</details>` : ''}
+    ${examplesHTML(it.id)}
+    ${draftHTML(it.id)}
+    ${it.works ? '' : `<div class="row">${fText(it.id + '.sub', '副標（選填，會接在標題後面）', '例：從校園踏查出發')}</div>`}
+    ${richEditor(it.id, it.works ? '挑選作品的緣由或依據、如何呈現形成性與總結性評量效果…' : '在這裡撰寫內容。每一行會成為一個段落；用上方按鈕插入小標、項目或表格。')}
+    ${it.works ? '' : galleryHTML(it.id)}
+    ${it.id === 'impl_overview' ? `<div class="row" style="margin-top:14px">${fText('video.link', '教學影片連結（選填，3～5 分鐘）', 'https://…', 'url')}${fText('video.len', '片長（分鐘）', '4', 'number', 'style="max-width:120px" min="0" step="0.5"')}</div>` : ''}
+    ${it.works ? worksHTML() : ''}
+  </div>`;
+}
+function worksHTML() {
+  return WORK_SLOTS.map(n => {
+    const id = 'work' + n;
+    const on = get(id + '.on', n <= 3);
+    return `<div class="card" style="background:#fff;margin-top:14px;${on ? '' : 'opacity:.6'}" id="card-${id}">
+      <div class="head"><h3 style="font-size:16px">學生作品 ${n}</h3>${fBool(id + '.on', '放入文件', n <= 3)}${doneToggle(id)}</div>
+      <div class="meta" data-meta="${id}">${metaLine(id)}</div>
+      ${on ? `<div class="row">${fText(id + '.title', '作品名稱／主題', '例：校園植物觀察報告')}
+        <label class="fld" style="max-width:200px"><span>表現層級</span><select data-key="${id}.level" ${DIS()}><option value="">請選擇</option>${LEVELS.map(l => `<option ${get(id + '.level', '') === l ? 'selected' : ''}>${l}</option>`).join('')}</select></label></div>
+      ${galleryHTML(id)}
+      <div style="margin-top:10px"></div>
+      ${workDraftHTML(id)}
+      ${richEditor(id, '說明這件作品的表現：達成了哪些目標、評量尺規上的表現、教師回饋與後續輔導…')}` : ''}
+    </div>`;
+  }).join('');
+}
+
+/* ---------- 各頁 ---------- */
+function paneDash() {
+  const L = checks();
+  const okN = L.filter(x => x.st === 'ok').length;
+  const pi = S.pageInfo;
+  const pct = pi ? Math.min(100, pi.total / PAGE_LIMIT * 100) : 0;
+  const recent = Object.entries(S.fields).filter(([k, f]) => f.at).sort((a, b) => b[1].at - a[1].at).slice(0, 8);
+  return `<h2 class="pane">進度總覽</h2><p class="sub">收件期間 115/12/14（一）～12/31（四）17:00，上傳至臺北市國中課程與教學發展工作圈網站。</p>
+  ${S.kaiOK === false ? '<div class="warnbox">這台電腦沒有「標楷體」，網頁預覽會用其他字型顯示，頁數也可能略有不同。請用 Windows 電腦開啟或以 Word 檔輸出確認。</div>' : ''}
+  <div class="grid2">
+    <div class="card"><div class="muted">預覽頁數</div><div class="big">${pi ? pi.total : '—'} <span style="font-size:16px;font-weight:400">／ ${PAGE_LIMIT} 頁</span></div>
+      <div class="bar ${pi && pi.total > PAGE_LIMIT ? 'over' : ''}"><i style="width:${pct}%"></i></div>
+      <div class="muted" style="font-size:13px">${pi ? `更新於 ${fmtTime(pi.at)}` : '<a href="#" data-pane-link="preview">打開預覽</a> 即可計算'}</div></div>
+    <div class="card"><div class="muted">檢核項目</div><div class="big">${okN} <span style="font-size:16px;font-weight:400">／ ${L.length} 項通過</span></div>
+      <div class="bar"><i style="width:${okN / L.length * 100}%"></i></div></div>
+  </div>
+  <div class="card"><h3 style="margin-bottom:8px">各大項進度與篇幅</h3>
+    <table class="tbl"><tr><th>大項</th><th>配分</th><th>建議篇幅</th><th>預覽頁碼</th><th>子項目</th></tr>
+    ${SECS.map(s => { const p = pi && pi.secs[s.id]; return `<tr><td class="nw"><a href="#" data-pane-link="${s.id}"><b>${s.num}、${s.title}</b></a></td><td class="nw">${esc(s.weight.replace('（必要條件）', ''))}</td><td class="nw">${s.budget.replace('約 ', '')}</td><td class="nw">${p ? `第 ${p.start}～${p.end} 頁` : '—'}</td>
+      <td>${s.items.map(it => { const st = itemStatus(it.id); return `<span class="st ${st === 'done' ? 'ok' : st === 'part' ? 'mid' : 'na'}" style="margin:0 4px 4px 0;display:inline-block">${esc(it.title)}・${st === 'done' ? '完成' : st === 'part' ? '撰寫中' : '未開始'}</span>`; }).join('')}</td></tr>`; }).join('')}
+    </table></div>
+  <div class="card"><h3 style="margin-bottom:8px">繳交檢核</h3><ul class="cl">
+    ${L.map(x => `<li><span class="st ${x.st}">${{ ok:'通過', no:'待處理', mid:'留意', na:'—' }[x.st]}</span><div>${esc(x.text)}${x.note ? `<div class="muted" style="font-size:13px">${esc(x.note)}</div>` : ''}</div></li>`).join('')}
+  </ul></div>
+  <div class="card"><h3 style="margin-bottom:8px">最近修改</h3>
+    ${recent.length ? `<table class="tbl">${recent.map(([k, f]) => `<tr><td>${esc(keyLabel(k))}</td><td>${esc(f.by || '')}</td><td class="muted">${fmtTime(f.at)}</td></tr>`).join('')}</table>` : '<div class="muted">還沒有任何內容</div>'}
+  </div>`;
+}
+function paneBasic() {
+  return `<h2 class="pane">基本資料（表1～表3）</h2><p class="sub">這一頁的內容<b>不會</b>放進審查資料，只是方便你們填線上報名表、準備核章文件。</p>
+  <div class="card"><h3>學校與課程</h3>
+    <div class="row">${fText('info.school', '報名學校（全名）', '臺北市立龍山國民中學')}${fText('info.schoolShort', '檔名用簡稱', '龍山國中')}</div>
+    <div class="row">${fText('info.course', '課程名稱', '')}</div>
+    <div class="row"><div class="fld"><span>實施年級</span><div>${fChecks('info.grade', ['七年級', '八年級', '九年級'])}</div></div>
+      <div class="fld"><span>學期（上下學期都開設請都勾）</span><div>${fChecks('info.sem', ['上學期', '下學期'])}</div></div></div>
+    <div class="row">${fText('basic.members', '團隊成員（用頓號分隔）', '例：王小明、李小華')}</div>
+    <div class="muted" style="font-size:13px">團隊成員只用來自動檢查審查資料裡有沒有出現教師姓名（實施計畫規定審查資料不得放入教師個人基本資料）。</div>
+  </div>
+  <div class="card"><h3>課程計畫備查公文（表1 需要）</h3>
+    <div class="row">${fText('basic.docDate', '發文日期', '中華民國○○○年○○月○○日')}${fText('basic.docNo', '發文字號', '北市教中字第○○○○○○○○○○號')}</div>
+    ${galleryHTML('basic_doc')}
+  </div>
+  <div class="card"><h3>核章文件進度</h3>
+    <ul class="cl" style="margin-top:6px">
+      <li>${fBool('chk.t1', '表1 報名表：已在工作圈網站線上表單填寫，並完成學校核章')}</li>
+      <li>${fBool('chk.t2', '表2 作品聲明授權書：所有團隊成員簽名、學校核章')}</li>
+      <li>${fBool('chk.t3', '表3 檢核表：學校代表自我審查、核章')}</li>
+      <li>${fBool('chk.scan', `表1～表3 掃描成一個 PDF：${schoolShort()}${get('info.course', '') || '○○'}課程_基本資料.pdf`)}</li>
+      <li>${fBool('chk.upload', '基本資料、審查資料兩個 PDF 都已上傳到 e-work.tp.edu.tw')}</li>
+    </ul>
+    ${attachHTML('basic.attach', '掃描檔／相關文件')}
+    <div class="muted" style="font-size:13px;margin-top:8px">提醒：網址公開可看，表2 的身分證字號請不要打進這個網站，也不要上傳有身分證字號的掃描檔。</div>
+  </div>`;
+}
+function paneSec(sec) {
+  let h = `<h2 class="pane">${sec.num}、${sec.title}</h2><p class="sub">配分：${esc(sec.weight)}・建議篇幅 ${sec.budget}（審查資料總頁數不得超過 ${PAGE_LIMIT} 頁）</p>`;
+  let idx = 0;
+  if (sec.id === 'design') {
+    h += `<div class="card"><div class="head"><h3>${cn(++idx)}、課程基本資訊</h3></div>
+      <div class="rubric"><b>績優規準</b>　提供課程審閱通過後學校上網公告之課程計畫（連結或 PDF），作為評審之必要條件。本項不列入計分。</div>
+      <div class="row">${fText('info.planLink', '課程計畫連結（學校網站公告）', 'https://…', 'url')}</div>
+      <div class="row">${fText('info.type', '課程類型', '例：統整性主題／專題／議題探究')}${fText('info.domains', '統整領域／科目', '例：自然科學、社會、科技')}</div>
+      <div class="row">${fText('info.periods', '每週節數', '1', 'number', 'min="0"')}${fText('info.total', '總節數', '21', 'number', 'min="0"')}</div>
+      <div class="muted" style="font-size:13px">課程名稱、年級、學期在「基本資料」頁填寫，會一起放進這張表。</div>
+      ${attachHTML('design.attach', '原課程計畫 PDF（若無連結可上傳，提供夥伴參考）')}
+    </div>`;
+  }
+  sec.items.forEach(it => { h += itemCard(it, ++idx); });
+  return h;
+}
+function panePreview() {
+  return `<h2 class="pane">預覽與輸出</h2>
+  <p class="sub">預覽依實施計畫格式排版：A4 直式、標楷體（標題 16 號、內文 12 號）、單行間距、邊界上下 2.54 cm／左右 3.17 cm、頁碼在頁尾置中。</p>
+  <div class="card">
+    <div class="row" style="align-items:center">
+      ${fBool('set.cover', '加封面頁（會多 1 頁）')}
+      ${fBool('set.secBreak', '每個大項從新的一頁開始')}
+      <label class="chk">圖片最大高度 <select data-key="set.imgMaxH" data-num="1" ${DIS()} style="width:auto">${[6, 7, 8, 9, 10].map(n => `<option value="${n}" ${Number(get('set.imgMaxH', 8)) === n ? 'selected' : ''}>${n} cm</option>`).join('')}</select></label>
+    </div>
+    <div class="row" style="align-items:center">
+      <button class="btn pri" data-act="refreshPreview">重新整理預覽</button>
+      <button class="btn" data-act="printPdf">列印／另存 PDF</button>
+      <button class="btn" data-act="exportDocx">下載 Word（.docx）</button>
+      ${S.edit ? '<button class="btn" data-act="saveDocxToDrive">Word 存到雲端硬碟</button>' : ''}
+      <span class="muted" id="pvInfo2"></span>
+    </div>
+    <details class="hint"><summary>輸出小提醒</summary>
+      ・<b>另存 PDF</b>：列印視窗的目的地選「另存為 PDF」，邊界選「無」或「預設」，並<b>取消勾選「頁首及頁尾」</b>。<br>
+      ・<b>Word 檔</b>：用學校的 Windows 電腦開啟，字型會是標楷體；可在 Word 微調後「另存 PDF」。<br>
+      ・最終檔名：<b>${esc(fileBase())}.pdf</b><br>
+      ・網頁預覽的頁數是估算，請以 Word／PDF 實際頁數為準。</details>
+  </div>
+  <iframe id="pvFrame2" class="pvframe" style="height:80vh;border:1px solid var(--line);border-radius:12px" title="文件預覽"></iframe>`;
+}
+function panePlan() {
+  const cell = t => esc(t).replace(/\n/g, '<br>');
+  return `<h2 class="pane">課程計畫（原文）</h2>
+  <p class="sub">${esc(PLAN.title)}。撰寫時可對照這份計畫；審查資料若與計畫不同，記得在「適時合宜調整」或「省思與展望」說明修訂內容。</p>
+  <div class="card"><table class="tbl plan">${PLAN.rows.map(([k, v]) => `<tr><th style="width:140px">${esc(k)}</th><td>${cell(v)}</td></tr>`).join('')}</table></div>
+  <div class="card"><h3 style="margin-bottom:8px">學習進度</h3>
+    <table class="tbl plan"><tr><th>週次／節數</th><th>單元／子題</th><th>單元內容與學習活動</th><th>檢核點（形成性評量）</th></tr>
+    ${PLAN.schedule.map(r => `<tr>${r.map((c, i) => `<td${i === 0 ? ' class="nw"' : ''}>${cell(c)}</td>`).join('')}</tr>`).join('')}</table></div>
+  <div class="card"><table class="tbl plan">${PLAN.tail.map(([k, v]) => `<tr><th style="width:140px">${esc(k)}</th><td>${cell(v)}</td></tr>`).join('')}</table></div>`;
+}
+function draftHTML(id) {
+  const d = DRAFTS[id]; if (!d) return '';
+  return `<details class="ex dr"><summary>「${esc(get('info.course', '本課程'))}」示範文字</summary>
+    <div class="exnote">依你們的課程計畫，參考得獎課程的寫法擬的草稿。<b>【】</b>是需要你們填入、確認或替換的地方，「例」只是猜測，請換成實際情形。</div>
+    <pre class="draft">${esc(d).replace(/(【[^】]*】)/g, '<mark>$1</mark>')}</pre>
+    ${S.edit ? `<button class="btn sm pri" data-draft="${id}">插入示範文字到文字框</button>` : ''}
+  </details>`;
+}
+function workDraftHTML(id) {
+  return `<details class="ex dr"><summary>作品說明示範文字</summary>
+    <div class="exnote">依表現層級分三種寫法；【】請換成這件作品的實際內容。</div>
+    ${Object.entries(WORK_DRAFTS).map(([lv, t]) => `<div class="exc"><div class="exh"><b>${esc(lv)}</b>${S.edit ? `<button class="btn sm" style="margin-left:auto" data-wdraft="${id}" data-lv="${esc(lv)}">插入</button>` : ''}</div><div>${esc(t).replace(/(【[^】]*】)/g, '<mark>$1</mark>')}</div></div>`).join('')}
+  </details>`;
+}
+function fillDraft(id, text) {
+  const t = textareaOf(id); if (!t) return;
+  if (t.value.trim()) {
+    if (!confirm('文字框已有內容，要把示範文字加在最後面嗎？')) return;
+    t.value = t.value.replace(/\s*$/, '') + '\n\n' + text;
+  } else t.value = text;
+  commitTA(t); autoGrow(t);
+}
+function renderPane() {
+  const m = $('#main');
+  const sec = SECS.find(s => s.id === S.pane);
+  m.innerHTML = S.pane === 'dash' ? paneDash() : S.pane === 'basic' ? paneBasic() : S.pane === 'preview' ? panePreview() : S.pane === 'plan' ? panePlan() : sec ? paneSec(sec) : paneDash();
+  bindPane(m);
+  loadThumbs(m);
+  $$('textarea', m).forEach(autoGrow);
+  if (S.pane === 'preview') refreshPreview();
+}
+
+/* ---------- 事件綁定 ---------- */
+function autoGrow(t) { t.style.height = 'auto'; t.style.height = Math.max(140, t.scrollHeight + 4) + 'px'; }
+function bindPane(m) {
+  $$('[data-key]', m).forEach(el => {
+    const key = el.dataset.key;
+    const ev = el.tagName === 'SELECT' ? 'change' : 'input';
+    el.addEventListener(ev, () => {
+      let v = el.value;
+      if (el.dataset.num) v = Number(v);
+      setVal(key, v, { delay: el.tagName === 'SELECT' ? 100 : 1200 });
+      if (el.tagName === 'TEXTAREA') { autoGrow(el); const c = $(`[data-cnt="${el.dataset.rich}"]`); if (c) c.textContent = el.value.replace(/\s/g, '').length + ' 字'; }
+      if (key === 'info.course' || key === 'info.schoolShort' || key === 'info.school') renderHeader();
+      if (/\.(text|imgs)$/.test(key)) renderNav();
+    });
+    el.addEventListener('blur', () => { if (S.dirty[key]) { clearTimeout(S.timers[key]); flush(key); } });
+  });
+  $$('[data-arr]', m).forEach(el => el.addEventListener('change', () => {
+    const key = el.dataset.arr;
+    const v = $$(`[data-arr="${key}"]`, m).filter(x => x.checked).map(x => x.value);
+    setVal(key, v, { delay: 100 });
+  }));
+  $$('[data-bool]', m).forEach(el => el.addEventListener('change', () => {
+    setVal(el.dataset.bool, el.checked, { delay: 100 });
+    if (/^work\d\.on$/.test(el.dataset.bool)) renderPane();
+  }));
+  $$('[data-done]', m).forEach(el => el.addEventListener('click', () => {
+    if (!S.edit) return toast('請先進入編輯模式');
+    const id = el.dataset.done; const v = !get(id + '.done', false);
+    setVal(id + '.done', v, { delay: 100 });
+    el.classList.toggle('on', v); el.textContent = v ? '✓ 已完成' : '標記完成'; renderNav();
+  }));
+  $$('[data-up]', m).forEach(el => el.addEventListener('change', () => { uploadImages(el.dataset.up, el.files); el.value = ''; }));
+  $$('[data-att]', m).forEach(el => el.addEventListener('change', () => { uploadAttachments(el.dataset.att, el.files); el.value = ''; }));
+  $$('[data-drop]', m).forEach(el => {
+    el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('over'); });
+    el.addEventListener('dragleave', () => el.classList.remove('over'));
+    el.addEventListener('drop', e => { e.preventDefault(); el.classList.remove('over'); uploadImages(el.dataset.drop, e.dataTransfer.files); });
+  });
+  $$('[data-cap]', m).forEach(el => el.addEventListener('input', () => {
+    const key = el.dataset.cap; const arr = (get(key, []) || []).map(x => Object.assign({}, x));
+    if (arr[+el.dataset.i]) { arr[+el.dataset.i].cap = el.value; setVal(key, arr); }
+  }));
+  $$('[data-mv]', m).forEach(el => el.addEventListener('click', () => {
+    const key = el.dataset.mv, i = +el.dataset.i, j = i + Number(el.dataset.d);
+    const arr = (get(key, []) || []).slice(); if (j < 0 || j >= arr.length) return;
+    [arr[i], arr[j]] = [arr[j], arr[i]]; setVal(key, arr, { delay: 300, rerender: true });
+  }));
+  $$('[data-del]', m).forEach(el => el.addEventListener('click', () => {
+    const key = el.dataset.del, i = +el.dataset.i;
+    const arr = (get(key, []) || []).slice(); const x = arr[i];
+    if (!x || !confirm('確定移除這張圖片？')) return;
+    arr.splice(i, 1); setVal(key, arr, { delay: 100, rerender: true });
+    gs('api_deleteFile', S.pw, x.id, S.name).catch(() => {}); if (x.tid) gs('api_deleteFile', S.pw, x.tid, S.name).catch(() => {});
+  }));
+  $$('[data-adel]', m).forEach(el => el.addEventListener('click', () => {
+    const key = el.dataset.adel, i = +el.dataset.i;
+    const arr = (get(key, []) || []).slice(); const x = arr[i];
+    if (!x || !confirm(`確定移除「${x.name}」？`)) return;
+    arr.splice(i, 1); setVal(key, arr, { delay: 100, rerender: true });
+    gs('api_deleteFile', S.pw, x.id, S.name).catch(() => {});
+  }));
+  $$('[data-dl]', m).forEach(el => el.addEventListener('click', () => downloadAttachment(el.dataset.dl, el.dataset.nm)));
+  $$('[data-md]', m).forEach(el => el.addEventListener('click', () => mdAction(el.dataset.id, el.dataset.md)));
+  $$('[data-draft]', m).forEach(el => el.addEventListener('click', () => fillDraft(el.dataset.draft, DRAFTS[el.dataset.draft])));
+  $$('[data-wdraft]', m).forEach(el => el.addEventListener('click', () => fillDraft(el.dataset.wdraft, WORK_DRAFTS[el.dataset.lv])));
+  $$('[data-skel]', m).forEach(el => el.addEventListener('click', () => {
+    const t = textareaOf(el.dataset.skel); if (!t) return;
+    if (t.value.trim() && !confirm('文字框已有內容，要把段落架構插入在游標位置嗎？')) return;
+    if (!t.value.trim()) { t.selectionStart = t.selectionEnd = 0; }
+    insertAtCursor(el.dataset.skel, SKELETON[el.dataset.skel]);
+  }));
+  $$('[data-tbl]', m).forEach(el => el.addEventListener('change', () => { if (el.value) insertAtCursor(el.dataset.tbl, '\n' + TABLE_TPL[el.value]); el.value = ''; }));
+  $$('[data-pane-link]', m).forEach(el => el.addEventListener('click', e => { e.preventDefault(); go(el.dataset.paneLink); }));
+}
+function textareaOf(id) { return $(`textarea[data-rich="${id}"]`); }
+function commitTA(t) { t.dispatchEvent(new Event('input')); t.focus(); }
+function insertAtCursor(id, txt) {
+  const t = textareaOf(id); if (!t) return;
+  const s = t.selectionStart, e = t.selectionEnd;
+  t.value = t.value.slice(0, s) + txt + t.value.slice(e);
+  t.selectionStart = t.selectionEnd = s + txt.length; commitTA(t);
+}
+function mdAction(id, kind) {
+  const t = textareaOf(id); if (!t) return;
+  const s = t.selectionStart, e = t.selectionEnd, v = t.value;
+  if (kind === 'bold') {
+    const sel = v.slice(s, e) || '粗體文字';
+    t.value = v.slice(0, s) + '**' + sel + '**' + v.slice(e);
+    t.selectionStart = s + 2; t.selectionEnd = s + 2 + sel.length;
+  } else {
+    const ls = v.lastIndexOf('\n', s - 1) + 1;
+    const pre = kind === 'h' ? '### ' : '- ';
+    t.value = v.slice(0, ls) + pre + v.slice(ls);
+    t.selectionStart = t.selectionEnd = e + pre.length;
+  }
+  commitTA(t);
+}
+function loadThumbs(root) {
+  $$('[data-thumb]', root).forEach(el => {
+    getBlob(el.dataset.thumb).then(r => { el.style.backgroundImage = `url("${r.url}")`; el.textContent = ''; }).catch(() => { el.textContent = '無法載入'; });
+  });
+}
+/* 遠端更新或本地結構變動時，只重畫受影響的部分 */
+function refreshKey(key, remote = false) {
+  const m = $('#main');
+  const comp = $(`[data-comp="${key}"]`, m);
+  if (comp) {
+    const id = key.replace(/\.(imgs|attach)$/, '');
+    const tmp = document.createElement('div');
+    tmp.innerHTML = /\.imgs$/.test(key) ? galleryHTML(id) : attachHTML(key, comp.querySelector('b') ? comp.querySelector('b').textContent : '');
+    const nw = tmp.firstElementChild; comp.replaceWith(nw); bindPane(nw); loadThumbs(nw);
+  }
+  $$(`[data-key="${key}"]`, m).forEach(el => {
+    if (document.activeElement === el && !remote) return;
+    if (document.activeElement === el && remote) { toast(`${keyLabel(key)} 已被夥伴更新`); }
+    el.value = get(key, el.dataset.num ? '' : '');
+    if (el.tagName === 'TEXTAREA') autoGrow(el);
+  });
+  $$(`[data-bool="${key}"]`, m).forEach(el => { el.checked = !!get(key, false); });
+  $$(`[data-arr="${key}"]`, m).forEach(el => { el.checked = (get(key, []) || []).includes(el.value); });
+  $$(`[data-done="${key.replace(/\.done$/, '')}"]`, m).forEach(el => { if (!/\.done$/.test(key)) return; const v = get(key, false); el.classList.toggle('on', v); el.textContent = v ? '✓ 已完成' : '標記完成'; });
+  if (/^work\d\.on$/.test(key) && remote) renderPane();
+  refreshMeta(key);
+  if (/^info\./.test(key)) renderHeader();
+}
+function refreshMeta(key) { const id = key.split('.')[0]; const el = $(`[data-meta="${id}"]`); if (el) el.innerHTML = metaLine(id); }
+
+/* ---------- 編輯模式 ---------- */
+function openModal(html, closable = true) {
+  $('#modalBox').innerHTML = html; $('#modal').classList.add('on');
+  $$('#modalBox [data-close]').forEach(b => b.onclick = closeModal);
+  $('#modal').onclick = e => { if (closable && e.target.id === 'modal') closeModal(); };
+}
+function closeModal() { $('#modal').classList.remove('on'); }
+function askEdit() {
+  openModal(`<h3>進入編輯模式</h3>
+    <p class="muted" style="margin-top:0">只看網址的人可以瀏覽與輸出文件；要修改內容需要編輯密碼。</p>
+    <label class="fld"><span>你的名字（會顯示在「最後修改」）</span><input type="text" id="mName" value="${esc(S.name)}" placeholder="例：志鵬"></label>
+    <label class="fld" style="margin-top:10px"><span>編輯密碼</span><input type="password" id="mPw" value=""></label>
+    <div id="mErr" class="conf" style="display:none"></div>
+    <div class="acts"><button class="btn" data-close>取消</button><button class="btn pri" id="mGo">進入編輯</button></div>`);
+  setTimeout(() => $('#mName').value ? $('#mPw').focus() : $('#mName').focus(), 50);
+  const go = async () => {
+    const name = $('#mName').value.trim(), pw = $('#mPw').value;
+    if (!name) { $('#mErr').style.display = 'block'; $('#mErr').textContent = '請輸入名字'; return; }
+    $('#mGo').disabled = true;
+    const ok = await gs('api_checkPassword', pw).catch(() => false);
+    $('#mGo').disabled = false;
+    if (!ok) { $('#mErr').style.display = 'block'; $('#mErr').textContent = '密碼不正確'; return; }
+    S.pw = pw; S.name = name; S.edit = true;
+    LS.setItem('lh_pw', pw); LS.setItem('lh_name', name);
+    closeModal(); renderAll(); toast('已進入編輯模式，內容會自動儲存');
+  };
+  $('#mGo').onclick = go; $('#mPw').onkeydown = e => { if (e.key === 'Enter') go(); };
+}
+function exitEdit() { flushAll(); S.edit = false; LS.removeItem('lh_pw'); renderAll(); }
+$('#btnMode').onclick = () => S.edit ? exitEdit() : askEdit();
+$('#btnSplit').onclick = () => {
+  document.body.classList.toggle('split');
+  LS.setItem('lh_split', document.body.classList.contains('split') ? '1' : '');
+  if (document.body.classList.contains('split')) refreshPreview();
+};
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  ({ refreshPreview, printPdf, exportDocx, saveDocxToDrive })[b.dataset.act]();
+});
+function renderAll() { renderHeader(); renderNav(); renderPane(); updateSaveUI(); }
+
+/* ---------- 字型偵測 ---------- */
+function hasFont(f) {
+  const c = document.createElement('canvas').getContext('2d'); const s = '臺北市彈性學習領航課程永';
+  return ['monospace', 'serif', 'sans-serif'].some(base => { c.font = `40px ${base}`; const a = c.measureText(s).width; c.font = `40px "${f}", ${base}`; return c.measureText(s).width !== a; });
+}
+
+/* ---------- 啟動 ---------- */
+(async function init() {
+  if (MODE === 'demo') $('#demoBar').style.display = 'block';
+  $('#btnSetApi').onclick = () => {
+    const u = (prompt('貼上 Apps Script 網頁應用程式網址（結尾是 /exec）：', '') || '').trim();
+    if (!u) return;
+    if (!API_RE.test(u)) { alert('網址格式不對，應該像 https://script.google.com/macros/s/……/exec'); return; }
+    LS.setItem('lh_api', u); location.href = location.pathname + '?api=' + encodeURIComponent(u);
+  };
+  if (LS.getItem('lh_split') && innerWidth > 900) document.body.classList.add('split');
+  S.kaiOK = ['標楷體', 'DFKai-SB', 'BiauKai', 'BiauKaiTC', 'Kaiti TC', 'TW-Kai', 'AR PL UKai TW'].some(hasFont);
+  try {
+    let boot = null;
+    try { const t = (document.getElementById('boot').textContent || '').trim(); if (t.charAt(0) === '{') boot = JSON.parse(t); } catch (e) {}
+    const r = boot || await gs('api_getAll');
+    Object.entries(r.fields).forEach(([k, f]) => { S.fields[k] = { v: parseVal(f.v), ver: Number(f.ver) || 0, at: Number(f.at) || 0, by: f.by }; });
+    S.since = r.now - 5000;
+  } catch (e) {
+    $('#main').innerHTML = `<div class="loading">讀取資料失敗：${esc(e.message || e)}<br>請確認已執行 setup()、Code.gs 已部署新版本，並重新整理頁面。${MODE === 'api' ? `<br><br><button class="btn" onclick="LS.removeItem('lh_api');location.href=location.pathname">改用示範模式／重新設定資料庫網址</button>` : ''}</div>`;
+    return;
+  }
+  // 記得密碼的話先直接進入編輯模式，密碼在背景驗證，不用等
+  if (S.pw && S.name) {
+    S.edit = true;
+    gs('api_checkPassword', S.pw).then(ok => {
+      if (!ok) { S.edit = false; S.pw = ''; LS.removeItem('lh_pw'); renderAll(); toast('編輯密碼已變更，請重新進入編輯'); }
+    }).catch(() => {});
+  }
+  renderAll();
+  if (document.body.classList.contains('split')) refreshPreview();
+  setInterval(renderCount, 60000);
+})();
+</script>
+</body>
+</html>
