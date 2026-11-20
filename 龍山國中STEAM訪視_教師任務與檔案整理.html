@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>龍山國中 115 STEAM 學校認證訪視 — 教師任務與檔案自動整理</title>
+  <style>
+    :root {
+      --tiffany: #0d9488;
+      --tiffany-light: #ccfbf1;
+      --tiffany-dark: #0f766e;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --warn-bg: #fef9c3;
+      --warn-border: #facc15;
+      --warn-text: #854d0e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, var(--tiffany-dark), var(--tiffany));
+      color: #fff;
+      padding: 20px 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    header h1 { margin: 0 0 6px 0; font-size: 1.35rem; font-weight: 700; }
+    .meta-badges { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.85rem; }
+    .meta-badge {
+      background: rgba(255,255,255,0.18);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .header-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn-primary {
+      background: #fff;
+      color: var(--tiffany-dark);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.93rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+    .btn-primary:hover { background: var(--tiffany-light); }
+    .btn-tiffany {
+      background: var(--tiffany);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+    .btn-tiffany:hover { background: var(--tiffany-dark); }
+    .btn-outline {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+    .btn-outline:hover { background: #f1f5f9; }
+    .btn-danger {
+      background: #fee2e2;
+      color: #991b1b;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px 24px 60px; }
+
+    .deadlines-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .deadline-card {
+      background: var(--card);
+      border-left: 4px solid var(--tiffany);
+      border-radius: 8px;
+      padding: 10px 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      font-size: 0.88rem;
+    }
+    .deadline-card strong { color: var(--tiffany-dark); display: block; }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 10px 18px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+    }
+    .tab-btn.active { color: var(--tiffany-dark); border-bottom-color: var(--tiffany); }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 860px) { .layout-grid { grid-template-columns: 1fr; } }
+
+    .sidebar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      position: sticky;
+      top: 16px;
+    }
+    .search-box {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+    .teacher-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 65vh;
+      overflow-y: auto;
+    }
+    .teacher-btn {
+      text-align: left;
+      background: #f8fafc;
+      border: 1px solid transparent;
+      padding: 9px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .teacher-btn:hover { background: var(--tiffany-light); }
+    .teacher-btn.active { background: var(--tiffany); color: #fff; }
+    .teacher-btn .t-name { font-weight: 700; font-size: 0.92rem; display: block; }
+    .teacher-btn .t-role { font-size: 0.78rem; opacity: 0.85; }
+
+    .main-panel { display: flex; flex-direction: column; gap: 16px; }
+    .teacher-header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .teacher-header h2 { margin: 0; font-size: 1.2rem; color: var(--tiffany-dark); }
+    .teacher-header .subtitle { font-size: 0.88rem; color: var(--muted); }
+
+    .task-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .task-card.done { opacity: 0.62; background: #f8fafc; }
+    .task-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .badge-time {
+      background: #fee2e2;
+      color: #991b1b;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 2px 10px;
+      border-radius: 6px;
+    }
+    .badge-time.stage27 { background: #fef3c7; color: #92400e; }
+    .badge-time.stage30 { background: #dbeafe; color: #1e40af; }
+    .badge-phase {
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 0.78rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .badge-loc {
+      background: var(--tiffany-light);
+      color: var(--tiffany-dark);
+      font-size: 0.78rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .task-title { font-size: 1.04rem; font-weight: 700; margin: 4px 0 6px; }
+    .task-detail { font-size: 0.92rem; color: #334155; white-space: pre-line; margin-bottom: 10px; }
+    .task-note {
+      background: var(--warn-bg);
+      border-left: 4px solid var(--warn-border);
+      color: var(--warn-text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+    .task-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+    }
+    .check-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .check-label input { width: 17px; height: 17px; accent-color: var(--tiffany); cursor: pointer; }
+
+    /* Archive Tree */
+    .archive-info {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .cat-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .cat-header {
+      background: #f1f5f9;
+      padding: 12px 18px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .item-row { padding: 12px 18px; border-top: 1px solid var(--border); }
+    .item-row-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
+    .file-pill-list { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+    .file-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      background: #f8fafc;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+    .file-row a { color: var(--tiffany-dark); font-weight: 600; text-decoration: none; cursor: pointer; }
+    .file-row a:hover { text-decoration: underline; }
+    .empty-hint { color: var(--muted); font-size: 0.83rem; margin-top: 4px; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: #fff;
+      width: 100%;
+      max-width: 600px;
+      border-radius: 16px;
+      padding: 24px;
+      max-height: 92vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .modal h3 { margin: 0 0 14px; color: var(--tiffany-dark); font-size: 1.2rem; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; }
+    .form-group select, .form-group input[type="text"] {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.92rem;
+    }
+    .drop-zone {
+      border: 2px dashed var(--tiffany);
+      background: #f0fdfa;
+      border-radius: 10px;
+      padding: 22px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .drop-zone.dragover { background: var(--tiffany-light); }
+    .preview-path {
+      background: #f1f5f9;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.83rem;
+      color: #334155;
+      margin-bottom: 14px;
+      word-break: break-all;
+    }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+    .status-msg {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      display: none;
+    }
+    .status-msg.ok { display: block; background: #dcfce7; color: #166534; }
+    .status-msg.err { display: block; background: #fee2e2; color: #991b1b; }
+
+    @media print {
+      header .header-actions, .sidebar, .tabs, .task-actions button, .deadlines-bar { display: none !important; }
+      .layout-grid { display: block; }
+      .task-card { break-inside: avoid; border: 1px solid #999; margin-bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div>
+        <h1>臺北市立龍山國民中學 115 學年度 STEAM 學校認證訪視</h1>
+        <div class="meta-badges">
+          <span class="meta-badge">📅 115.11.30 (週一) 8:00~12:00</span>
+          <span class="meta-badge">👔 行政人員服裝：Tiffany 綠</span>
+          <span class="meta-badge">💻 純網頁版（免安裝、離線可用）</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-primary" onclick="openUploadModal()">📤 上傳成果／檔案（自動分類）</button>
+        <button class="btn-primary" onclick="exportOrganizedZip()">📦 匯出整理好的資料夾 (.zip)</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="deadlines-bar" id="deadlinesBar"></div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('teachers', this)">👩‍🏫 負責教師任務表（依時間排序）</button>
+      <button class="tab-btn" onclick="switchTab('archive', this)">📂 已整理資料夾總覽 (<span id="totalArchiveCount">0</span>)</button>
+    </div>
+
+    <!-- Tab 1: Teachers -->
+    <div id="tab-teachers" class="layout-grid">
+      <aside class="sidebar">
+        <input type="text" class="search-box" id="teacherSearch" placeholder="🔍 搜尋教師姓名或組別..." oninput="renderTeacherList()" />
+        <div class="teacher-list" id="teacherList"></div>
+      </aside>
+      <main class="main-panel" id="teacherDetail"></main>
+    </div>
+
+    <!-- Tab 2: Archive -->
+    <div id="tab-archive" style="display:none;">
+      <div class="archive-info">
+        <div>
+          <strong>📁 自動歸檔運作方式（免伺服器版）：</strong>
+          <div style="font-size:0.86rem; color:var(--muted); margin-top:2px;">
+            檔案會暫存於您的瀏覽器本機資料庫中並自動分類。點選右側「📦 匯出整理好的資料夾 (.zip)」即可一鍵下載，解壓縮後即為完整的指標與課程資料夾結構！
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn-outline" onclick="openUploadModal()">＋ 上傳新檔案</button>
+          <button class="btn-tiffany" onclick="exportOrganizedZip()">📦 匯出整理好的資料夾 (.zip)</button>
+        </div>
+      </div>
+      <div id="archiveTree"></div>
+    </div>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="modal-backdrop" id="uploadModal">
+    <div class="modal">
+      <h3>📤 上傳檔案並自動整理歸檔</h3>
+      <div class="form-group">
+        <label>1. 選擇指標／類別</label>
+        <select id="upCategory" onchange="onCategoryChange()"></select>
+      </div>
+      <div class="form-group">
+        <label>2. 選擇具體課程／項目（例如：我要放哪門課程的成果）</label>
+        <select id="upItem" onchange="updatePathPreview()"></select>
+      </div>
+      <div class="form-group">
+        <label>3. 選擇檔案性質</label>
+        <select id="upFileType" onchange="updatePathPreview()"></select>
+      </div>
+      <div class="form-group">
+        <label>4. 上傳教師姓名（選填，會自動標註在檔名上方便辨識）</label>
+        <input type="text" id="upTeacherName" placeholder="例如：王小明、志鵬老師、STEAM社群" />
+      </div>
+      <div class="preview-path" id="pathPreview"></div>
+      <div class="form-group">
+        <div class="drop-zone" id="dropZone" onclick="document.getElementById('upFiles').click()">
+          <div style="font-size:1.5rem; margin-bottom:4px;">📁</div>
+          <div><strong>點擊選擇檔案</strong> 或將檔案拖曳到此處（可多選）</div>
+          <div id="selectedFilesText" style="font-size:0.83rem; color:var(--tiffany-dark); margin-top:6px;"></div>
+        </div>
+        <input type="file" id="upFiles" multiple style="display:none;" onchange="onFilesSelected()" />
+      </div>
+      <div class="status-msg" id="uploadStatus"></div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="closeUploadModal()">關閉</button>
+        <button class="btn-tiffany" id="submitUploadBtn" onclick="submitUpload()">確認上傳並自動歸檔</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const TASKS_DATA = {
+      "event_info": {
+        "key_deadlines": [
+          { "date": "11/24 (二) 前", "label": "佈展與雲端資料準備完成" },
+          { "date": "11/27 (五) 08:00 起", "label": "3F 會議室、各巡禮場域佈置（桌椅海報架 10:00 前完成，10:00 後開始佈展）" },
+          { "date": "11/27 (五) 當日完成", "label": "2E、3E、圖書室口字型佈置完成" },
+          { "date": "11/30 (一) 08:00~14:00", "label": "訪視當日正式流程" }
+        ]
+      },
+      "upload_categories": [
+        {
+          "id": "ind1_admin",
+          "name": "指標一：行政方面",
+          "folder": "指標一_行政方面",
+          "items": [
+            { "id": "1-1", "name": "1-1 建立 STEAM 跨域課程運作組織（校長簡報）", "folder": "1-1_跨域課程運作組織" },
+            { "id": "1-2", "name": "1-2 課程計畫、課發會會議紀錄（彈性課程、STEAM 課程地圖）", "folder": "1-2_課程計畫與課發會紀錄" },
+            { "id": "1-3", "name": "1-3 專家指導（簽到表、會議紀錄、簡報）", "folder": "1-3_專家指導" },
+            { "id": "1-4", "name": "1-4 策略聯盟（簽到表、會議紀錄、暑假營隊）", "folder": "1-4_策略聯盟" },
+            { "id": "1-5", "name": "1-5 參與 STEAM 及新科技發展辦公室培訓及活動", "folder": "1-5_新科技辦公室培訓活動" },
+            { "id": "1-6", "name": "1-6 教師專業成長（AI研習、MAKER研習、暑假營隊、課後社團）", "folder": "1-6_教師專業成長" },
+            { "id": "1-phys", "name": "指標一實體展示資料（策略聯盟意向書、科展作品書/照片）", "folder": "1-實體展示_意向書與科展" }
+          ]
+        },
+        {
+          "id": "ind2_course",
+          "name": "指標二：教師教學與課程",
+          "folder": "指標二_教師教學與課程",
+          "items": [
+            { "id": "2-1-1", "name": "2-1 校本課程：(1) 不塑之課", "folder": "2-1_校本課程/(1)不塑之課" },
+            { "id": "2-1-2", "name": "2-1 校本課程：(2) 北極熊怎麼了", "folder": "2-1_校本課程/(2)北極熊怎麼了" },
+            { "id": "2-1-3", "name": "2-1 校本課程：(3) 水世界", "folder": "2-1_校本課程/(3)水世界" },
+            { "id": "2-1-4", "name": "2-1 校本課程：(4) 碳生活", "folder": "2-1_校本課程/(4)碳生活" },
+            { "id": "2-1-5", "name": "2-1 校本課程：(5) 能源與家電", "folder": "2-1_校本課程/(5)能源與家電" },
+            { "id": "2-1-b", "name": "2-1 部定跨領域課程（如：蛋的料理科學、手搖飲等）", "folder": "2-1_部定跨領域課程" },
+            { "id": "2-2", "name": "2-2 導入科技及善用科技（新科技應用與實作改進）", "folder": "2-2_導入與善用科技" },
+            { "id": "2-3", "name": "2-3 STEAM 社群（每學期至少 6 次正式共備紀錄）", "folder": "2-3_STEAM社群共備紀錄" },
+            { "id": "2-4", "name": "2-4 種子教師培訓", "folder": "2-4_種子教師培訓" },
+            { "id": "2-5", "name": "2-5 國內外合作夥伴（新加坡國際交流 STEAM 課程）", "folder": "2-5_國內外合作與新加坡交流" },
+            { "id": "2-6", "name": "2-6 教師行動研究", "folder": "2-6_教師行動研究" },
+            { "id": "2-7", "name": "2-7 教師指導 STEAM 競賽（能源/IEYI/VR跨域盃/科展）", "folder": "2-7_教師指導STEAM競賽" }
+          ]
+        },
+        {
+          "id": "ind3_awards",
+          "name": "指標三：成效與師生得獎",
+          "folder": "指標三_成效與得獎",
+          "items": [
+            { "id": "3-1", "name": "3-1 課後活動參與率統計（去重後確認 10% 參與率）", "folder": "3-1_課後活動參與率統計" },
+            { "id": "3-2", "name": "3-2 歷年科展、STEAM 跨域競賽、VR 跨域競賽得獎作品展", "folder": "3-2_歷年得獎作品與獎盃資料" },
+            { "id": "cross-school", "name": "跨校合作（未來玩家＿新和 X 龍山 X 華江暑假營隊）", "folder": "跨校合作_未來玩家營隊" }
+          ]
+        },
+        {
+          "id": "admin_layout",
+          "name": "行政佈置、簡報與迎賓檔案",
+          "folder": "行政佈置與簡報",
+          "items": [
+            { "id": "briefing", "name": "校長簡報檔 & 申請書定稿", "folder": "簡報與申請書定稿" },
+            { "id": "posters", "name": "A1 海報輸出檔（願景圖、課程地圖、五大校本課程）", "folder": "A1海報輸出檔" },
+            { "id": "welcome", "name": "穿堂與 3F 會議室廣告機迎賓圖文/影片", "folder": "廣告機迎賓素材" },
+            { "id": "interview", "name": "訪談學生與訪談教師名單/桌牌資料", "folder": "訪談名單與桌牌" }
+          ]
+        }
+      ],
+      "file_types": [
+        { "id": "photo", "name": "活動／課程照片", "subfolder": "照片與影片" },
+        { "id": "video", "name": "活動／課程影片", "subfolder": "照片與影片" },
+        { "id": "student_work", "name": "學生學習成果／作業／作品", "subfolder": "學生學習成果與作品" },
+        { "id": "material", "name": "教材（簡報、學習單、教案）", "subfolder": "教材_簡報學習單教案" },
+        { "id": "record", "name": "簽到表／會議紀錄／計畫書", "subfolder": "會議紀錄與計畫書" },
+        { "id": "rubric", "name": "證據對照表 / Rubric / 歷程資料", "subfolder": "證據對照表與歷程" },
+        { "id": "other", "name": "其他相關檔案", "subfolder": "其他檔案" }
+      ],
+      "teachers": [
+        {
+          "id": "steam_community",
+          "name": "STEAM 社群教師（全體／無課教師）",
+          "role": "課程教學與成果主力",
+          "tasks": [
+            {
+              "id": "sc-1", "deadline": "11/24 (二) 前", "phase": "事前雲端與資料準備", "location": "雲端資料夾 & 3F 大會議室",
+              "title": "準備【2-1 校本課程教學活動】五大課程雲端與實體資料",
+              "detail": "涵蓋：(1)不塑之課、(2)北極熊怎麼了、(3)水世界、(4)碳生活、(5)能源與家電。需備齊教材（簡報、學習單、教案）、學習表現（學生作業、作品）、佐證（照片、影片）。",
+              "note": "委員建議：1. 提供4門新科技課程逐門檢附實作及學習改進；2. 以「課程、領域分工、節數、兩階段實作、測試修正、Rubric」建構證據對照表，並補強三年能力成長的學生作品歷程；3. 補充說明校本課程執行情形。",
+              "upload_target": { "category": "ind2_course", "item": "2-1-1" }
+            },
+            {
+              "id": "sc-2", "deadline": "11/24 (二) 前", "phase": "事前雲端與資料準備", "location": "雲端資料夾 & 3F 大會議室",
+              "title": "準備【2-2 導入科技及善用科技】實體展示與新科技應用說明",
+              "detail": "整理部定與彈性課程中融入新科技的教學成果與實體展示物品。",
+              "note": "委員建議：新科技應用情形可補充說明。",
+              "upload_target": { "category": "ind2_course", "item": "2-2" }
+            },
+            {
+              "id": "sc-3", "deadline": "11/27 (五) 10:00 後", "phase": "場地佈展", "location": "3F 大會議室（教師教學區：5 海報架、3 長桌）",
+              "title": "配合浩怡主任進行【教師教學區】實體佈展",
+              "detail": "於每個海報架前桌面擺放學生作品、科技融入展示品、平板（內含課程活動照片與影片），並呈現部定跨域教師發揮與 2-2 導入科技實體成果。",
+              "note": "",
+              "upload_target": { "category": "ind2_course", "item": "2-1-b" }
+            },
+            {
+              "id": "sc-4", "deadline": "11/30 (一) 09:30-10:10", "phase": "訪視當日（第 2 節）", "location": "3F 大會議室",
+              "title": "STEAM 社群無課教師現場說明",
+              "detail": "委員檢視書面資料與學生作品時，在現場協助解說課程設計與學生作品。",
+              "note": "請留意當日訪視服裝與時間。"
+            },
+            {
+              "id": "sc-5", "deadline": "11/30 (一) 10:35-11:05", "phase": "訪視當日（第 3 節）", "location": "2E / 3E 圖書室",
+              "title": "教師訪談（第 3 節無課務之候選／非候選教師）",
+              "detail": "若 09:15 獲思婷組長通知入選訪談，請於 10:30 至校長室集合，由組長引導至座談會場，分享課程設計、跨域共備與學生學習成效。",
+              "note": ""
+            },
+            {
+              "id": "sc-6", "deadline": "11/30 (一) 11:05-11:30", "phase": "訪視當日（第 4 節）", "location": "3F 會議室",
+              "title": "綜合座談與回饋（第 4 節無課務教師：圳宏／婉伶／季娟）",
+              "detail": "出席綜合座談，聆聽委員回饋並共同回應後續精進方向。",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "id": "principal",
+          "name": "校長",
+          "role": "總領隊與簡報人",
+          "tasks": [
+            {
+              "id": "pr-1", "deadline": "11/24 (二) 前", "phase": "事前資料準備", "location": "雲端資料夾 & 簡報檔",
+              "title": "完成校長簡報與指標一、二、三相關簡報內容",
+              "detail": "包含：1-1 建立 STEAM 跨域課程運作組織、2-4 種子教師培訓、3-1 指標三簡報（課後活動去重後確認 10% 參與率），以及提供五大校本課程大海報資料給沅儒製作。",
+              "note": "委員建議：課後活動去重後確認 10% 參與率。",
+              "upload_target": { "category": "admin_layout", "item": "briefing" }
+            },
+            {
+              "id": "pr-2", "deadline": "11/24 (二) 前", "phase": "事前實體準備", "location": "3F 大會議室（行政方面長桌）",
+              "title": "準備【STEAM 策略聯盟合作意向書】書面展示",
+              "detail": "提供正式合作意向書原件或展示本，置於行政方面長桌展示。",
+              "note": "",
+              "upload_target": { "category": "ind1_admin", "item": "1-phys" }
+            },
+            {
+              "id": "pr-3", "deadline": "11/27 (五) 10:00 後", "phase": "場地佈展", "location": "3F 大會議室（行政方面區）",
+              "title": "確認行政方面海報架(2)與長桌(2)佈展",
+              "detail": "包含願景圖、課程地圖 A1 海報及策略聯盟意向書擺放。", "note": ""
+            },
+            {
+              "id": "pr-4", "deadline": "11/30 (一) 08:45-09:00", "phase": "訪視當日", "location": "穿堂",
+              "title": "迎賓接待委員", "detail": "於穿堂迎接審查委員與長官。", "note": ""
+            },
+            {
+              "id": "pr-5", "deadline": "11/30 (一) 09:00-09:30", "phase": "訪視當日", "location": "3F 大會議室",
+              "title": "訪視開場與【校長簡報】", "detail": "09:00 參與訪視說明與開場；09:10-09:30 主講「STEAM 學校認證簡報」。", "note": ""
+            },
+            {
+              "id": "pr-6", "deadline": "11/30 (一) 09:30-10:10", "phase": "訪視當日（第 2 節）", "location": "3F 大會議室 → 4F/2F 參訪路線",
+              "title": "陪同委員檢視書面資料與【參訪路線動線介紹】",
+              "detail": "陪同副座／教育局長官／承辦人／執秘，並負責 20 分鐘參訪路線之動線路程串場介紹。", "note": ""
+            },
+            {
+              "id": "pr-7", "deadline": "11/30 (一) 11:05-13:00", "phase": "訪視當日", "location": "3F 會議室 / 用餐區",
+              "title": "綜合座談與陪同委員用餐", "detail": "11:05-11:30 綜合座談與回饋；12:00-13:00 陪同委員用餐。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "dean_academic",
+          "name": "教務主任（黃惠琳）",
+          "role": "教務與課程統籌",
+          "tasks": [
+            {
+              "id": "da-1", "deadline": "11/24 (二) 前", "phase": "事前雲端資料準備", "location": "雲端資料夾",
+              "title": "彙整【1-2 課程計畫/課發會紀錄】與【2-5 國內外 STEAM 合作夥伴】",
+              "detail": "1. 上傳審議彈性課程之課發會會議紀錄、課程計畫、STEAM 課程地圖。\n2. 上傳新加坡國際交流 STEAM 課程合作紀錄與照片影片。",
+              "note": "",
+              "upload_target": { "category": "ind1_admin", "item": "1-2" }
+            },
+            {
+              "id": "da-2", "deadline": "11/27 (五) 08:00 起", "phase": "事前行政與佈展", "location": "3F 大會議室 & 2F 國際教育走廊",
+              "title": "確認訪談名單、會議室場佈與國際教育走廊佈展",
+              "detail": "1. 協助確認訪談學生名單（20 位候選/非候選）與訪談教師名單。\n2. 參與 3F 會議室學生作品成果場佈、師生得獎區佈展（新加坡合作平板與國際教育走廊佈展）。",
+              "note": "",
+              "upload_target": { "category": "ind2_course", "item": "2-5" }
+            },
+            {
+              "id": "da-3", "deadline": "11/30 (一) 08:45-09:30", "phase": "訪視當日", "location": "3F 大會議室",
+              "title": "現場待命、訪視開場與校長簡報出席", "detail": "08:45 於 3F 大會議室現場待命；09:00 參與開場；09:10 陪同校長簡報。", "note": "當日服裝：Tiffany 綠"
+            },
+            {
+              "id": "da-4", "deadline": "11/30 (一) 09:30-10:10", "phase": "訪視當日（第 2 節）", "location": "3F 大會議室 → 2F 國際教育走廊",
+              "title": "陪同評審委員並負責【2F 國際教育走廊】3 分鐘介紹",
+              "detail": "陪同 3 位評審委員參觀，並於路線最後一站 2F 國際教育走廊介紹「STEAM 國際教育課程」。", "note": ""
+            },
+            {
+              "id": "da-5", "deadline": "11/30 (一) 11:05-11:30 / 13:00-14:00", "phase": "訪視當日", "location": "3F 會議室",
+              "title": "綜合座談與場地復原", "detail": "出席綜合座談與回饋；13:00 後與各處室共同協助場地復原。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "tech_director",
+          "name": "科技中心主任（洪瑞甫）",
+          "role": "科技中心與競賽場域統籌",
+          "tasks": [
+            {
+              "id": "td-1", "deadline": "11/24 (二) 前", "phase": "事前雲端與實體資料", "location": "雲端資料夾 & 3F 大會議室",
+              "title": "準備科技中心【1-5、1-6、2-6、2-7、3-2】相關資料與得獎作品",
+              "detail": "1. 1-5 參與 STEAM 及新科技發展辦公室培訓及活動（9/17 論壇、揭牌、教育科技展設攤）。\n2. 1-6 教師專業成長（AI 研習、MAKER 研習、暑假營隊、課後社團）。\n3. 2-6 教師行動研究（實體）。\n4. 2-7 & 3-2 歷年科展、STEAM 跨域/VR 競賽等得獎作品展。",
+              "note": "",
+              "upload_target": { "category": "ind1_admin", "item": "1-5" }
+            },
+            {
+              "id": "td-2", "deadline": "11/27 (五) 08:00 起", "phase": "事前行政與佈展", "location": "3F 會議室 & 4F 科技教室",
+              "title": "統籌科技中心場佈、訪談學生名單與 4F 教室環境整理",
+              "detail": "1. 協助彙整 20 位候選訪談學生名單。\n2. 3F 會議室學生作品成果場佈、師生得獎區佈展（跨校合作、營隊社團、競賽平板）。\n3. 4F 木工教室 / 數位設計教室 / 科技中心辦公室佈置與環境整理。",
+              "note": "當日瑞甫主任 1-4 節已由教學組派代。"
+            },
+            {
+              "id": "td-3", "deadline": "11/30 (一) 08:45-09:30", "phase": "訪視當日", "location": "3F 大會議室",
+              "title": "現場待命、開場與校長簡報出席", "detail": "08:45 現場待命；09:00 訪視說明；09:10 校長簡報。", "note": "當日服裝：Tiffany 綠"
+            },
+            {
+              "id": "td-4", "deadline": "11/30 (一) 09:30-10:10", "phase": "訪視當日（第 2 節）", "location": "3F 大會議室 → 4F 數位設計教室",
+              "title": "陪同長官委員並負責【4F 數位設計教室】3 分鐘介紹",
+              "detail": "陪同副座／教育局長官／承辦人／執秘，並於 4F 數位設計教室介紹「STEAM 積木機關王競賽（進階北市第 2 名、初階佳作、龍舟造型第 3 名）」。", "note": ""
+            },
+            {
+              "id": "td-5", "deadline": "11/30 (一) 11:05-11:30 / 13:00-14:00", "phase": "訪視當日", "location": "3F 會議室",
+              "title": "綜合座談與場地復原", "detail": "出席綜合座談；13:00 後協助場地復原。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "equip_chief",
+          "name": "設備組長（胡育秀）",
+          "role": "指標資料、科展與圖書室佈展核心",
+          "tasks": [
+            {
+              "id": "eq-1", "deadline": "11/24 (二) 前", "phase": "事前雲端與實體資料", "location": "雲端資料夾 & 3F 大會議室",
+              "title": "準備【1-3、1-4、2-3、2-7、3-2、科學展覽】資料",
+              "detail": "1. 1-3 專家指導（簽到表、會議記錄、簡報）。\n2. 1-4 策略聯盟（簽到表、會議記錄、暑假營隊）。\n3. 2-3 STEAM 社群（與善玉共同準備，每學期至少 6 次正式共備紀錄）。\n4. 科學展覽實體（計畫、學生作品書、展示版、佐證照片）及歷年得獎作品展。",
+              "note": "",
+              "upload_target": { "category": "ind1_admin", "item": "1-3" }
+            },
+            {
+              "id": "eq-2", "deadline": "11/27 (五) 08:00 起", "phase": "事前行政與佈展", "location": "3F 會議室 & 2F 圖書室",
+              "title": "行政佈展、候選學生名單、便當聯繫與圖書室佈展",
+              "detail": "1. 協助彙整 20 位候選訪談學生名單。\n2. 3F 會議室「行政方面」科展區佈展。\n3. 協助整理 2F 圖書室（元素週期表展）、能源與家電教室等參訪空間。\n4. 確認當日委員便當收據統編抬頭（與承辦聯繫確認）。",
+              "note": ""
+            },
+            {
+              "id": "eq-3", "deadline": "11/30 (一) 09:00-09:30", "phase": "訪視當日", "location": "3F 大會議室",
+              "title": "訪視開場與校長簡報出席", "detail": "參與 09:00 訪視說明與開場、09:10 校長簡報。", "note": "當日服裝：Tiffany 綠"
+            },
+            {
+              "id": "eq-4", "deadline": "11/30 (一) 09:30-10:10", "phase": "訪視當日（第 2 節）", "location": "3F 大會議室 → 2F 圖書館",
+              "title": "陪同評審委員並負責【2F 圖書館】3 分鐘介紹",
+              "detail": "陪同 3 位評審委員參觀，並於 2F 圖書館介紹「元素週期表展覽」。", "note": ""
+            },
+            {
+              "id": "eq-5", "deadline": "11/30 (一) 11:05-11:30 / 13:00-14:00", "phase": "訪視當日", "location": "3F 會議室",
+              "title": "綜合座談與場地復原", "detail": "出席綜合座談；13:00 後協助場地復原。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "teach_chief",
+          "name": "教學組長（趙語涵）",
+          "role": "課務調代與課程合作資料",
+          "tasks": [
+            {
+              "id": "tc-1", "deadline": "11/24 (二) 前", "phase": "事前雲端資料準備", "location": "雲端資料夾",
+              "title": "協助彙整【1-2 課程計畫/課發會紀錄】與【2-5 國內外合作夥伴】",
+              "detail": "與教務主任共同備齊課程計畫、課發會紀錄、STEAM 課程地圖，以及新加坡國際交流 STEAM 課程資料。",
+              "note": "",
+              "upload_target": { "category": "ind1_admin", "item": "1-2" }
+            },
+            {
+              "id": "tc-2", "deadline": "11/27 (五) 08:00 起", "phase": "事前行政與佈展", "location": "教務處 & 2F 國際教育走廊",
+              "title": "處理當日工作人員調代課 & 國際教育走廊佈展",
+              "detail": "1. 辦理當日訪視工作人員課務調整（淑尹 1-2 調課、瑞甫 1-4 派代）。\n2. 協助師生得獎區與 2F 國際教育走廊佈展。",
+              "note": ""
+            },
+            {
+              "id": "tc-3", "deadline": "11/30 (一) 13:00-14:00", "phase": "訪視當日", "location": "3F 會議室",
+              "title": "協助場地復原", "detail": "與各處室共同協助場地復原。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "counsel_director",
+          "name": "輔導主任（曾浩怡）",
+          "role": "海報編繪與場地佈展總監",
+          "tasks": [
+            {
+              "id": "cd-1", "deadline": "11/24 (二) 前", "phase": "事前美編與海報設計", "location": "設計完稿交君宇印製",
+              "title": "編繪行政與教師教學區【A1 輸出海報】",
+              "detail": "編繪：願景圖、課程地圖（行政 2 張），以及五大彈課海報（不塑之課、北極熊怎麼了、碳生活、水世界、能源與家電科技），完稿後交君宇印製。",
+              "note": "",
+              "upload_target": { "category": "admin_layout", "item": "posters" }
+            },
+            {
+              "id": "cd-2", "deadline": "11/27 (五) 10:00 後", "phase": "場地佈展", "location": "穿堂 & 3F 大會議室",
+              "title": "廣告機迎賓設定 & 教師教學／師生得獎區佈展",
+              "detail": "負責穿堂/3F 會議室廣告機迎賓內容，並主導教師教學（5 海報架 3 長桌）與師生得獎（2 長桌）佈展。",
+              "note": "",
+              "upload_target": { "category": "admin_layout", "item": "welcome" }
+            },
+            {
+              "id": "cd-3", "deadline": "11/30 (一) 08:00-09:30", "phase": "訪視當日", "location": "穿堂 & 3F 大會議室",
+              "title": "廣告機確認、穿堂迎賓、開場與校長簡報",
+              "detail": "08:00-08:30 與沅儒確認穿堂與 3F 會議室廣告機；08:45 穿堂迎賓；09:00 開場；09:10 校長簡報。",
+              "note": "當日服裝：Tiffany 綠"
+            },
+            {
+              "id": "cd-4", "deadline": "11/30 (一) 09:30-10:10", "phase": "訪視當日（第 2 節）", "location": "3F 大會議室 → 參訪路線",
+              "title": "陪同 3 位評審委員檢視資料與參觀場域", "detail": "與教務主任、設備組長共同陪同 3 位評審委員。", "note": ""
+            },
+            {
+              "id": "cd-5", "deadline": "11/30 (一) 11:05-11:30 / 13:00-14:00", "phase": "訪視當日", "location": "3F 會議室",
+              "title": "綜合座談與場地復原", "detail": "出席綜合座談；13:00 後協助場地復原。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "student_director",
+          "name": "學務主任（陳怡君）",
+          "role": "校園秩序與參訪動線前導",
+          "tasks": [
+            {
+              "id": "sd-1", "deadline": "11/30 (一) 08:00-08:30", "phase": "訪視當日預備", "location": "校園各處",
+              "title": "加強巡視校園秩序與整潔（含樓梯間走廊/燈）", "detail": "與衛生組長共同巡視校園秩序與整潔。", "note": "當日服裝：Tiffany 綠"
+            },
+            {
+              "id": "sd-2", "deadline": "11/30 (一) 08:45-09:30", "phase": "訪視當日", "location": "穿堂 & 3F 大會議室",
+              "title": "穿堂迎賓、開場與校長簡報出席", "detail": "08:45 穿堂迎賓；09:00 開場；09:10 校長簡報。", "note": ""
+            },
+            {
+              "id": "sd-3", "deadline": "11/30 (一) 09:30-10:10", "phase": "訪視當日（第 2 節）", "location": "3F → 4F → 2F → 3F 參訪路線",
+              "title": "擔任【參訪前導】引領動線", "detail": "帶領委員與長官依 20 分鐘參訪路線前進（確認總務處已開啟走廊梯間電燈）。", "note": ""
+            },
+            {
+              "id": "sd-4", "deadline": "11/30 (一) 11:05-11:30 / 13:00-14:00", "phase": "訪視當日", "location": "3F 會議室",
+              "title": "綜合座談與場地復原", "detail": "出席綜合座談；13:00 後協助場地復原。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "general_affairs",
+          "name": "總務處（楊炳煌主任／至敏組長／宜娟／起揚／宋大哥／進成／君宇）",
+          "role": "硬體場佈、茶點餐盒與海報印製",
+          "tasks": [
+            {
+              "id": "ga-1", "deadline": "11/27 (五) 08:00-10:00 前", "phase": "事前場地佈置", "location": "3F 大會議室",
+              "title": "完成桌椅桌布、海報架佈置（10:00 前完成）& 茶點水果盒購置預備",
+              "detail": "1. 宋大哥／進成／起揚：桌椅桌布、海報架佈置（10:00 前務必完成，以利 10:00 後佈展）。\n2. 宜娟／啟揚／君宇：咖啡、茶水、點心、水果盒購置預備。", "note": ""
+            },
+            {
+              "id": "ga-2", "deadline": "11/27 (五) 10:00 後", "phase": "海報印製與張貼", "location": "3F 大會議室",
+              "title": "【君宇】A1 海報印製與張貼、廣告機協助",
+              "detail": "印製浩怡主任編繪之行政與彈課 A1 海報，並與沅儒張貼海報、協助廣告機佈置。", "note": ""
+            },
+            {
+              "id": "ga-3", "deadline": "11/27 (五) 完成", "phase": "便當預訂", "location": "總務處",
+              "title": "訂購校內工作人員便當、預備當日委員水果盒及茶水點心",
+              "detail": "宜娟／至敏組長／起揚：確認校內工作人員便當數量並訂購；預備委員水果盒、咖啡、茶、點心。", "note": ""
+            },
+            {
+              "id": "ga-4", "deadline": "11/30 (一) 08:00-08:30", "phase": "訪視當日預備", "location": "3F 大會議室",
+              "title": "開門/燈/冷氣/麥克風 & 茶點擺放完成",
+              "detail": "1. 至敏組長：三樓會議室開門、開燈、冷氣、麥克風。\n2. 宜娟、至敏組長、起揚：茶點擺放完成。", "note": "當日行政服裝：Tiffany 綠"
+            },
+            {
+              "id": "ga-5", "deadline": "11/30 (一) 08:45-09:30", "phase": "訪視當日", "location": "穿堂 & 3F 大會議室",
+              "title": "總務主任迎賓與簡報；總務團隊補充咖啡茶點心",
+              "detail": "08:45 總務主任穿堂迎賓；09:00-09:10 至敏組長、宜娟、起揚、君宇補充咖啡茶點心；09:10 總務主任出席校長簡報。", "note": ""
+            },
+            {
+              "id": "ga-6", "deadline": "11/30 (一) 09:30-10:10", "phase": "訪視當日（第 2 節）", "location": "參訪動線走廊梯間",
+              "title": "確認參訪動線走廊梯間電燈開啟 (ON)", "detail": "確保 4F 下 2F、後棟及前棟樓梯間照明充足。", "note": ""
+            },
+            {
+              "id": "ga-7", "deadline": "11/30 (一) 12:00-14:00", "phase": "訪視當日", "location": "3F 會議室 / 用餐區",
+              "title": "備餐發放餐盒 & 場地復原",
+              "detail": "12:00-13:00 宜娟、至敏組長、起揚協助委員餐點茶水並發放校內工作人員餐盒；13:00-14:00 各處室共同場地復原。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "info_group",
+          "name": "資訊組（詹淑萍組長／又萱／系統師）",
+          "role": "資訊設備、平板與雲端設定",
+          "tasks": [
+            {
+              "id": "ig-1", "deadline": "11/24 (二) 前", "phase": "事前雲端與實體準備", "location": "雲端資料夾 & 平板設定",
+              "title": "協助【2-7 教師指導 STEAM 競賽】VR 跨域盃平板作品設定",
+              "detail": "與科技中心辦公室、設備組長共同準備 VR 跨域盃平板作品展現。",
+              "note": "",
+              "upload_target": { "category": "ind2_course", "item": "2-7" }
+            },
+            {
+              "id": "ig-2", "deadline": "11/27 (五) 10:00 後", "phase": "場地佈展", "location": "3F 大會議室",
+              "title": "設定並擺放【訪視委員平板 7 台】與【現場佈展平板 10 台】",
+              "detail": "資訊組長、系統師：\n1. 訪視委員平板 (7)：供委員查閱雲端資料。\n2. 現場佈展平板 (10)：VR 賽 / 科展 / 國際 / 課程 / 科技中心 / 跨校。", "note": ""
+            },
+            {
+              "id": "ig-3", "deadline": "11/30 (一) 08:00-08:30", "phase": "訪視當日預備", "location": "3F 大會議室",
+              "title": "大屏、筆電、平板最後設定與連線測試",
+              "detail": "淑萍組長、又萱於 08:30 前完成大屏、簡報筆電及所有平板測試。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "doc_yuanru",
+          "name": "文書組長 & 沅儒",
+          "role": "裝訂、桌牌、海報與場佈",
+          "tasks": [
+            {
+              "id": "dy-1", "deadline": "11/24 (二) 前", "phase": "事前印刷與製作", "location": "文書組",
+              "title": "印製簡報/申請書各 7 份、製作桌牌 & 五大課程大海報",
+              "detail": "1. 文書組長／沅儒：校長簡報彩色列印精美裝訂 7 份、申請書彩色雙面列印精美裝訂 7 份。\n2. 桌牌：外部 7 個（評審*3+訪視*4）、內部（行政團隊、綜合座談教師）。\n3. 沅儒：製作五大校本課程大海報（校長提供資料）。",
+              "note": "",
+              "upload_target": { "category": "admin_layout", "item": "interview" }
+            },
+            {
+              "id": "dy-2", "deadline": "11/27 (五) 10:00 後 & 當日完成", "phase": "場地佈展", "location": "穿堂、3F 會議室、2E/3E/圖書室",
+              "title": "廣告機、3F 海報張貼 & 2E/3E/圖書室口字型佈置",
+              "detail": "1. 沅儒：與君宇張貼 3F 會議室海報，協助穿堂/3F 廣告機。\n2. 沅儒（與善玉）：於 11/27 完成 2E、3E、圖書室佈置成「口字型」（每間 1+2 人）。", "note": ""
+            },
+            {
+              "id": "dy-3", "deadline": "11/30 (一) 08:00-08:30", "phase": "訪視當日預備", "location": "2E/3E/圖書室、穿堂、3F 會議室",
+              "title": "確認口字型教室 & 廣告機運作",
+              "detail": "1. 沅儒（與善玉）：早上再次確認 2E、3E、圖書室口字型佈置。\n2. 沅儒（與輔導主任）：確認穿堂、三樓會議室廣告機正常播放。", "note": ""
+            },
+            {
+              "id": "dy-4", "deadline": "11/30 (一) 09:30-10:10", "phase": "訪視當日（第 2 節）", "location": "3F 會議室 & 參訪路線",
+              "title": "擔任現場攝影【拍照】", "detail": "沅儒與俊燁、沛潔共同負責書面檢視與場域參觀之攝影紀錄。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "interview_coordinators",
+          "name": "訓育組長（呂芊穎）& 文芳 ／ 輔導組長（林思婷）& 彩琴",
+          "role": "學生與教師訪談引導",
+          "tasks": [
+            {
+              "id": "ic-1", "deadline": "11/27 (五) 前", "phase": "事前名單準備", "location": "學務處 / 輔導室",
+              "title": "確認訪談學生名單 & 訪談教師名單",
+              "detail": "1. 芊穎組長／文芳：備妥 20 位候選學生與非候選學生名條（標註特教生、候選生）。\n2. 思婷組長／彩琴：備妥候選訪談教師名單與非候選名單。",
+              "note": "",
+              "upload_target": { "category": "admin_layout", "item": "interview" }
+            },
+            {
+              "id": "ic-2", "deadline": "11/30 (一) 09:00-09:10", "phase": "訪視當日開場", "location": "3F 大會議室",
+              "title": "請委員勾選確認訪談教師與學生名單", "detail": "思婷組長、芊穎組長於開場時讓委員勾選確認訪談名單（各 6 位）。", "note": ""
+            },
+            {
+              "id": "ic-3", "deadline": "11/30 (一) 09:15-10:35", "phase": "訪視當日（學生訪談組）", "location": "3E / 2E / 圖書室",
+              "title": "【芊穎組長／文芳】09:15 通知訪談學生、10:05 集合、10:10-10:35 訪談",
+              "detail": "09:15 通知並確認到場時間與地點，10:05 廣播集合學生至 3E，10:10-10:35 引導至座談會場進行學生訪談。", "note": ""
+            },
+            {
+              "id": "ic-4", "deadline": "11/30 (一) 09:15-11:05", "phase": "訪視當日（教師訪談組）", "location": "校長室 / 2E / 3E 圖書室",
+              "title": "【思婷組長／彩琴】09:15 通知訪談教師、10:30 集合、10:35-11:05 訪談",
+              "detail": "09:15 通知並帶桌牌，10:30 集合教師至校長室，10:35-11:05 引導至座談會場；結束後引導委員回 3 樓會議室。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "shanyu",
+          "name": "善玉",
+          "role": "共備紀錄、訪談教室與委員便當",
+          "tasks": [
+            {
+              "id": "sy-1", "deadline": "11/24 (二) 前", "phase": "事前雲端資料準備", "location": "雲端資料夾",
+              "title": "協助準備【2-3 STEAM 社群共備紀錄】",
+              "detail": "與設備組長共同整理跨域教師社群每學期至少 6 次正式共備紀錄。",
+              "note": "",
+              "upload_target": { "category": "ind2_course", "item": "2-3" }
+            },
+            {
+              "id": "sy-2", "deadline": "11/27 (五) 完成", "phase": "場地佈置與訂餐", "location": "2E、3E、圖書室",
+              "title": "2E/3E/圖書室口字型佈置 & 訂購當日委員便當 7 個",
+              "detail": "1. 與沅儒完成 2E、3E、圖書室口字型佈置（每間 1+2 人）。\n2. 訂購當日委員便當 7 個（訪視委員 4 位、評審委員 3 位含副座長官等）。", "note": ""
+            },
+            {
+              "id": "sy-3", "deadline": "11/30 (一) 08:00 早上", "phase": "訪視當日預備", "location": "2E、3E、圖書室",
+              "title": "早上再次確認訪談教室佈置", "detail": "與沅儒再次檢查 2E、3E、圖書室桌椅與動線。", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "award_teachers",
+          "name": "得獎教師（志鵬／瑞甫／季娟／芊穎）",
+          "role": "教師行動研究與競賽",
+          "tasks": [
+            {
+              "id": "at-1", "deadline": "11/24 (二) 前", "phase": "事前資料準備", "location": "雲端資料夾 & 3F 大會議室",
+              "title": "準備【2-6 教師行動研究】實體展示資料",
+              "detail": "整理行動研究報告、歷程文件或實體展示本；志鵬老師另協助 1-6 教師 AI 研習佐證資料。",
+              "note": "",
+              "upload_target": { "category": "ind2_course", "item": "2-6" }
+            },
+            {
+              "id": "at-2", "deadline": "11/27 (五) 10:00 後", "phase": "場地佈展", "location": "3F 大會議室（師生得獎長桌）",
+              "title": "將教師行動研究實體放置於師生得獎長桌（教師 1 桌）", "detail": "", "note": ""
+            }
+          ]
+        },
+        {
+          "id": "site_teachers",
+          "name": "參訪教室與支援人員（進雄、淑尹、華凱、俊燁、沛潔、衛生組、警衛、各班導師）",
+          "role": "定點解說、迎賓待命、拍照、整潔與停車",
+          "tasks": [
+            {
+              "id": "st-1", "deadline": "11/27 (五) 10:00 後", "phase": "事前場地整理", "location": "4F 辦公室、能源教室、參訪路線",
+              "title": "【進雄老師／淑尹老師／衛生組】各參訪教室與路線環境整理",
+              "detail": "1. 進雄老師：整理 4F 科技中心辦公室歷屆得獎作品。\n2. 淑尹老師：整理 4F 能源家電教室（當日 1-2 節已調課）。\n3. 衛生組：整理當日參訪路線與會議室環境。", "note": ""
+            },
+            {
+              "id": "st-2", "deadline": "11/30 (一) 08:00-08:30", "phase": "訪視當日預備", "location": "校園、校門口、各班",
+              "title": "早自習督導、整潔巡視與停車引導",
+              "detail": "1. 各班導師：督導班級早自習。\n2. 衛生組長：與學務主任巡視秩序整潔（含樓梯間走廊/燈）。\n3. 警衛（柯大哥、靖東）：引導委員停車。", "note": ""
+            },
+            {
+              "id": "st-3", "deadline": "11/30 (一) 08:45-09:00", "phase": "訪視當日迎賓", "location": "3F 大會議室",
+              "title": "【華凱、俊燁】3F 大會議室現場待命", "detail": "配合教務主任、科技中心主任於大會議室待命。", "note": ""
+            },
+            {
+              "id": "st-4", "deadline": "11/30 (一) 09:30-10:10", "phase": "訪視當日（第 2 節）", "location": "3F 會議室 & 4F 參訪教室",
+              "title": "定點 3 分鐘解說 & 現場攝影拍照",
+              "detail": "1. 拍照：俊燁、沛潔（與沅儒）。\n2. 4F 科技中心辦公室：進雄老師介紹歷屆得獎作品（3 分鐘）。\n3. 4F 能源家電教室：淑尹老師介紹能源家電課程（3 分鐘）。", "note": ""
+            }
+          ]
+        }
+      ]
+    };
+
+    const STATUS_KEY = 'lsjh_steam_task_status_v1';
+    let taskStatus = JSON.parse(localStorage.getItem(STATUS_KEY) || '{}');
+    let selectedTeacherId = TASKS_DATA.teachers[0].id;
+    let archivedFiles = [];
+
+    // IndexedDB 儲存上傳檔案
+    const DB_NAME = 'lsjh_steam_archive_db';
+    const STORE_NAME = 'files';
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, 1);
+        req.onupgradeneeded = e => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+    async function loadArchivedFiles() {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const req = tx.objectStore(STORE_NAME).getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = () => reject(req.error);
+      });
+    }
+    async function addArchivedFile(record) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const req = tx.objectStore(STORE_NAME).add(record);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+    async function deleteArchivedFile(id) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const req = tx.objectStore(STORE_NAME).delete(id);
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    // 純 JS UTF-8 ZIP 打包器 (STORE 模式，零外部依賴)
+    const CRC_TABLE = (() => {
+      const t = new Uint32Array(256);
+      for (let i = 0; i < 256; i++) {
+        let c = i;
+        for (let k = 0; k < 8; k++) c = (c & 1) ? (0xedb88320 ^ (c >>> 1)) : (c >>> 1);
+        t[i] = c >>> 0;
+      }
+      return t;
+    })();
+    function crc32(bytes) {
+      let c = 0xffffffff;
+      for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xff] ^ (c >>> 8);
+      return (c ^ 0xffffffff) >>> 0;
+    }
+    function createZipBlob(entries) {
+      const enc = new TextEncoder();
+      const localParts = [];
+      const centralParts = [];
+      let offset = 0;
+      for (const entry of entries) {
+        const nameBytes = enc.encode(entry.path);
+        const data = new Uint8Array(entry.buffer);
+        const crc = crc32(data);
+        const lh = new ArrayBuffer(30);
+        const lv = new DataView(lh);
+        lv.setUint32(0, 0x04034b50, true);
+        lv.setUint16(4, 20, true);
+        lv.setUint16(6, 0x0800, true); // UTF-8
+        lv.setUint16(8, 0, true);
+        lv.setUint16(10, 0, true);
+        lv.setUint16(12, 0x5421, true);
+        lv.setUint32(14, crc, true);
+        lv.setUint32(18, data.length, true);
+        lv.setUint32(22, data.length, true);
+        lv.setUint16(26, nameBytes.length, true);
+        lv.setUint16(28, 0, true);
+        localParts.push(new Uint8Array(lh), nameBytes, data);
+
+        const ch = new ArrayBuffer(46);
+        const cv = new DataView(ch);
+        cv.setUint32(0, 0x02014b50, true);
+        cv.setUint16(4, 20, true);
+        cv.setUint16(6, 20, true);
+        cv.setUint16(8, 0x0800, true);
+        cv.setUint16(10, 0, true);
+        cv.setUint16(12, 0, true);
+        cv.setUint16(14, 0x5421, true);
+        cv.setUint32(16, crc, true);
+        cv.setUint32(20, data.length, true);
+        cv.setUint32(24, data.length, true);
+        cv.setUint16(28, nameBytes.length, true);
+        cv.setUint16(30, 0, true);
+        cv.setUint16(32, 0, true);
+        cv.setUint16(34, 0, true);
+        cv.setUint16(36, 0, true);
+        cv.setUint32(38, 0, true);
+        cv.setUint32(42, offset, true);
+        centralParts.push(new Uint8Array(ch), nameBytes);
+
+        offset += 30 + nameBytes.length + data.length;
+      }
+      const centralSize = centralParts.reduce((s, p) => s + p.length, 0);
+      const eocd = new ArrayBuffer(22);
+      const ev = new DataView(eocd);
+      ev.setUint32(0, 0x06054b50, true);
+      ev.setUint16(4, 0, true);
+      ev.setUint16(6, 0, true);
+      ev.setUint16(8, entries.length, true);
+      ev.setUint16(10, entries.length, true);
+      ev.setUint32(12, centralSize, true);
+      ev.setUint32(16, offset, true);
+      ev.setUint16(20, 0, true);
+      return new Blob([...localParts, ...centralParts, new Uint8Array(eocd)], { type: 'application/zip' });
+    }
+
+    async function exportOrganizedZip() {
+      if (!archivedFiles.length) {
+        alert('目前尚未上傳任何檔案，請先點擊「📤 上傳成果／檔案」加入檔案後再匯出！');
+        return;
+      }
+      const entries = archivedFiles.map(f => ({
+        path: `龍山國中STEAM訪視_整理資料夾/${f.folderPath}/${f.finalName}`,
+        buffer: f.buffer
+      }));
+      const blob = createZipBlob(entries);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '龍山國中STEAM訪視_已整理資料夾.zip';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function init() {
+      renderDeadlines();
+      renderTeacherList();
+      renderTeacherDetail();
+      initModalSelects();
+      archivedFiles = await loadArchivedFiles();
+      renderArchiveTree();
+    }
+
+    function renderDeadlines() {
+      document.getElementById('deadlinesBar').innerHTML = TASKS_DATA.event_info.key_deadlines.map(d => `
+        <div class="deadline-card"><strong>⏰ ${d.date}</strong><span>${d.label}</span></div>
+      `).join('');
+    }
+
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-teachers').style.display = tab === 'teachers' ? 'grid' : 'none';
+      document.getElementById('tab-archive').style.display = tab === 'archive' ? 'block' : 'none';
+    }
+
+    function renderTeacherList() {
+      const q = document.getElementById('teacherSearch').value.trim().toLowerCase();
+      const filtered = TASKS_DATA.teachers.filter(t =>
+        !q || t.name.toLowerCase().includes(q) || t.role.toLowerCase().includes(q) ||
+        t.tasks.some(tk => tk.title.toLowerCase().includes(q) || tk.detail.toLowerCase().includes(q))
+      );
+      let html = `
+        <button class="teacher-btn ${selectedTeacherId === '__ALL__' ? 'active' : ''}" onclick="selectTeacher('__ALL__')">
+          <span class="t-name">📋 檢視全部教師／單位</span>
+          <span class="t-role">共 ${TASKS_DATA.teachers.length} 個負責單位</span>
+        </button>
+      `;
+      html += filtered.map(t => {
+        const doneCount = t.tasks.filter(tk => taskStatus[tk.id]).length;
+        return `
+          <button class="teacher-btn ${selectedTeacherId === t.id ? 'active' : ''}" onclick="selectTeacher('${t.id}')">
+            <span class="t-name">${t.name}</span>
+            <span class="t-role">${t.role}（${doneCount}/${t.tasks.length} 完成）</span>
+          </button>
+        `;
+      }).join('');
+      document.getElementById('teacherList').innerHTML = html;
+    }
+
+    function selectTeacher(id) {
+      selectedTeacherId = id;
+      renderTeacherList();
+      renderTeacherDetail();
+    }
+
+    function deadlineBadgeClass(dl) {
+      if (dl.includes('11/27')) return 'stage27';
+      if (dl.includes('11/30')) return 'stage30';
+      return '';
+    }
+
+    function renderTeacherDetail() {
+      const panel = document.getElementById('teacherDetail');
+      const targets = selectedTeacherId === '__ALL__'
+        ? TASKS_DATA.teachers
+        : TASKS_DATA.teachers.filter(t => t.id === selectedTeacherId);
+
+      panel.innerHTML = targets.map(teacher => {
+        const tasksHtml = teacher.tasks.map(tk => {
+          const isDone = !!taskStatus[tk.id];
+          const uploadBtn = tk.upload_target
+            ? `<button class="btn-tiffany" onclick="openUploadModal('${tk.upload_target.category}', '${tk.upload_target.item}')">📤 上傳檔案到此項目</button>`
+            : '';
+          const noteHtml = tk.note ? `<div class="task-note">💡 <strong>備註／委員建議：</strong>${tk.note}</div>` : '';
+          return `
+            <div class="task-card ${isDone ? 'done' : ''}" id="card-${tk.id}">
+              <div class="task-top">
+                <div class="badges">
+                  <span class="badge-time ${deadlineBadgeClass(tk.deadline)}">⏰ ${tk.deadline}</span>
+                  <span class="badge-phase">${tk.phase}</span>
+                  <span class="badge-loc">📍 ${tk.location}</span>
+                </div>
+              </div>
+              <div class="task-title">${tk.title}</div>
+              ${tk.detail ? `<div class="task-detail">${tk.detail}</div>` : ''}
+              ${noteHtml}
+              <div class="task-actions">
+                <label class="check-label">
+                  <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleTask('${tk.id}', this.checked)" />
+                  標記為已完成
+                </label>
+                ${uploadBtn}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="teacher-header">
+            <div>
+              <h2>${teacher.name}</h2>
+              <div class="subtitle">職責定位：${teacher.role} ｜ 共 ${teacher.tasks.length} 項工作（已依時間先後排序）</div>
+            </div>
+            <button class="btn-outline" onclick="window.print()">🖨️ 列印任務清單</button>
+          </div>
+          ${tasksHtml}
+        `;
+      }).join('');
+    }
+
+    function toggleTask(taskId, done) {
+      taskStatus[taskId] = done;
+      localStorage.setItem(STATUS_KEY, JSON.stringify(taskStatus));
+      const card = document.getElementById(`card-${taskId}`);
+      if (card) card.classList.toggle('done', done);
+      renderTeacherList();
+    }
+
+    function renderArchiveTree() {
+      document.getElementById('totalArchiveCount').textContent = archivedFiles.length;
+      const container = document.getElementById('archiveTree');
+      container.innerHTML = TASKS_DATA.upload_categories.map(cat => {
+        const catFiles = archivedFiles.filter(f => f.categoryId === cat.id);
+        return `
+          <div class="cat-block">
+            <div class="cat-header">
+              <span>📁 ${cat.name}（${cat.folder}）</span>
+              <span style="font-size:0.85rem; color:var(--tiffany-dark);">共 ${catFiles.length} 個檔案</span>
+            </div>
+            ${cat.items.map(item => {
+              const itemFiles = catFiles.filter(f => f.itemId === item.id);
+              return `
+                <div class="item-row">
+                  <div class="item-row-head">
+                    <span>📂 ${item.name}</span>
+                    <button class="btn-outline" style="padding:4px 10px; font-size:0.8rem;" onclick="openUploadModal('${cat.id}', '${item.id}')">＋ 上傳至此</button>
+                  </div>
+                  ${itemFiles.length ? `
+                    <div class="file-pill-list">
+                      ${itemFiles.map(f => `
+                        <div class="file-row">
+                          <div>
+                            <a onclick="downloadSingle(${f.id})">📄 ${f.finalName}</a>
+                            <span style="color:var(--muted); margin-left:8px;">[${f.subfolder}]</span>
+                          </div>
+                          <div style="display:flex; align-items:center; gap:10px; color:var(--muted); font-size:0.8rem;">
+                            <span>上傳者：${f.uploader} ｜ ${f.uploadedAt} ｜ ${(f.size / 1024).toFixed(1)} KB</span>
+                            <button class="btn-danger" onclick="removeFile(${f.id})">移除</button>
+                          </div>
+                        </div>
+                      `).join('')}
+                    </div>
+                  ` : `<div class="empty-hint">（尚未上傳檔案，將自動歸檔至：${cat.folder}/${item.folder}/）</div>`}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function downloadSingle(id) {
+      const f = archivedFiles.find(x => x.id === id);
+      if (!f) return;
+      const blob = new Blob([f.buffer], { type: f.mime || 'application/octet-stream' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = f.finalName;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function removeFile(id) {
+      await deleteArchivedFile(id);
+      archivedFiles = await loadArchivedFiles();
+      renderArchiveTree();
+    }
+
+    function initModalSelects() {
+      document.getElementById('upCategory').innerHTML =
+        TASKS_DATA.upload_categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+      document.getElementById('upFileType').innerHTML =
+        TASKS_DATA.file_types.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+      onCategoryChange();
+    }
+
+    function onCategoryChange(preselectItemId) {
+      const catId = document.getElementById('upCategory').value;
+      const cat = TASKS_DATA.upload_categories.find(c => c.id === catId);
+      const itemSel = document.getElementById('upItem');
+      itemSel.innerHTML = (cat?.items || []).map(i => `<option value="${i.id}">${i.name}</option>`).join('');
+      if (preselectItemId) itemSel.value = preselectItemId;
+      updatePathPreview();
+    }
+
+    function updatePathPreview() {
+      const cat = TASKS_DATA.upload_categories.find(c => c.id === document.getElementById('upCategory').value);
+      const item = cat?.items.find(i => i.id === document.getElementById('upItem').value);
+      const ftype = TASKS_DATA.file_types.find(t => t.id === document.getElementById('upFileType').value);
+      if (cat && item && ftype) {
+        document.getElementById('pathPreview').innerHTML =
+          `🗂️ <strong>自動歸檔資料夾路徑：</strong>${cat.folder} / ${item.folder} / ${ftype.subfolder}`;
+      }
+    }
+
+    function openUploadModal(catId, itemId) {
+      document.getElementById('uploadStatus').className = 'status-msg';
+      document.getElementById('uploadStatus').textContent = '';
+      document.getElementById('upFiles').value = '';
+      document.getElementById('selectedFilesText').textContent = '';
+      if (catId) {
+        document.getElementById('upCategory').value = catId;
+        onCategoryChange(itemId);
+      } else {
+        updatePathPreview();
+      }
+      document.getElementById('uploadModal').classList.add('open');
+    }
+
+    function closeUploadModal() {
+      document.getElementById('uploadModal').classList.remove('open');
+    }
+
+    function onFilesSelected() {
+      const files = document.getElementById('upFiles').files;
+      document.getElementById('selectedFilesText').textContent =
+        files.length ? `已選擇 ${files.length} 個檔案：${Array.from(files).map(f => f.name).join('、')}` : '';
+    }
+
+    const dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      document.getElementById('upFiles').files = e.dataTransfer.files;
+      onFilesSelected();
+    });
+
+    async function submitUpload() {
+      const files = document.getElementById('upFiles').files;
+      const statusEl = document.getElementById('uploadStatus');
+      if (!files.length) {
+        statusEl.className = 'status-msg err';
+        statusEl.textContent = '請先選擇要上傳的檔案！';
+        return;
+      }
+
+      const cat = TASKS_DATA.upload_categories.find(c => c.id === document.getElementById('upCategory').value);
+      const item = cat.items.find(i => i.id === document.getElementById('upItem').value);
+      const ftype = TASKS_DATA.file_types.find(t => t.id === document.getElementById('upFileType').value);
+      const uploader = document.getElementById('upTeacherName').value.trim();
+      const folderPath = `${cat.folder}/${item.folder}/${ftype.subfolder}`;
+
+      const now = new Date();
+      const pad = n => String(n).padStart(2, '0');
+      const stamp = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+      const displayTime = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+      const btn = document.getElementById('submitUploadBtn');
+      btn.disabled = true;
+      btn.textContent = '歸檔中...';
+
+      try {
+        for (const f of files) {
+          const buffer = await f.arrayBuffer();
+          const prefix = uploader ? `[${ftype.name}][${uploader}]` : `[${ftype.name}]`;
+          const finalName = `${prefix}_${stamp}_${f.name}`;
+          await addArchivedFile({
+            categoryId: cat.id,
+            itemId: item.id,
+            subfolder: ftype.subfolder,
+            folderPath,
+            finalName,
+            uploader: uploader || '未填寫',
+            uploadedAt: displayTime,
+            size: f.size,
+            mime: f.type,
+            buffer
+          });
+        }
+        archivedFiles = await loadArchivedFiles();
+        renderArchiveTree();
+        statusEl.className = 'status-msg ok';
+        statusEl.innerHTML = `✅ 成功歸檔 ${files.length} 個檔案至「<code>${folderPath}</code>」！<br>可至「已整理資料夾總覽」查看，或點擊右上角「📦 匯出整理好的資料夾 (.zip)」下載完整資料夾。`;
+        document.getElementById('upFiles').value = '';
+        document.getElementById('selectedFilesText').textContent = '';
+      } catch (err) {
+        statusEl.className = 'status-msg err';
+        statusEl.textContent = '歸檔失敗：' + err.message;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '確認上傳並自動歸檔';
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
